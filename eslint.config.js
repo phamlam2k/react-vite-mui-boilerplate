@@ -26,6 +26,12 @@ export default defineConfig([
     },
     rules: {
       "@tanstack/router/create-route-property-order": "error",
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [{ regex: "^@mui/[^/]+$" }],
+        },
+      ],
     },
   },
 ]);
