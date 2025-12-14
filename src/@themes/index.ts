@@ -5,16 +5,17 @@ import colorSchemes from "@themes/colorSchemes";
 import overrides from "@themes/overrides";
 import typography from "@themes/overrides/typography";
 import spacing from "@themes/spacing";
-import type { SystemMode } from "@themes/type";
 
-const theme = (
-  mode: SystemMode,
-  direction: Theme["direction"]
-): ThemeOptions => {
+const theme = (direction: Theme["direction"]): ThemeOptions => {
   return {
+    cssVariables: {
+      colorSchemeSelector: '[data-mui-color-scheme="%s"]',
+    },
     direction,
     components: overrides(),
-    colorSchemes: colorSchemes(),
+    colorSchemes: {
+      ...colorSchemes(),
+    },
     shape: {
       borderRadius: 6,
       customBorderRadius: {
@@ -23,7 +24,6 @@ const theme = (
         md: 6,
         lg: 8,
         xl: 16,
-        xxl: 50,
       },
       height: {
         inputForm: "1.5em",
@@ -43,7 +43,7 @@ const theme = (
       lightShadow: "46 38 61",
       darkShadow: "19 17 32",
     },
-  } as Theme;
+  };
 };
 
 export default theme;

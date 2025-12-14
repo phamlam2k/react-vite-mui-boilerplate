@@ -1,15 +1,11 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router";
-import { routeTree } from "./routeTree.gen";
-
-const router = createRouter({ routeTree });
-
-// Required for HMR during development
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
+import { RouterProvider } from "react-router";
+import { AppRouter } from "./AppRouter";
+import RootLayout from "@core/app-shell/layouts/RootLayout";
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <RootLayout>
+      <RouterProvider router={AppRouter} />
+    </RootLayout>
+  );
 }

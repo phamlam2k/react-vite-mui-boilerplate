@@ -25,9 +25,11 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@themes/*": ["./src/@themes/*"],
-      "@features/*": ["./src/features/*"],
+      "@modules/*": ["./src/modules/*"],
       "@shared/*": ["./src/shared/*"],
-      "@core/*": ["./src/@core/*"]
+      "@core/*": ["./src/@core/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@public/*": ["./public/*"]
     }
   },
   "include": ["src"]

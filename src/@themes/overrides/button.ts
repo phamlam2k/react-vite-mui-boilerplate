@@ -22,6 +22,7 @@ const button: Theme["components"] = {
   MuiButton: {
     styleOverrides: {
       root: ({ theme, ownerState }) => ({
+        textTransform: "none",
         ...(ownerState.variant === "text"
           ? {
               ...(ownerState.size === "small" && {
@@ -102,19 +103,19 @@ const button: Theme["components"] = {
       sizeSmall: ({ theme }) => ({
         lineHeight: 1.38462,
         fontSize: theme.typography.body2.fontSize,
-        borderRadius: "var(--mui-shape-customBorderRadius-xl)",
+        borderRadius: "var(--mui-shape-customBorderRadius-sm)",
         height: theme.spacing(6),
       }),
       sizeMedium: ({ theme }) => ({
         lineHeight: 1.38462,
-        borderRadius: "var(--mui-shape-customBorderRadius-xl)",
+        borderRadius: "var(--mui-shape-customBorderRadius-sm)",
         height: theme.spacing(5),
         width: "auto",
       }),
       sizeLarge: {
         fontSize: "1.0625rem",
         lineHeight: 1.529412,
-        borderRadius: "var(--mui-shape-customBorderRadius-lg)",
+        borderRadius: "var(--mui-shape-customBorderRadius-sm)",
       },
       startIcon: ({ theme, ownerState }) => ({
         ...(ownerState.size === "small"

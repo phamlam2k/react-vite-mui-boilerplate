@@ -41,7 +41,7 @@ export const primaryColorConfig: PrimaryColorConfig[] = [
 export const themeConfig: Config = {
   templateName: "React Vite MUI Boilerplate",
   settingsCookieName: "react-vite-mui-boilerplate",
-  mode: "light",
+  mode: "dark",
   layoutPadding: 24,
   compactContentWidth: 1440,
   disableRipple: false,

@@ -1,7 +1,12 @@
+import defaultCoreTheme from "@themes/index";
 import { createTheme } from "@mui/material/styles";
-import theme from "..";
 
-const themeCustomConfig = createTheme({
-  ...theme("light", "ltr"),
-});
+const direction = "ltr";
+
+const themeCustomConfig = () => {
+  return createTheme({
+    ...defaultCoreTheme(direction),
+  });
+};
+
 export default themeCustomConfig;
