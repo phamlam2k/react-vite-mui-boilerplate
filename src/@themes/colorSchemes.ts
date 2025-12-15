@@ -7,8 +7,8 @@ const colorSchemes = (): Theme["colorSchemes"] => {
     light: {
       palette: {
         primary: {
-          main: "#028043",
-          light: "#00AD11",
+          main: "#057A55",
+          light: lighten("#057A55", 0.2),
           dark: "#1B9C5E",
           contrastText: "var(--mui-palette-common-white)",
           lighterOpacity: "#EFFFEE",
@@ -170,7 +170,8 @@ const colorSchemes = (): Theme["colorSchemes"] => {
           },
         },
         DrawerUI: {
-          background: "var(--mui-palette-background-default)",
+          background: "var(--mui-palette-primary-main)",
+          backgroundOpacity: "var(--mui-palette-primary-dark)",
           backgroundHover: "var(--mui-palette-primary-main)",
 
           textDrawerItem: "var(--mui-palette-text-secondary)",
@@ -192,8 +193,8 @@ const colorSchemes = (): Theme["colorSchemes"] => {
     dark: {
       palette: {
         primary: {
-          main: "#00CD6B",
-          light: lighten("#00CD6B", 0.2),
+          main: "#057A55",
+          light: lighten("#057A55", 0.2),
           dark: darken("#00CD6B", 0.2),
           contrastText: "#FFFFFF",
           lighterOpacity: "rgb(var(--mui-palette-primary-mainChannel) / 0.08)",
@@ -204,7 +205,7 @@ const colorSchemes = (): Theme["colorSchemes"] => {
         },
         secondary: {
           main: "#D0D0D0",
-          light: lighten("#D0D0D0", 0.2),
+          light: "#E8E8E8",
           dark: darken("#D0D0D0", 0.2),
           contrastText: "#FFFFFF",
           lighterOpacity:

@@ -237,7 +237,13 @@ const BaseDrawerDesktop = ({
   return (
     <DrawerStyled className="lg:block hidden">
       <DrawerSwitchButtonStyled onClick={handleToggleDrawer}>
-        {switchIcon || <Menu width={20} height={20} />}
+        {switchIcon || (
+          <Menu
+            width={20}
+            height={20}
+            sx={{ color: "var(--mui-palette-common-white)" }}
+          />
+        )}
       </DrawerSwitchButtonStyled>
       <DrawerCollapseStyled
         orientation="horizontal"
@@ -246,16 +252,19 @@ const BaseDrawerDesktop = ({
       >
         <LogoWrapperStyled onClick={handleGoHome}>
           <img
-            src={"/images/logo.jpg"}
+            src={"/images/logo.png"}
             alt="Smart CFO Logo"
             style={{
-              width: isOpenDrawer ? "90%" : 40,
-              height: !isOpenDrawer ? "auto" : "137px",
-              margin: "0 8px",
+              width: isOpenDrawer ? "fit-content" : 40,
+              height: !isOpenDrawer ? "auto" : "fit-content",
               transition: "width 0.2s",
+              margin: "0 auto",
+              display: "block",
             }}
           />
         </LogoWrapperStyled>
+
+        <div className="h-3" />
 
         <DrawerContentStyled isOpenDrawer={isOpenDrawer}>
           {listItems.map((item, index) => (

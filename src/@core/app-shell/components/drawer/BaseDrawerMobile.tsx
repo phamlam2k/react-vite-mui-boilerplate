@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-import { Drawer, IconButton, List, Tooltip } from "@mui/material";
+import { Drawer, IconButton, List, styled, Tooltip } from "@mui/material";
 
 import { useLocation, useNavigate } from "react-router";
 
@@ -166,19 +166,21 @@ const BaseDrawerMobile = ({
       )}
 
       <Drawer anchor="left" open={isOpenDrawer} onClose={toggleDrawer}>
-        <div className="px-5 bg-white h-full">
+        <div className="px-5 bg-(--mui-palette-primary-main) h-full">
           <LogoWrapperStyled onClick={handleGoHome}>
             <img
-              src={"/images/logo.jpg"}
+              src={"/images/logo.png"}
               alt="Smart CFO Logo"
               style={{
-                width: 260,
-                margin: "0 8px",
+                margin: "0 auto",
                 transition: "width 0.2s",
                 height: "auto",
               }}
             />
           </LogoWrapperStyled>
+
+          <div className="h-3" />
+
           <List sx={{ width: drawerWidth }}>
             {listItems.map((item, index) => (
               <BaseDrawerChild

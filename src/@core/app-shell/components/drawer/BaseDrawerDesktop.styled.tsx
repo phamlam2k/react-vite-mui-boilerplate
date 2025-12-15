@@ -42,7 +42,7 @@ export const MenuItemListSideBar = styled.div`
       height: 100%;
 
       path {
-        stroke: var(--mui-palette-DrawerUI-textDrawerItem);
+        stroke: var(--mui-palette-common-white);
       }
     }
   }
@@ -54,20 +54,20 @@ export const MenuItemListSideBar = styled.div`
   }
 
   &.active {
-    background-color: var(--mui-palette-DrawerUI-backgroundHover);
+    background-color: var(--mui-palette-primary-light);
 
     svg {
       path {
-        stroke: var(--mui-palette-DrawerUI-textDrawerItemHover);
+        stroke: var(--mui-palette-common-white);
       }
 
       rect {
-        fill: var(--mui-palette-DrawerUI-textDrawerItemHover);
+        fill: var(--mui-palette-common-white);
       }
     }
 
     p {
-      color: var(--mui-palette-DrawerUI-textDrawerItemHover);
+      color: var(--mui-palette-common-white);
       font-weight: 700;
     }
   }
@@ -86,7 +86,7 @@ export const MenuItemListSideBar = styled.div`
     }
 
     p {
-      color: var(--mui-palette-primary-main);
+      color: var(--mui-palette-common-white);
       font-weight: 700;
     }
   }
@@ -96,28 +96,28 @@ export const MenuItemListSideBar = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--mui-palette-DrawerUI-textDrawerItem);
+    color: var(--mui-palette-common-white);
   }
 
   path {
-    stroke: var(--mui-palette-DrawerUI-textDrawerItem);
+    stroke: var(--mui-palette-common-white);
   }
 
   &:hover {
-    background-color: var(--mui-palette-DrawerUI-backgroundHover);
+    background-color: var(--mui-palette-primary-light);
 
     svg {
       path {
-        stroke: var(--mui-palette-DrawerUI-textDrawerItemHover);
+        stroke: var(--mui-palette-common-white);
       }
 
       rect {
-        fill: var(--mui-palette-DrawerUI-textDrawerItemHover);
+        fill: var(--mui-palette-common-white);
       }
     }
 
     p {
-      color: var(--mui-palette-DrawerUI-textDrawerItemHover);
+      color: var(--mui-palette-common-white);
     }
   }
 `;
@@ -129,7 +129,7 @@ export const LogoWrapperStyled = styled.div`
   justify-content: start;
   width: 100%;
   margin: auto;
-  margin-top: 2rem;
+  margin-top: 1rem;
   box-sizing: border-box;
   cursor: pointer;
 `;
@@ -141,7 +141,7 @@ export const DrawerStyled = styled.div`
 
 export const DrawerSwitchButtonStyled = styled.div`
   position: absolute;
-  background-color: var(--mui-palette-common-white);
+  background-color: var(--mui-palette-primary-light);
   border: 1px solid var(--mui-palette-grey-300);
   width: 30px;
   height: 30px;
@@ -160,9 +160,7 @@ export const DrawerCollapseChildrenStyled = styledMui(Collapse)(() => ({
   width: "100%",
 }));
 
-export const DrawerCollapseChildrenContentStyled = styled.div`
-  /* padding-left: 10px; */
-`;
+export const DrawerCollapseChildrenContentStyled = styled.div``;
 
 export const PopupDrawerContentStyled = styled.div`
   padding: 10px;

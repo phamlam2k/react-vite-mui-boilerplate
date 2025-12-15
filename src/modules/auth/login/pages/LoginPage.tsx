@@ -1,14 +1,9 @@
 import { FormProvider, useForm } from "react-hook-form";
-import type { RouteObject } from "react-router";
 import { loginSchemaResolver, type LoginSchema } from "../utils/validations";
 import BaseTextFieldForm from "@shared/components/forms/BaseTextFieldForm";
 import Button from "@mui/material/Button";
 import { Google, GitHub } from "@mui/icons-material";
-
-export const loginRoute: RouteObject = {
-  path: "login",
-  element: <LoginPage />,
-};
+import SignInButton from "@core/providers/google-oauth2/components/SignInButton";
 
 function LoginPage() {
   const form = useForm<LoginSchema>({
@@ -56,9 +51,7 @@ function LoginPage() {
           <div className="my-4 border-t border-gray-200" />
 
           <div className="flex flex-col gap-2">
-            <Button variant="outlined" color="secondary" startIcon={<Google />}>
-              Login with Google
-            </Button>
+            <SignInButton />
             <Button variant="outlined" color="secondary" startIcon={<GitHub />}>
               Login with Github
             </Button>
@@ -68,3 +61,5 @@ function LoginPage() {
     </div>
   );
 }
+
+export default LoginPage;

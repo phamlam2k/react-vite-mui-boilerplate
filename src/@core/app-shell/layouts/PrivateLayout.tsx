@@ -2,22 +2,15 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Outlet } from "react-router";
 import { BaseDrawerDesktop, BaseDrawerMobile } from "../components/drawer";
-import { Dashboard } from "@mui/icons-material";
 import { drawerWidth } from "../components/drawer/BaseDrawerDesktop.styled";
 import Header from "../components/header/Header";
+import useGetMenuList from "../hooks/useGetMenuList";
 
 const PrivateLayout = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
 
-  const menuList = [
-    {
-      id: 1,
-      text: "Dashboard",
-      icon: <Dashboard />,
-      path: "/dashboard",
-    },
-  ];
+  const menuList = useGetMenuList();
 
   return (
     <div className="w-screen min-h-screen flex">
@@ -29,13 +22,13 @@ const PrivateLayout = () => {
       )}
 
       <div
-        className="flex flex-1 h-screen flex-col bg-secondary-mainOpacity"
+        className="flex flex-1 h-screen flex-col bg-primary"
         style={{
           minWidth: `calc(100vw - ${drawerWidth}px)`,
         }}
       >
         <Header />
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto lg:rounded-tl-2xl bg-white">
           <Outlet />
         </div>
       </div>

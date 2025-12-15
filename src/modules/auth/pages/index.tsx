@@ -1,1 +1,0 @@
-export { loginRoute } from "./LoginPage";

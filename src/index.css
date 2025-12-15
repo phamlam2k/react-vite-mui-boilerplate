@@ -130,7 +130,7 @@ body {
   --color-Alert-warningIcon: var(--mui-palette-Alert-warningIconColor);
 
   /* AppBar */
-  --color-AppBar-default: var(--mui-palette-AppBar-defaultBg);
+  --color-AppBar-default: var(--mui-palette-primary-main);
 
   /* Avatar */
   --color-Avatar-default: var(--mui-palette-Avatar-defaultBg);
