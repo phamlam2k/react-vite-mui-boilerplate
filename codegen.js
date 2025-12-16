@@ -1,16 +1,11 @@
 import { codegen } from "swagger-axios-codegen";
-import path from "path";
 
 async function generateCodegen() {
   codegen({
     methodNameMode: "operationId",
-    source: (await import("./swagger.json", { with: { type: "json" } }))
-      .default,
-    outputDir: path.resolve(
-      path.dirname(new URL(import.meta.url).pathname),
-      "src/shared/api/generated/"
-    ),
-    fileName: "index.ts",
+    remoteUrl: import.meta.env.VITE_SWAGGER_URL,
+    outputDir: "./",
+    fileName: "api-docs.ts",
     methodNameMode: "operationId",
     modelMode: "interface",
     useClassTransformer: false,
