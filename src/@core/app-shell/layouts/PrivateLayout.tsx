@@ -28,7 +28,7 @@ const PrivateLayout = () => {
         }}
       >
         <Header />
-        <div className="flex-1 overflow-auto lg:rounded-tl-2xl bg-white">
+        <div className="flex-1 overflow-auto lg:rounded-tl-2xl bg-(--mui-palette-background-default)">
           <Outlet />
         </div>
       </div>

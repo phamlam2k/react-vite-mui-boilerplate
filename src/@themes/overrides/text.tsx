@@ -1,11 +1,11 @@
-import type { Theme } from '@mui/material/styles'
+import type { Theme } from "@mui/material/styles";
 
-const text: Theme['components'] = {
+const text: Theme["components"] = {
   MuiTypography: {
     defaultProps: {
-      color: 'text.secondary'
-    }
-  }
-}
+      color: "var(--mui-palette-primary-contrastText)",
+    },
+  },
+};
 
-export default text
+export default text;

@@ -2,10 +2,11 @@ import { useColorScheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { LightMode, DarkMode, SettingsBrightness } from "@mui/icons-material";
+import clsx from "clsx";
 
 type Mode = "light" | "dark" | "system";
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ className }: { className?: string }) => {
   const { mode, setMode } = useColorScheme();
 
   const currentMode: Mode = (mode as Mode) || "system";
@@ -42,7 +43,12 @@ const ThemeToggle = () => {
   };
 
   return (
-    <div className="fixed top-4 right-4 z-1000">
+    <div
+      className={clsx({
+        "fixed top-4 right-4 z-1000": !className,
+        className,
+      })}
+    >
       <Tooltip title={getTooltipTitle()} arrow>
         <IconButton
           onClick={handleModeChange}
