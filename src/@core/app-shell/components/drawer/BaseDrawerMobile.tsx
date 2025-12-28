@@ -9,6 +9,7 @@ import clsx from "clsx";
 import {
   DrawerCollapseChildrenContentStyled,
   DrawerCollapseChildrenStyled,
+  DrawerSwitchButtonStyled,
   drawerWidth,
   LogoWrapperStyled,
   MenuItemListSideBar,
@@ -153,20 +154,19 @@ const BaseDrawerMobile = ({
   return (
     <div className="max-lg:block hidden relative">
       {!isOpenDrawer && (
-        <IconButton
-          onClick={toggleDrawer}
-          sx={{
-            position: "absolute",
-            top: "15px",
-            zIndex: 9998,
-          }}
-        >
-          {switchIcon || <Menu width={20} height={20} />}
-        </IconButton>
+        <DrawerSwitchButtonStyled onClick={toggleDrawer}>
+          {switchIcon || (
+            <Menu
+              width={20}
+              height={20}
+              sx={{ color: "var(--mui-palette-common-white)" }}
+            />
+          )}
+        </DrawerSwitchButtonStyled>
       )}
 
       <Drawer anchor="left" open={isOpenDrawer} onClose={toggleDrawer}>
-        <div className="px-5 bg-(--mui-palette-primary-main) h-full">
+        <div className="px-5 bg-primary h-full">
           <LogoWrapperStyled onClick={handleGoHome}>
             <img
               src={"/images/logo.png"}

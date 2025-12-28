@@ -54,7 +54,7 @@ export const MenuItemListSideBar = styled.div`
   }
 
   &.active {
-    background-color: var(--mui-palette-primary-light);
+    background-color: var(--mui-palette-primary-hover);
 
     svg {
       path {
@@ -104,7 +104,7 @@ export const MenuItemListSideBar = styled.div`
   }
 
   &:hover {
-    background-color: var(--mui-palette-primary-light);
+    background-color: var(--mui-palette-primary-hover);
 
     svg {
       path {
@@ -141,7 +141,7 @@ export const DrawerStyled = styled.div`
 
 export const DrawerSwitchButtonStyled = styled.div`
   position: absolute;
-  background-color: var(--mui-palette-primary-light);
+  background-color: var(--mui-palette-primary-hover);
   border: 1px solid var(--mui-palette-grey-300);
   width: 30px;
   height: 30px;
