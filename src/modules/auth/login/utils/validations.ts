@@ -7,5 +7,4 @@ export const loginSchema = z.object({
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;
-// @ts-expect-error: Type incompatibility between Zod versions, suppressing until resolver or schema updated
 export const loginSchemaResolver = zodResolver(loginSchema);

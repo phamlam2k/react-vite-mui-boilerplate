@@ -4,7 +4,7 @@ const lightColors = {
   ...commonColors,
   primary: {
     ...commonColors.primary,
-    contrastText: "#000000",
+    contrastText: "var(--mui-palette-common-white)",
   },
   background: {
     ...commonColors.background,
