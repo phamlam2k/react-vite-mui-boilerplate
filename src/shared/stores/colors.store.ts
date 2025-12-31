@@ -1,12 +1,14 @@
 import { create, type StateCreator } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { ColorNames } from "@scripts/utils";
+import { ColorNames, generateRamp } from "@scripts/utils";
+import baseColors from "@themes/colors/base";
 
-const colorDefault = ColorNames.Blue;
+const colorDefault = baseColors[ColorNames.Blue];
 
 interface ColorsStore {
-  colors: string;
-  setColors: (colors: string) => void;
+  color: Record<number, string>;
+  colorKey: string;
+  setColor: (color: string) => void;
 }
 
 const colorsMiddleware = (f: StateCreator<ColorsStore, [], [], ColorsStore>) =>
@@ -14,8 +16,14 @@ const colorsMiddleware = (f: StateCreator<ColorsStore, [], [], ColorsStore>) =>
 
 const useColorsStore = create<ColorsStore>()(
   colorsMiddleware((set) => ({
-    colors: colorDefault,
-    setColors: (colors) => set({ colors }),
+    color: colorDefault,
+    colorKey: ColorNames.Blue,
+    setColor: (color: string) => {
+      const _color =
+        baseColors?.[color as keyof typeof baseColors] ?? generateRamp(color);
+
+      set({ color: _color, colorKey: color });
+    },
   }))
 );
 

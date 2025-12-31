@@ -8,7 +8,9 @@ const lightColors = {
   },
   background: {
     ...commonColors.background,
-    default: "#ffffff",
+    contrastText: "var(--mui-palette-common-black)",
+    paper: "var(--mui-palette-common-white)",
+    default: "#e9eaee",
   },
 };
 

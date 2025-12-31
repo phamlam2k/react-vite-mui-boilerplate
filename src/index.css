@@ -78,8 +78,8 @@ body {
   --color-divider: var(--mui-palette-divider);
 
   /* Material UI background colors */
-  --color-background-default: var(--mui-palette-background-defaultChannel);
-  --color-background-paper: var(--mui-palette-background-paperChannel);
+  --color-background-default: var(--mui-palette-background-default);
+  --color-background-paper: var(--mui-palette-background-paper);
 
   /* Material UI action colors */
   --color-action-active: var(--mui-palette-action-active);
@@ -279,7 +279,7 @@ body {
   h6,
   p,
   span {
-    color: var(--mui-palette-primary-contrastText);
+    color: var(--mui-palette-background-contrastText);
   }
 
   h1 {

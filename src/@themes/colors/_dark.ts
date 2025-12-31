@@ -4,7 +4,9 @@ const darkColors = {
   ...commonColors,
   background: {
     ...commonColors.background,
-    default: "#28243D",
+    contrastText: "var(--mui-palette-common-white)",
+    paper: "#2B2C40",
+    default: "#232333",
   },
 };
 
