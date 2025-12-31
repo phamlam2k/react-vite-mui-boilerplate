@@ -29,8 +29,10 @@
       "@shared/*": ["./src/shared/*"],
       "@core/*": ["./src/@core/*"],
       "@routes/*": ["./src/routes/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@scripts/*": ["./scripts/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "scripts"],
+  "exclude": ["node_modules", "dist"]
 }

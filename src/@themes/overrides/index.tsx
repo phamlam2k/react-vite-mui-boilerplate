@@ -8,8 +8,9 @@ import table from "@themes/overrides/table";
 import text from "@themes/overrides/text";
 import typography from "@themes/overrides/typography";
 import label from "./label";
-import datepicker from "@themes/overrides/datepicker";
+// import datepicker from "@themes/overrides/datepicker";
 import paper from "./paper";
+import chip from "./chip";
 
 const overrides = () => {
   return Object.assign(
@@ -23,7 +24,8 @@ const overrides = () => {
     text,
     typography,
     label,
-    datepicker,
+    chip,
+    // datepicker,
     paper
   );
 };

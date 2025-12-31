@@ -1,11 +1,11 @@
 import { RouterProvider } from "react-router";
 import { AppRouter } from "./AppRouter";
-import RootLayout from "@core/app-shell/layouts/RootLayout";
+import RootProvider from "@core/providers/RootProvider";
 
 export default function App() {
   return (
-    <RootLayout>
+    <RootProvider>
       <RouterProvider router={AppRouter} />
-    </RootLayout>
+    </RootProvider>
   );
 }

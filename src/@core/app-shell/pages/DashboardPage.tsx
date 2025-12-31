@@ -74,7 +74,7 @@ function DashboardPage() {
   );
 
   return (
-    <div className="p-3 flex flex-col gap-3">
+    <div className="py-3 flex flex-col gap-3">
       <Typography variant="h4" fontWeight={700}>
         Dashboard
       </Typography>
