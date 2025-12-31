@@ -244,7 +244,10 @@ const BaseDrawerDesktop = ({
               width: 12,
               height: 12,
               position: "relative",
-              left: 2,
+              left: isOpenDrawer ? 2 : -2,
+              transform: !isOpenDrawer ? "rotate(180deg)" : "rotate(0deg)",
+              transformOrigin: "center",
+              transition: "all 0.2s",
             }}
           />
         )}

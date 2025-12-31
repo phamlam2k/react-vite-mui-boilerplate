@@ -5,18 +5,21 @@ import { styled as styledMui } from "@mui/material/styles";
 export const drawerWidth = 270;
 export const iconWidth = 57;
 
-export const DrawerCollapseStyled = styledMui(Collapse)(() => ({
-  maxWidth: drawerWidth,
-  height: "100vh",
-  overflowY: "auto",
-  backgroundColor: "var(--mui-palette-background-paper)",
-  boxShadow: "var(--mui-shadows-1)",
-  position: "relative",
-}));
+export const DrawerCollapseStyled = styledMui(Collapse)(
+  ({ in: isOpenDrawer }: { in: boolean }) => ({
+    maxWidth: isOpenDrawer ? drawerWidth : iconWidth,
+    height: "100vh",
+    overflowY: "auto",
+    backgroundColor: "var(--mui-palette-background-paper)",
+    boxShadow: "var(--mui-shadows-1)",
+    position: "relative",
+  })
+);
 
 export const DrawerContentStyled = styled.div<{ isOpenDrawer?: boolean }>`
   width: ${({ isOpenDrawer }) =>
     isOpenDrawer ? `${drawerWidth}px` : `${iconWidth}px`};
+  transition: "width 0.5s";
   padding: 0px 8px;
 `;
 

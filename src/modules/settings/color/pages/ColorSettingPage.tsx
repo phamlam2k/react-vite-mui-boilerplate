@@ -10,6 +10,12 @@ const PrimaryComp = styled("div")(({ color }: { color: string }) => ({
   backgroundColor: color,
 }));
 
+const PrimaryBorderComp = styled("div")(
+  ({ borderColor }: { borderColor: string }) => ({
+    border: `1px solid ${borderColor}`,
+  })
+);
+
 function ColorSettingPage() {
   const colorKey = useColorsStore((state) => state.colorKey);
   const setColor = useColorsStore((state) => state.setColor);
@@ -37,14 +43,12 @@ function ColorSettingPage() {
         <div className="flex flex-wrap gap-2">
           {Object.keys(baseColors).map((key: string) => {
             return (
-              <div
+              <PrimaryBorderComp
                 key={key}
+                borderColor={
+                  colorState === key ? baseColor : baseColors["gray"][300]
+                }
                 className="p-1 rounded-md"
-                style={{
-                  border: `1px solid ${
-                    colorState === key ? baseColor : baseColors["gray"][300]
-                  }`,
-                }}
               >
                 <PrimaryComp
                   color={baseColors[key as keyof typeof baseColors][600]}
@@ -56,7 +60,7 @@ function ColorSettingPage() {
                 >
                   {colorState === key && "✓"}
                 </PrimaryComp>
-              </div>
+              </PrimaryBorderComp>
             );
           })}
         </div>
@@ -66,7 +70,12 @@ function ColorSettingPage() {
         <ColorsDemoComp color={baseColor} />
       </div>
 
-      <Button variant="contained" color="primary" onClick={handleSaveChanges}>
+      <Button
+        className="w-fit"
+        variant="contained"
+        color="primary"
+        onClick={handleSaveChanges}
+      >
         Save Changes
       </Button>
     </div>

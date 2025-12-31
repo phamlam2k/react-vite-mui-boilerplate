@@ -23,7 +23,9 @@ const ColorsDemoComp = ({ color }: ColorsDemoCompProps) => {
           </div>
         </div>
         <div className="flex-1 h-full">
-          <div className="w-full h-10" />
+          <div className="w-full h-7 px-2 pt-2">
+            <div className="w-full h-full bg-background-default rounded-sm" />
+          </div>
         </div>
       </div>
     </div>
