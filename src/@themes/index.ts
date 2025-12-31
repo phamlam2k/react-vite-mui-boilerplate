@@ -13,9 +13,7 @@ const theme = (direction: Theme["direction"]): ThemeOptions => {
     },
     direction,
     components: overrides(),
-    colorSchemes: {
-      ...colorSchemes(),
-    },
+    colorSchemes,
     shape: {
       borderRadius: 6,
       customBorderRadius: {

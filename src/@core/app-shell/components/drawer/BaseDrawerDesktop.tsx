@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { memo, useEffect, useRef, useState, type ReactNode } from "react";
 
 import { Popover, Tooltip, Typography } from "@mui/material";
 
@@ -17,7 +17,7 @@ import {
   MenuItemListSideBar,
   PopupDrawerContentStyled,
 } from "@core/app-shell/components/drawer/BaseDrawerDesktop.styled";
-import { ExpandMore, Menu } from "@mui/icons-material";
+import { ExpandMore, ArrowBackIos } from "@mui/icons-material";
 
 const iconWidth = 57;
 
@@ -238,10 +238,14 @@ const BaseDrawerDesktop = ({
     <DrawerStyled className="lg:block hidden">
       <DrawerSwitchButtonStyled onClick={handleToggleDrawer}>
         {switchIcon || (
-          <Menu
-            width={20}
-            height={20}
-            sx={{ color: "var(--mui-palette-common-white)" }}
+          <ArrowBackIos
+            sx={{
+              color: "var(--mui-palette-common-white)",
+              width: 12,
+              height: 12,
+              position: "relative",
+              left: 2,
+            }}
           />
         )}
       </DrawerSwitchButtonStyled>
@@ -280,4 +284,4 @@ const BaseDrawerDesktop = ({
   );
 };
 
-export default BaseDrawerDesktop;
+export default memo(BaseDrawerDesktop);

@@ -2,26 +2,26 @@ import semanticColor from "./semantic";
 
 const commonColors = {
   primary: {
-    ...semanticColor().brand.primary,
+    ...semanticColor.brand.primary,
   },
   secondary: {
-    ...semanticColor().brand.secondary,
+    ...semanticColor.brand.secondary,
   },
   error: {
-    ...semanticColor().status.error,
+    ...semanticColor.status.error,
   },
   warning: {
-    ...semanticColor().status.warning,
+    ...semanticColor.status.warning,
   },
   info: {
-    ...semanticColor().status.info,
+    ...semanticColor.status.info,
   },
   text: {
-    ...semanticColor().text,
+    ...semanticColor.text,
   },
   background: {
-    surface: semanticColor().background.surface,
-    paper: semanticColor().background.paper,
+    surface: semanticColor.background.surface,
+    default: "#e9eaee",
   },
 };
 

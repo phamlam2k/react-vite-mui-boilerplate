@@ -33,12 +33,12 @@ const ThemeToggle = ({ className }: { className?: string }) => {
   const getTooltipTitle = () => {
     switch (currentMode) {
       case "light":
-        return "Light mode (Click to switch to Dark)";
+        return "Light mode";
       case "dark":
-        return "Dark mode (Click to switch to System)";
+        return "Dark mode";
       case "system":
       default:
-        return "System mode (Click to switch to Light)";
+        return "System mode";
     }
   };
 
@@ -53,8 +53,6 @@ const ThemeToggle = ({ className }: { className?: string }) => {
         <IconButton
           onClick={handleModeChange}
           sx={{
-            backgroundColor: "var(--mui-palette-background-paper)",
-            boxShadow: "var(--mui-customShadows-sm)",
             "&:hover": {
               backgroundColor: "var(--mui-palette-action-hover)",
             },
