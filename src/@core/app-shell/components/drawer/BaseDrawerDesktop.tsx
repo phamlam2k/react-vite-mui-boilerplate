@@ -1,6 +1,20 @@
-import { memo, useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  Fragment,
+  memo,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 
-import { Popover, Tooltip, Typography } from "@mui/material";
+import {
+  Popover,
+  styled,
+  Tooltip,
+  tooltipClasses,
+  Typography,
+  type TooltipProps,
+} from "@mui/material";
 
 import { useLocation, useNavigate } from "react-router";
 
@@ -41,50 +55,64 @@ export type IBaseDrawerChildProps = {
 };
 
 export type IPopupDrawerProps = {
-  title: string;
   listItems: IBaseDrawerDesktopListItem[];
-  open: boolean;
-  anchorEl: HTMLDivElement | null;
-  onClose: () => void;
 };
 
-const PopupDrawer = ({
-  open,
-  title,
-  anchorEl,
-  listItems,
-  onClose,
-}: IPopupDrawerProps) => {
+const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: "var(--mui-palette-background-paper)",
+    color: "var(--mui-palette-text-primary)",
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: "1px solid var(--mui-palette-divider)",
+  },
+}));
+
+const PopupDrawer = ({ listItems }: IPopupDrawerProps) => {
+  const navigate = useNavigate();
+
+  const handleSwitchRoute = (path?: string) => {
+    if (path) {
+      navigate(path);
+    }
+  };
+
+  console.log("listItems", listItems);
+
   return (
-    <Popover
-      open={open}
-      anchorEl={anchorEl}
-      onClose={onClose}
-      anchorOrigin={{
-        vertical: "center",
-        horizontal: "right",
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "left",
-      }}
-    >
-      <PopupDrawerContentStyled>
-        <Typography variant="h5">{title}</Typography>
-        {listItems.map((item, index) => (
-          <div key={`${item.text}_${index}`} className="item_popup">
-            <Typography
-              flex={1}
-              whiteSpace="nowrap"
-              overflow="hidden"
-              textOverflow="ellipsis"
+    <PopupDrawerContentStyled>
+      {listItems.map((item, index) => {
+        const active = item.path && location.pathname.includes(item.path);
+        return (
+          <div
+            key={`${item.text}_${index}`}
+            className="item_popup flex items-center gap-2 group"
+            onClick={() => handleSwitchRoute(item.path)}
+          >
+            <div
+              className={clsx(
+                "w-2 h-2 bg-gray-200 rounded-full group-hover:bg-primary",
+                {
+                  "bg-primary": active,
+                }
+              )}
+            />
+            <p
+              className={clsx(
+                "group-hover:text-primary text-base font-medium",
+                {
+                  "text-primary": active,
+                }
+              )}
             >
               {item.text}
-            </Typography>
+            </p>
           </div>
-        ))}
-      </PopupDrawerContentStyled>
-    </Popover>
+        );
+      })}
+    </PopupDrawerContentStyled>
   );
 };
 
@@ -96,7 +124,6 @@ const BaseDrawerChild = ({
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 
   const [drawerHeight, setDrawerHeight] = useState(0);
 
@@ -116,14 +143,10 @@ const BaseDrawerChild = ({
     }
   }, [location, item]);
 
-  const handleChangeStateCollapse = (
-    event: React.MouseEvent<HTMLDivElement>
-  ) => {
-    if (isOpenDrawer) {
-      setSelectedItem((prev) => (!!prev ? null : item.id));
-    } else {
-      setAnchorEl(event.currentTarget);
-    }
+  const handleChangeStateCollapse = () => {
+    if (!isOpenDrawer) return;
+
+    setSelectedItem((prev) => (!!prev ? null : item.id));
   };
 
   const handleSwitchRoute = (path?: string) => {
@@ -132,42 +155,47 @@ const BaseDrawerChild = ({
     }
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const Component = isOpenDrawer ? Fragment : HtmlTooltip;
 
   if (item.children && item.children.length > 0) {
     return (
       <DrawerCollapseChildrenStyled
-        id={id}
         orientation="vertical"
         in={!!selectedItem}
         collapsedSize={drawerHeight}
       >
-        <MenuItemListSideBar
-          className={clsx({
-            active: item.children.some(
-              (child) => child.path && location.pathname.includes(child.path)
-            ),
-          })}
-          ref={refDrawer}
-          onClick={handleChangeStateCollapse}
+        <Component
+          title={<PopupDrawer listItems={item.children} />}
+          placement="right"
         >
-          <div className="icon">{item.icon}</div>
-          {isOpenDrawer && (
+          <MenuItemListSideBar
+            className={clsx(
+              {
+                active: item.children.some(
+                  (child) =>
+                    child.path && location.pathname.includes(child.path)
+                ),
+              },
+              "mt-1"
+            )}
+            ref={refDrawer}
+            onClick={handleChangeStateCollapse}
+          >
             <>
-              <Typography>{item.text}</Typography>
-              <div className={`${!!selectedItem ? "open" : "close"}`}>
-                <ExpandMore />
-              </div>
+              <div className="icon">{item.icon}</div>
+              {isOpenDrawer && (
+                <>
+                  <Typography>{item.text}</Typography>
+                  <div className={`${!!selectedItem ? "open" : "close"}`}>
+                    <ExpandMore />
+                  </div>
+                </>
+              )}
             </>
-          )}
-        </MenuItemListSideBar>
+          </MenuItemListSideBar>
+        </Component>
 
-        {isOpenDrawer ? (
+        {isOpenDrawer && (
           <DrawerCollapseChildrenContentStyled>
             {item.children.map((child, index) => (
               <BaseDrawerChild
@@ -178,14 +206,6 @@ const BaseDrawerChild = ({
               />
             ))}
           </DrawerCollapseChildrenContentStyled>
-        ) : (
-          <PopupDrawer
-            title={item.text}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            listItems={item.children}
-          />
         )}
       </DrawerCollapseChildrenStyled>
     );
@@ -224,7 +244,7 @@ const BaseDrawerDesktop = ({
   switchIcon,
 }: IBaseDrawerDesktopProps) => {
   const navigate = useNavigate();
-  const [isOpenDrawer, setIsOpenDrawer] = useState(true);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
   const handleToggleDrawer = () => {
     setIsOpenDrawer((prev) => !prev);
@@ -235,7 +255,7 @@ const BaseDrawerDesktop = ({
   };
 
   return (
-    <DrawerStyled className="lg:block hidden">
+    <DrawerStyled>
       <DrawerSwitchButtonStyled onClick={handleToggleDrawer}>
         {switchIcon || (
           <ArrowBackIos
@@ -244,7 +264,10 @@ const BaseDrawerDesktop = ({
               width: 12,
               height: 12,
               position: "relative",
-              left: 2,
+              left: isOpenDrawer ? 2 : -2,
+              transformOrigin: "center",
+              transition: "all 0.2s",
+              transform: !isOpenDrawer ? "rotate(180deg)" : "rotate(0deg)",
             }}
           />
         )}

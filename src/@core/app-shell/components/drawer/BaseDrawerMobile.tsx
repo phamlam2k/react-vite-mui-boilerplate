@@ -1,6 +1,13 @@
-import { useState, useRef, useEffect, memo } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  memo,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 
-import { Drawer, IconButton, List, styled, Tooltip } from "@mui/material";
+import { Drawer, List, Tooltip } from "@mui/material";
 
 import { useLocation, useNavigate } from "react-router";
 
@@ -9,7 +16,6 @@ import clsx from "clsx";
 import {
   DrawerCollapseChildrenContentStyled,
   DrawerCollapseChildrenStyled,
-  DrawerSwitchButtonStyled,
   drawerWidth,
   LogoWrapperStyled,
   MenuItemListSideBar,
@@ -18,7 +24,11 @@ import type {
   IBaseDrawerChildProps,
   IBaseDrawerDesktopProps,
 } from "@core/app-shell/components/drawer/BaseDrawerDesktop";
-import { ArrowBackIos, ExpandMore, Menu } from "@mui/icons-material";
+import { ExpandMore } from "@mui/icons-material";
+
+export type BaseDrawerChildRef = {
+  toggleDrawer: () => void;
+};
 
 const BaseDrawerChild = ({
   item,
@@ -51,6 +61,7 @@ const BaseDrawerChild = ({
   const handleChangeStateCollapse = (
     event: React.MouseEvent<HTMLDivElement>
   ) => {
+    console.log("isOpenDrawer", isOpenDrawer);
     if (isOpenDrawer) {
       setSelectedItem((prev) => (!!prev ? null : item.id));
     } else {
@@ -136,12 +147,16 @@ const BaseDrawerChild = ({
   );
 };
 
-const BaseDrawerMobile = ({
-  listItems,
-  switchIcon,
-}: IBaseDrawerDesktopProps) => {
+const BaseDrawerMobile = forwardRef<
+  BaseDrawerChildRef,
+  IBaseDrawerDesktopProps
+>(({ listItems }, ref) => {
   const navigate = useNavigate();
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    toggleDrawer,
+  }));
 
   const toggleDrawer = () => {
     setIsOpenDrawer((prev) => !prev);
@@ -153,21 +168,6 @@ const BaseDrawerMobile = ({
 
   return (
     <div className="max-lg:block hidden relative">
-      {!isOpenDrawer && (
-        <DrawerSwitchButtonStyled onClick={toggleDrawer}>
-          {switchIcon || (
-            <ArrowBackIos
-              sx={{
-                color: "var(--mui-palette-common-white)",
-                width: 12,
-                height: 12,
-                position: "relative",
-              }}
-            />
-          )}
-        </DrawerSwitchButtonStyled>
-      )}
-
       <Drawer anchor="left" open={isOpenDrawer} onClose={toggleDrawer}>
         <div className="px-5 bg-background-default h-full">
           <LogoWrapperStyled onClick={handleGoHome}>
@@ -197,6 +197,6 @@ const BaseDrawerMobile = ({
       </Drawer>
     </div>
   );
-};
+});
 
 export default memo(BaseDrawerMobile);

@@ -15,7 +15,7 @@ function ColorSettingPage() {
   const setColor = useColorsStore((state) => state.setColor);
 
   const [colorState, setColorState] = useState<string>(colorKey);
-  const baseColor = baseColors?.[colorState as keyof typeof baseColors][600];
+  const baseColor = baseColors?.[colorState as keyof typeof baseColors][500];
 
   const handleSaveChanges = () => {
     setColor(colorState);
@@ -47,7 +47,7 @@ function ColorSettingPage() {
                 }}
               >
                 <PrimaryComp
-                  color={baseColors[key as keyof typeof baseColors][600]}
+                  color={baseColors[key as keyof typeof baseColors][500]}
                   className={clsx(
                     "rounded-md w-10 h-10 flex items-center justify-center",
                     "text-white cursor-pointer"
