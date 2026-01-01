@@ -5,6 +5,7 @@ import colorSchemes from "@themes/colorSchemes";
 import overrides from "@themes/overrides";
 import typography from "@themes/overrides/typography";
 import spacing from "@themes/spacing";
+import breakpoints from "./breakpoints";
 
 const theme = (direction: Theme["direction"]): ThemeOptions => {
   return {
@@ -27,6 +28,7 @@ const theme = (direction: Theme["direction"]): ThemeOptions => {
         inputForm: "1.5em",
       },
     },
+    breakpoints: breakpoints(),
     customShadows: {
       xs: "0 2px 4px 0 rgba(0, 0, 0, 0.05)",
       sm: "0 2px 5px 0 rgba(0, 0, 0, 0.05)",

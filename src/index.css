@@ -31,11 +31,11 @@ body {
   --letter-spacing-body2: 0.01071em;
 
   /* Material UI breakpoints */
-  --breakpoint-sm: 37.5rem; /* 600px */
-  --breakpoint-md: 56.25rem; /* 900px */
-  --breakpoint-lg: 75rem; /* 1200px */
-  --breakpoint-xl: 96rem; /* 1536px */
-  --breakpoint-2xl: 120rem; /* 1920px */
+  --breakpoint-sm: var(--mui-breakpoints-sm); /* 600px */
+  --breakpoint-md: var(--mui-breakpoints-md); /* 900px */
+  --breakpoint-lg: var(--mui-breakpoints-lg); /* 1200px */
+  --breakpoint-xl: var(--mui-breakpoints-xl); /* 1536px */
+  --breakpoint-2xl: var(--mui-breakpoints-2xl); /* 1920px */
 
   /* Material UI theme colors */
   --color-primary: var(--mui-palette-primary-main);

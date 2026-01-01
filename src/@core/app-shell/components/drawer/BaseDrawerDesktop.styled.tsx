@@ -155,9 +155,17 @@ export const DrawerCollapseChildrenStyled = styledMui(Collapse)(() => ({
   width: "100%",
 }));
 
-export const DrawerCollapseChildrenContentStyled = styled.div``;
+export const DrawerCollapseChildrenContentStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+`;
 
 export const PopupDrawerContentStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   padding: 10px;
 
   .item_popup {
