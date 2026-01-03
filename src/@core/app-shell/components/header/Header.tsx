@@ -22,6 +22,10 @@ const Header = ({ isMobile, handleToggleDrawer }: HeaderProps) => {
 
   const { open } = useModalController();
 
+  useHotkeys("ctrl+k,Meta+k", () => {
+    open(AppShellModalKeys.HotkeysModal);
+  });
+
   const hotKeys = useMemo(() => {
     const isMac = isDevice("MacOS");
     const isWindows = isDevice("Windows");
@@ -37,11 +41,9 @@ const Header = ({ isMobile, handleToggleDrawer }: HeaderProps) => {
     return "Search Ctrl + K";
   }, []);
 
-  useHotkeys("ctrl+k,Meta+k", () => handleOpenHotkeysModal());
-
-  const handleOpenHotkeysModal = () => {
+  function handleOpenHotkeysModal() {
     open(AppShellModalKeys.HotkeysModal);
-  };
+  }
 
   return (
     <div className="pt-2 sticky top-0 z-10 bg-background-default opacity-95">
@@ -55,7 +57,7 @@ const Header = ({ isMobile, handleToggleDrawer }: HeaderProps) => {
             )}
           </div>
           <div
-            className="flex items-center gap-2"
+            className="md:flex items-center gap-2 hidden"
             onClick={handleOpenHotkeysModal}
           >
             <Search />

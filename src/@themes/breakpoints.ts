@@ -1,4 +1,4 @@
-const breakpoints = () => ({
+const breakpoints = {
   values: {
     xs: 0,
     sm: 600,
@@ -6,6 +6,6 @@ const breakpoints = () => ({
     lg: 1200,
     xl: 1536,
   },
-});
+};
 
 export default breakpoints;

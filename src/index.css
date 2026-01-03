@@ -31,11 +31,11 @@ body {
   --letter-spacing-body2: 0.01071em;
 
   /* Material UI breakpoints */
-  --breakpoint-sm: var(--mui-breakpoints-sm);
-  --breakpoint-md: var(--mui-breakpoints-md);
-  --breakpoint-lg: var(--mui-breakpoints-lg);
-  --breakpoint-xl: var(--mui-breakpoints-xl);
-  --breakpoint-2xl: var(--mui-breakpoints-2xl);
+  --breakpoint-sm: 37.5rem; /* 600px */
+  --breakpoint-md: 56.25rem; /* 900px */
+  --breakpoint-lg: 75rem; /* 1200px */
+  --breakpoint-xl: 96rem; /* 1536px */
+  --breakpoint-2xl: 120rem; /* 1920px */
 
   /* Material UI theme colors */
   --color-primary: var(--mui-palette-primary-main);
@@ -316,16 +316,16 @@ body {
 
 /* Material UI typography utilities */
 @utility typography-* {
-  font: --value(--font- *);
+  font: --value(--font-*);
 }
 
 /* Material UI overlay utilities */
 @utility overlay-* {
-  background-image: --value(--overlay- *);
+  background-image: --value(--overlay-*);
 }
 
 /* Material UI elevation utilities */
 @utility elevation-* {
-  background-image: --value(--overlay- *);
-  box-shadow: --value(--shadow- *);
+  background-image: --value(--overlay-*);
+  box-shadow: --value(--shadow-*);
 }

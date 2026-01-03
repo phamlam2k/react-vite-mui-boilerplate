@@ -8,120 +8,120 @@
  */
 
 // MUI Imports
-import {} from '@mui/material/styles'
+import {} from "@mui/material/styles";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   // eslint-disable-next-line lines-around-comment
   // Theme
   interface Theme {
-    colorSchemes: Record<SupportedColorScheme, ColorSystem>
+    colorSchemes: Record<SupportedColorScheme, ColorSystem>;
     shape: {
-      borderRadius: number
+      borderRadius: number;
       customBorderRadius: {
-        xs: number
-        sm: number
-        md: number
-        lg: number
-        xl: number
-        xxl: number
-      }
+        xs: number;
+        sm: number;
+        md: number;
+        lg: number;
+        xl: number;
+        xxl: number;
+      };
       height?: {
-        inputForm?: string | number
-      }
-    }
+        inputForm?: string | number;
+      };
+    };
     customShadows: {
-      xs: string
-      sm: string
-      md: string
-      lg: string
-      xl: string
-    }
+      xs: string;
+      sm: string;
+      md: string;
+      lg: string;
+      xl: string;
+    };
     mainColorChannels: {
-      light: string
-      dark: string
-      lightShadow: string
-      darkShadow: string
-    }
+      light: string;
+      dark: string;
+      lightShadow: string;
+      darkShadow: string;
+    };
   }
   interface ThemeOptions {
-    colorSchemes: Record<SupportedColorScheme, ColorSystem>
+    colorSchemes: Record<SupportedColorScheme, ColorSystem>;
     shape?: {
-      borderRadius?: number
+      borderRadius?: number;
       customBorderRadius?: {
-        xs?: number
-        sm?: number
-        md?: number
-        lg?: number
-        xl?: number
-      }
+        xs?: number;
+        sm?: number;
+        md?: number;
+        lg?: number;
+        xl?: number;
+      };
       height?: {
-        inputForm?: string | number
-      }
-    }
+        inputForm?: string | number;
+      };
+    };
     customShadows?: {
-      xs?: string
-      sm?: string
-      md?: string
-      lg?: string
-      xl?: string
-    }
+      xs?: string;
+      sm?: string;
+      md?: string;
+      lg?: string;
+      xl?: string;
+    };
     mainColorChannels?: {
-      light?: string
-      dark?: string
-      lightShadow?: string
-      darkShadow?: string
-    }
+      light?: string;
+      dark?: string;
+      lightShadow?: string;
+      darkShadow?: string;
+    };
   }
 
   // Palette Color
   interface PaletteColor {
-    lighterOpacity?: string
-    lightOpacity?: string
-    mainOpacity?: string
-    darkOpacity?: string
-    darkerOpacity?: string
+    lighterOpacity?: string;
+    lightOpacity?: string;
+    mainOpacity?: string;
+    darkOpacity?: string;
+    darkerOpacity?: string;
   }
   interface SimplePaletteColorOptions {
-    lighterOpacity?: string
-    lightOpacity?: string
-    mainOpacity?: string
-    darkOpacity?: string
-    darkerOpacity?: string
+    lighterOpacity?: string;
+    lightOpacity?: string;
+    mainOpacity?: string;
+    darkOpacity?: string;
+    darkerOpacity?: string;
   }
 
   // Palette
   interface Palette {
     DrawerUI?: {
-      background?: string
-      backgroundHover?: string
-      textDrawerItem: string
-      textDrawerItemHover?: string
-    }
+      background?: string;
+      backgroundHover?: string;
+      textDrawerItem: string;
+      textDrawerItemHover?: string;
+    };
   }
   interface PaletteOptions {
     DrawerUI?: {
-      background?: string
-      backgroundHover?: string
-      textDrawerItem: string
-      textDrawerItemHover?: string
-    }
+      background?: string;
+      backgroundHover?: string;
+      textDrawerItem: string;
+      textDrawerItemHover?: string;
+    };
   }
 }
 
-declare module '@mui/material/Chip' {
+declare module "@mui/material/Chip" {
   interface ChipPropsVariantOverrides {
-    tonal: true
+    tonal: true;
   }
 }
 
-declare module '@mui/material/Pagination' {
+declare module "@mui/material/Pagination" {
   interface PaginationPropsVariantOverrides {
-    tonal: true
+    tonal: true;
   }
 }
 
-declare module '@mui/lab/TimelineDot' {
+declare module "@mui/lab/TimelineDot" {
   interface TimelineDotPropsVariantOverrides {
-    tonal: true
+    tonal: true;
   }
 }
