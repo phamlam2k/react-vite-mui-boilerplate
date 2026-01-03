@@ -25,7 +25,7 @@ const PrivateLayout = () => {
       )}
 
       <div
-        className="flex flex-1 h-screen flex-col relative px-5  overflow-auto"
+        className="flex flex-1 h-screen flex-col relative px-5 overflow-auto"
         style={{
           minWidth: `calc(100vw - ${drawerWidth}px)`,
         }}
