@@ -28,7 +28,7 @@ const theme = (direction: Theme["direction"]): ThemeOptions => {
         inputForm: "1.5em",
       },
     },
-    breakpoints: breakpoints(),
+    breakpoints: breakpoints,
     customShadows: {
       xs: "0 2px 4px 0 rgba(0, 0, 0, 0.05)",
       sm: "0 2px 5px 0 rgba(0, 0, 0, 0.05)",
