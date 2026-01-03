@@ -10,7 +10,17 @@ export default function ModalEngine() {
         const M = registry[modal.type];
         if (!M || typeof M !== "function") return null;
 
-        return <M key={index} type={modal.type} payload={modal.payload} />;
+        if (!M || (typeof M !== "function" && typeof M !== "object"))
+          return null;
+
+        const Component = M as React.ComponentType<{
+          type: string;
+          payload: any;
+        }>;
+
+        return (
+          <Component key={index} type={modal.type} payload={modal.payload} />
+        );
       })}
     </>
   );
