@@ -10,7 +10,7 @@ export default function ModalEngine() {
         const M = registry[modal.type];
         if (!M || typeof M !== "function") return null;
 
-        return M({ key: index, type: modal.type, payload: modal.payload });
+        return <M key={index} type={modal.type} payload={modal.payload} />;
       })}
     </>
   );
