@@ -1,0 +1,9 @@
+# Dependencies
+node_modules
+dist
+build
+
+# Other minified files
+*.min.js
+*.min.mjs
+*.min.css
