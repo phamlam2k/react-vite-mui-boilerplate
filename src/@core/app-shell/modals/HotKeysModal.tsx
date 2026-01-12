@@ -16,11 +16,11 @@ type HotKeysModalProps = {
 const HotkeysModal = ({ type }: ModalStack<HotKeysModalProps>) => {
   const { close } = useModalController();
 
-  useHotkeys("esc", () => handleClose());
-
-  const handleClose = () => {
+  function handleClose() {
     close(type);
-  };
+  }
+
+  useHotkeys("esc", () => handleClose());
 
   return (
     <BaseModal open={true} onClose={handleClose} width={600}>
@@ -45,7 +45,7 @@ const HotkeysModal = ({ type }: ModalStack<HotKeysModalProps>) => {
         />
       </div>
 
-      <div className="h-60">{/* TODO: Add logic to search for pages */}</div>
+      <div className="h-60"></div>
     </BaseModal>
   );
 };

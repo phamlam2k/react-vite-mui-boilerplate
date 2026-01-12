@@ -13,7 +13,8 @@
     "coverage": "vitest run --coverage",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
-    "generate:colors": "tsx scripts/gen-base-colors.ts"
+    "generate:colors": "tsx scripts/gen-base-colors.ts",
+    "mui:fix-file": "node scripts/mui-fix-file.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

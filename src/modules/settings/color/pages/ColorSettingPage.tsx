@@ -11,8 +11,8 @@ const PrimaryComp = styled("div")(({ color }: { color: string }) => ({
 }));
 
 function ColorSettingPage() {
-  const colorKey = useColorsStore((state) => state.colorKey);
-  const setColor = useColorsStore((state) => state.setColor);
+  const colorKey = useColorsStore(state => state.colorKey);
+  const setColor = useColorsStore(state => state.setColor);
 
   const [colorState, setColorState] = useState<string>(colorKey);
   const baseColor = baseColors?.[colorState as keyof typeof baseColors][500];

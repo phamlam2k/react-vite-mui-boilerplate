@@ -5,11 +5,14 @@ import {
   memo,
   forwardRef,
   useImperativeHandle,
+  useEffectEvent,
 } from "react";
 
-import { Drawer, List, Tooltip } from "@mui/material";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Tooltip from "@mui/material/Tooltip";
 
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, type Location } from "react-router";
 
 import clsx from "clsx";
 
@@ -22,9 +25,10 @@ import {
 } from "@core/app-shell/components/drawer/BaseDrawerDesktop.styled";
 import type {
   IBaseDrawerChildProps,
+  IBaseDrawerDesktopListItem,
   IBaseDrawerDesktopProps,
 } from "@core/app-shell/components/drawer/BaseDrawerDesktop";
-import { ExpandMore } from "@mui/icons-material";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 export type BaseDrawerChildRef = {
   toggleDrawer: () => void;
@@ -44,26 +48,30 @@ const BaseDrawerChild = ({
 
   const refDrawer = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!item.children) return;
+  const updateEvent = useEffectEvent(
+    (location: Location, item: IBaseDrawerDesktopListItem) => {
+      if (!item.children) return;
+      setDrawerHeight(refDrawer?.current?.clientHeight ?? 0);
 
-    setDrawerHeight(refDrawer.current?.clientHeight ?? 0);
-
-    if (
-      item.children.some(
-        (child) => child.path && location.pathname.includes(child.path)
-      )
-    ) {
-      setSelectedItem(item.id);
+      if (
+        item.children.some(
+          child => child.path && location.pathname.includes(child.path)
+        )
+      ) {
+        setSelectedItem(item.id);
+      }
     }
+  );
+
+  useEffect(() => {
+    updateEvent(location as Location, item);
   }, [location, item]);
 
   const handleChangeStateCollapse = (
     event: React.MouseEvent<HTMLDivElement>
   ) => {
-    console.log("isOpenDrawer", isOpenDrawer);
     if (isOpenDrawer) {
-      setSelectedItem((prev) => (!!prev ? null : item.id));
+      setSelectedItem(prev => (prev ? null : item.id));
     } else {
       setAnchorEl(event.currentTarget);
     }
@@ -89,7 +97,7 @@ const BaseDrawerChild = ({
         <MenuItemListSideBar
           className={clsx({
             active: item.children.some(
-              (child) => child.path && location.pathname.includes(child.path)
+              child => child.path && location.pathname.includes(child.path)
             ),
           })}
           ref={refDrawer}
@@ -99,7 +107,7 @@ const BaseDrawerChild = ({
           {isOpenDrawer && (
             <>
               <p>{item.text}</p>
-              <div className={`${!!selectedItem ? "open" : "close"}`}>
+              <div className={`${selectedItem ? "open" : "close"}`}>
                 <ExpandMore />
               </div>
             </>
@@ -154,13 +162,13 @@ const BaseDrawerMobile = forwardRef<
   const navigate = useNavigate();
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
+  const toggleDrawer = () => {
+    setIsOpenDrawer(prev => !prev);
+  };
+
   useImperativeHandle(ref, () => ({
     toggleDrawer,
   }));
-
-  const toggleDrawer = () => {
-    setIsOpenDrawer((prev) => !prev);
-  };
 
   const handleGoHome = () => {
     navigate("/");
