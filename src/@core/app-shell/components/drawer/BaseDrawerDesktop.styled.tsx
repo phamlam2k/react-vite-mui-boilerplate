@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Collapse } from "@mui/material";
+import Collapse from "@mui/material/Collapse";
 import { styled as styledMui } from "@mui/material/styles";
 
 export const drawerWidth = 270;

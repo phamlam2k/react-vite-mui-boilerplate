@@ -2,19 +2,11 @@ import {
   Fragment,
   memo,
   useEffect,
+  useEffectEvent,
   useRef,
   useState,
   type ReactNode,
 } from "react";
-
-import {
-  Popover,
-  styled,
-  Tooltip,
-  tooltipClasses,
-  Typography,
-  type TooltipProps,
-} from "@mui/material";
 
 import { useLocation, useNavigate } from "react-router";
 
@@ -31,7 +23,14 @@ import {
   MenuItemListSideBar,
   PopupDrawerContentStyled,
 } from "@core/app-shell/components/drawer/BaseDrawerDesktop.styled";
-import { ExpandMore, ArrowBackIos } from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
+import Tooltip, {
+  tooltipClasses,
+  type TooltipProps,
+} from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
 
 const iconWidth = 57;
 
@@ -78,8 +77,6 @@ const PopupDrawer = ({ listItems }: IPopupDrawerProps) => {
       navigate(path);
     }
   };
-
-  console.log("listItems", listItems);
 
   return (
     <PopupDrawerContentStyled>
@@ -129,24 +126,28 @@ const BaseDrawerChild = ({
 
   const refDrawer = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  const effect = useEffectEvent((item: IBaseDrawerDesktopListItem) => {
     if (!item.children) return;
 
     setDrawerHeight(refDrawer.current?.clientHeight ?? 0);
 
     if (
       item.children.some(
-        (child) => child.path && location.pathname.includes(child.path)
+        child => child.path && location.pathname.includes(child.path)
       )
     ) {
       setSelectedItem(item.id);
     }
+  });
+
+  useEffect(() => {
+    effect(item);
   }, [location, item]);
 
   const handleChangeStateCollapse = () => {
     if (!isOpenDrawer) return;
 
-    setSelectedItem((prev) => (!!prev ? null : item.id));
+    setSelectedItem(prev => (prev ? null : item.id));
   };
 
   const handleSwitchRoute = (path?: string) => {
@@ -169,11 +170,11 @@ const BaseDrawerChild = ({
           placement="right"
         >
           <MenuItemListSideBar
+            role="menuitem"
             className={clsx(
               {
                 active: item.children.some(
-                  (child) =>
-                    child.path && location.pathname.includes(child.path)
+                  child => child.path && location.pathname.includes(child.path)
                 ),
               },
               "mt-1"
@@ -186,7 +187,7 @@ const BaseDrawerChild = ({
               {isOpenDrawer && (
                 <>
                   <Typography>{item.text}</Typography>
-                  <div className={`${!!selectedItem ? "open" : "close"}`}>
+                  <div className={`${selectedItem ? "open" : "close"}`}>
                     <ExpandMore />
                   </div>
                 </>
@@ -218,6 +219,7 @@ const BaseDrawerChild = ({
       disableHoverListener={isOpenDrawer}
     >
       <MenuItemListSideBar
+        role="menuitem"
         className={clsx({
           active:
             !isChild && item.path !== "/"
@@ -244,10 +246,10 @@ const BaseDrawerDesktop = ({
   switchIcon,
 }: IBaseDrawerDesktopProps) => {
   const navigate = useNavigate();
-  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(true);
 
   const handleToggleDrawer = () => {
-    setIsOpenDrawer((prev) => !prev);
+    setIsOpenDrawer(prev => !prev);
   };
 
   const handleGoHome = () => {
@@ -293,7 +295,7 @@ const BaseDrawerDesktop = ({
 
         <div className="h-3" />
 
-        <DrawerContentStyled isOpenDrawer={isOpenDrawer}>
+        <DrawerContentStyled isOpenDrawer={isOpenDrawer} role="presentation">
           {listItems.map((item, index) => (
             <BaseDrawerChild
               key={`${item.text}_${item.id}_${index}`}

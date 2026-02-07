@@ -1,16 +1,10 @@
 import { useMemo } from "react";
-import type { RouteObject } from "react-router";
 import Typography from "@mui/material/Typography";
 import { TrendingUp, Group, AttachMoney, Timeline } from "@mui/icons-material";
-import ChartsSection from "../components/dashboard/ChartsSection";
-import StatsGrid from "../components/dashboard/StatsGrid";
-import Highlights from "../components/dashboard/Highlights";
-import type { StatItem } from "../components/dashboard/StatsGrid";
-
-export const dashboardRoute: RouteObject = {
-  path: "/dashboard",
-  element: <DashboardPage />,
-};
+import ChartsSection from "@modules/dashboard/components/ChartsSection";
+import StatsGrid from "@modules/dashboard/components/StatsGrid";
+import Highlights from "@modules/dashboard/components/Highlights";
+import type { StatItem } from "@modules/dashboard/components/StatsGrid";
 
 const stats: StatItem[] = [
   { label: "Active Users", value: "12.4k", change: "+8.2%", icon: Group },
