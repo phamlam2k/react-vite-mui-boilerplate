@@ -1,37 +1,19 @@
 import { useMemo } from "react";
-import { Dashboard, Settings } from "@mui/icons-material";
-import DashboardUrls from "@modules/dashboard/_routes/path";
-import SettingsUrls from "@modules/settings/_routes/path";
 import type { MenuItemInterface } from "@shared/types/common.type";
+import { privateRouteChildren } from "@routes/privateRoute";
+import { extractMenuFromRoutes } from "../utils/extractMenuFromRoutes";
 
-const useGetMenuList = () => {
-  const list: MenuItemInterface[] = useMemo(() => {
-    return [
-      {
-        id: 1,
-        text: "Dashboard",
-        icon: <Dashboard />,
-        path: DashboardUrls.ROOT,
-      },
-      {
-        id: 2,
-        text: "Settings",
-        icon: <Settings />,
-        path: SettingsUrls.ROOT,
-        children: [
-          {
-            id: 1,
-            text: "Account Setting",
-            path: SettingsUrls.ACCOUNT,
-          },
-          {
-            id: 2,
-            text: "Color Setting",
-            path: SettingsUrls.COLOR,
-          },
-        ],
-      },
-    ];
+/**
+ * Hook để lấy menu list từ route config
+ * 
+ * Menu được auto-generate từ routes có meta.showInMenu = true
+ * Không cần hard-code menu nữa, chỉ cần config metadata trong route
+ * 
+ * @returns Menu items để hiển thị trong sidebar/drawer
+ */
+const useGetMenuList = (): MenuItemInterface[] => {
+  const list = useMemo(() => {
+    return extractMenuFromRoutes(privateRouteChildren);
   }, []);
 
   return list;

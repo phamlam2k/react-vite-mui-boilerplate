@@ -1,23 +1,9 @@
-import { FormProvider, useForm } from "react-hook-form";
-import { loginSchemaResolver, type LoginSchema } from "../utils/validations";
-import BaseTextFieldForm from "@shared/components/forms/BaseTextFieldForm";
 import Button from "@mui/material/Button";
-import { Google, GitHub } from "@mui/icons-material";
+import { GitHub } from "@mui/icons-material";
 import SignInButton from "@core/providers/google-oauth2/components/SignInButton";
+import LoginForm from "../components/LoginForm";
 
 function LoginPage() {
-  const form = useForm<LoginSchema>({
-    resolver: loginSchemaResolver,
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  const onSubmit = (data: LoginSchema) => {
-    console.log(data);
-  };
-
   return (
     <div className="w-screen h-screen">
       <div className="w-full h-full flex justify-center items-center">
@@ -26,27 +12,7 @@ function LoginPage() {
             Welcome to the system
           </h1>
 
-          <FormProvider {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-4 mt-5"
-            >
-              <BaseTextFieldForm
-                name="email"
-                label="Email"
-                placeholder="Enter your email"
-              />
-              <BaseTextFieldForm
-                name="password"
-                label="Password"
-                type="password"
-                placeholder="Enter your password"
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Login
-              </Button>
-            </form>
-          </FormProvider>
+          <LoginForm />
 
           <div className="my-4 border-t border-gray-200" />
 

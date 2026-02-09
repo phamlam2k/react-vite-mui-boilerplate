@@ -2,4 +2,18 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 
-createRoot(document.getElementById("root")!).render(<App />);
+async function enableMocking() {
+  if (import.meta.env.MODE !== "development") {
+    return;
+  }
+
+  const { worker } = await import("@core/__mocks__/browser.ts");
+
+  return worker.start({
+    onUnhandledRequest: "bypass",
+  });
+}
+
+enableMocking().then(() => {
+  createRoot(document.getElementById("root")!).render(<App />);
+});

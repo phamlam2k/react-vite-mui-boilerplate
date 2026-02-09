@@ -1,0 +1,768 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: Example.com
+  termsOfService: "https://example.com/terms/"
+  contact:
+    email: contact@example.com
+    url: "http://example.com/contact"
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  x-logo:
+    url: "https://redocly.github.io/openapi-template/logo.png"
+  description: >
+    This is an **example** API to demonstrate features of OpenAPI specification
+
+    # Introduction
+
+    This API definition is intended to to be a good starting point for
+    describing your API in 
+
+    [OpenAPI/Swagger
+    format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md).
+
+    It also demonstrates features of
+    [create-openapi-repo](https://github.com/Redocly/create-openapi-repo) tool
+    and 
+
+    [Redoc](https://github.com/Redocly/Redoc) documentation engine. So beyond
+    the standard OpenAPI syntax we use a few 
+
+    [vendor
+    extensions](https://github.com/Redocly/Redoc/blob/master/docs/redoc-vendor-extensions.md).
+
+
+    # OpenAPI Specification
+
+    The goal of The OpenAPI Specification is to define a standard,
+    language-agnostic interface to REST APIs which
+
+    allows both humans and computers to discover and understand the capabilities
+    of the service without access to source
+
+    code, documentation, or through network traffic inspection. When properly
+    defined via OpenAPI, a consumer can 
+
+    understand and interact with the remote service with a minimal amount of
+    implementation logic. Similar to what
+
+    interfaces have done for lower-level programming, OpenAPI removes the
+    guesswork in calling the service.
+externalDocs:
+  description: Find out how to create a GitHub repo for your OpenAPI definition.
+  url: "https://github.com/Rebilly/generator-openapi-repo"
+tags:
+  - name: Echo
+    description: Example echo operations
+  - name: User
+    description: Operations about user
+  - name: Auth
+    description: Authentication and token lifecycle
+  - name: User Management
+    description: Administrative user management APIs
+servers:
+  - url: "http://example.com/api/v1"
+  - url: "https://example.com/api/v1"
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register a new user
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRegisterRequest"
+      responses:
+        "201":
+          description: User registered and authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthLoginResponse"
+        "400":
+          description: Invalid payload
+        "409":
+          description: Username or email already exists
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login with username or email
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthLoginRequest"
+      responses:
+        "200":
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthLoginResponse"
+        "401":
+          description: Invalid credentials
+        "429":
+          description: "Too many attempts, try later"
+  /auth/refresh-token:
+    post:
+      tags:
+        - Auth
+      summary: Refresh access token
+      operationId: refreshAccessToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRefreshRequest"
+      responses:
+        "200":
+          description: New tokens issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthRefreshResponse"
+        "401":
+          description: Invalid or expired refresh token
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout and revoke refresh token
+      operationId: logoutUser
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthLogoutRequest"
+      responses:
+        "204":
+          description: Logout successful
+        "401":
+          description: Unauthorized
+  /auth/me:
+    get:
+      tags:
+        - Auth
+      summary: Get current user profile
+      description: >-
+        Returns the profile of the authenticated user based on the provided
+        access token.
+      operationId: getCurrentUser
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Invalid or missing access token
+  /users:
+    get:
+      tags:
+        - User Management
+      summary: List users
+      operationId: listUsers
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: Page number (1-based)
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          description: Number of records per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 20
+        - name: search
+          in: query
+          description: Free text search by username or email
+          schema:
+            type: string
+        - name: role
+          in: query
+          description: Filter by role
+          schema:
+            type: string
+            enum:
+              - user
+              - admin
+        - name: isActive
+          in: query
+          description: Filter active/inactive users
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Paginated list of users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserListResponse"
+        "401":
+          description: Unauthorized
+    post:
+      tags:
+        - User Management
+      summary: Create user
+      operationId: createUser
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateRequest"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "400":
+          description: Invalid payload
+        "401":
+          description: Unauthorized
+        "409":
+          description: Username or email already exists
+  "/users/{userId}":
+    parameters:
+      - name: userId
+        in: path
+        description: User identifier (UUID)
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - User Management
+      summary: Get user by id
+      operationId: getUserById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Unauthorized
+        "404":
+          description: User not found
+    patch:
+      tags:
+        - User Management
+      summary: Update user
+      operationId: updateUserById
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateRequest"
+      responses:
+        "200":
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "400":
+          description: Invalid payload
+        "401":
+          description: Unauthorized
+        "404":
+          description: User not found
+    delete:
+      tags:
+        - User Management
+      summary: Delete user
+      operationId: deleteUserById
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: User deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: User not found
+  "/users/{username}":
+    parameters:
+      - name: pretty_print
+        in: query
+        description: Pretty print response
+        schema:
+          type: boolean
+    get:
+      tags:
+        - User
+      summary: Get user by user name
+      description: |
+        Some description of the operation. 
+        You can use `markdown` here.
+      operationId: getUserByName
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be fetched
+          required: true
+          schema:
+            type: string
+        - name: with_email
+          in: query
+          description: Filter users without email
+          schema:
+            type: boolean
+      security:
+        - main_auth:
+            - "read:users"
+        - api_key: []
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                username: user1
+                email: user@example.com
+        "403":
+          description: Forbidden
+        "404":
+          description: User not found
+    put:
+      tags:
+        - User
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be updated
+          required: true
+          schema:
+            type: string
+      security:
+        - main_auth:
+            - "write:users"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Invalid user supplied
+        "404":
+          description: User not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/User"
+        description: Updated user object
+        required: true
+  /echo:
+    post:
+      tags:
+        - Echo
+      summary: Echo test
+      description: Receive the exact message you've sent
+      operationId: echo
+      security:
+        - api_key: []
+        - basic_auth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              $ref: "#/components/headers/ExpiresAfter"
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                response:
+                  value: Hello world!
+            application/xml:
+              schema:
+                type: string
+            text/csv:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              example: Hello world!
+          application/xml:
+            schema:
+              type: string
+              example: Hello world!
+        description: Echo payload
+        required: true
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    main_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: "http://example.com/api/oauth/dialog"
+          scopes:
+            "read:users": read users info
+            "write:users": modify or remove users
+    api_key:
+      type: apiKey
+      in: header
+      name: api_key
+    basic_auth:
+      type: http
+      scheme: basic
+  schemas:
+    Email:
+      description: User email address
+      type: string
+      format: email
+      example: john.smith@example.com
+    AuthRegisterRequest:
+      type: object
+      description: Registration payload for creating a new account
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 32
+          example: johnsmith
+        email:
+          $ref: "#/components/schemas/Email"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          description: User password
+          example: StrongPass!123
+        firstName:
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          type: string
+          minLength: 1
+          example: Smith
+      required:
+        - username
+        - email
+        - password
+        - firstName
+        - lastName
+    AuthTokens:
+      type: object
+      description: Access and refresh tokens issued after authentication
+      properties:
+        accessToken:
+          type: string
+          description: JWT used for authenticated requests
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        refreshToken:
+          type: string
+          description: Long-lived token used to obtain a new access token
+          example: dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
+        expiresIn:
+          type: integer
+          format: int64
+          description: Access token lifetime in seconds
+          example: 3600
+        tokenType:
+          type: string
+          description: Token type indicator
+          default: Bearer
+      required:
+        - accessToken
+        - refreshToken
+        - expiresIn
+        - tokenType
+    UserProfile:
+      type: object
+      description: Rich user profile returned by the API
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8b2e7f2d-4fd5-40a0-9e65-7e3d4c9f0f11
+        username:
+          type: string
+          minLength: 4
+          example: johnsmith
+        email:
+          $ref: "#/components/schemas/Email"
+        firstName:
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          type: string
+          minLength: 1
+          example: Smith
+        role:
+          type: string
+          description: Role assigned to the user
+          enum:
+            - user
+            - admin
+          example: user
+        isActive:
+          type: boolean
+          description: Indicates whether the user account is active
+          example: true
+        lastLoginAt:
+          type: string
+          format: date-time
+          description: Timestamp of the most recent successful login
+          example: "2024-05-10T14:32:10Z"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T08:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-05-10T14:32:10Z"
+      required:
+        - id
+        - username
+        - email
+        - firstName
+        - lastName
+        - role
+        - isActive
+        - createdAt
+        - updatedAt
+    AuthLoginResponse:
+      type: object
+      description: Tokens and user profile returned after authentication
+      properties:
+        tokens:
+          $ref: "#/components/schemas/AuthTokens"
+        user:
+          $ref: "#/components/schemas/UserProfile"
+      required:
+        - tokens
+        - user
+    AuthLoginRequest:
+      type: object
+      description: Credentials used to authenticate a user
+      properties:
+        usernameOrEmail:
+          type: string
+          description: Username or email used to login
+          minLength: 3
+          example: john.smith@example.com
+        password:
+          type: string
+          format: password
+          minLength: 8
+          description: User password
+          example: StrongPass!123
+      required:
+        - usernameOrEmail
+        - password
+    AuthRefreshRequest:
+      type: object
+      description: Payload used to obtain a new access token
+      properties:
+        refreshToken:
+          type: string
+          description: Valid refresh token issued during login or registration
+          example: dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
+      required:
+        - refreshToken
+    AuthRefreshResponse:
+      type: object
+      description: Tokens returned after refreshing an access token
+      properties:
+        tokens:
+          $ref: "#/components/schemas/AuthTokens"
+      required:
+        - tokens
+    AuthLogoutRequest:
+      type: object
+      description: Optional payload to revoke a specific refresh token during logout
+      properties:
+        refreshToken:
+          type: string
+          description: Refresh token to invalidate (omit to logout all sessions)
+          example: dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
+    PaginationMeta:
+      type: object
+      description: Pagination metadata for list responses
+      properties:
+        page:
+          type: integer
+          minimum: 1
+          example: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          maximum: 200
+          example: 20
+        totalItems:
+          type: integer
+          minimum: 0
+          example: 125
+        totalPages:
+          type: integer
+          minimum: 0
+          example: 7
+      required:
+        - page
+        - pageSize
+        - totalItems
+        - totalPages
+    UserListResponse:
+      type: object
+      description: Paginated list of users
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserProfile"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    UserCreateRequest:
+      type: object
+      description: Payload used to create a new user by an administrator
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 32
+          example: johnsmith
+        email:
+          $ref: "#/components/schemas/Email"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          description: Temporary or initial password
+          example: StrongPass!123
+        firstName:
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          type: string
+          minLength: 1
+          example: Smith
+        role:
+          type: string
+          enum:
+            - user
+            - admin
+          default: user
+        isActive:
+          type: boolean
+          default: true
+      required:
+        - username
+        - email
+        - password
+        - firstName
+        - lastName
+    UserUpdateRequest:
+      type: object
+      description: Partial update payload for an existing user
+      properties:
+        email:
+          $ref: "#/components/schemas/Email"
+        firstName:
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          type: string
+          minLength: 1
+          example: Smith
+        password:
+          type: string
+          format: password
+          minLength: 8
+          description: New password; omit to keep current
+          example: StrongPass!123
+        role:
+          type: string
+          enum:
+            - user
+            - admin
+        isActive:
+          type: boolean
+    User:
+      type: object
+      properties:
+        username:
+          description: User supplied username
+          type: string
+          minLength: 4
+          example: John78
+        firstName:
+          description: User first name
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          description: User last name
+          type: string
+          minLength: 1
+          example: Smith
+        email:
+          $ref: "#/components/schemas/Email"
+  headers:
+    ExpiresAfter:
+      description: date in UTC when token expires
+      schema:
+        type: string
+        format: date-time

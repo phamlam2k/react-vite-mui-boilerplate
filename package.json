@@ -60,11 +60,17 @@
     "husky": "^9.1.7",
     "jsdom": "^27.3.0",
     "msw": "^2.12.4",
+    "openapi-typescript": "^7.10.1",
     "swagger-axios-codegen": "^0.17.4",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.0.15"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

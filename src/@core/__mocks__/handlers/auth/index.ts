@@ -1,3 +1,4 @@
+import type { AuthLoginRequest } from "@modules/auth/_api/auth.type";
 import { http, HttpResponse } from "msw";
 
 const fakeAccessToken = "fake-access-token";
@@ -11,13 +12,11 @@ const fakeUser = {
 };
 
 export const authHandlers = [
-  http.post("/auth/login", async ({ request }) => {
-    const { email, password } = (await request.json()) as {
-      email?: string;
-      password?: string;
-    };
+  http.post("/api/v1/auth/login", async ({ request }) => {
+    const { usernameOrEmail, password } =
+      (await request.json()) as AuthLoginRequest;
 
-    if (!email || !password) {
+    if (!usernameOrEmail || !password) {
       return HttpResponse.json(
         { message: "Email hoặc mật khẩu không hợp lệ" },
         { status: 400 }
@@ -30,7 +29,7 @@ export const authHandlers = [
     });
   }),
 
-  http.get("/auth/me", ({ request }) => {
+  http.get("/api/v1/auth/me", ({ request }) => {
     const authHeader = request.headers.get("authorization");
     const token = authHeader?.replace("Bearer ", "");
 

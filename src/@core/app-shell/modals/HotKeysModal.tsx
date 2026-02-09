@@ -25,7 +25,7 @@ const HotkeysModal = ({ type }: ModalStack<HotKeysModalProps>) => {
 
   const filteredMenu = useMemo(() => {
     return searchMenu(menu, searchText);
-  }, [searchText]);
+  }, [menu, searchText]);
 
   function handleClose() {
     close(type);
