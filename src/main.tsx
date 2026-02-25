@@ -9,8 +9,8 @@ async function enableMocking() {
 
   const { worker } = await import("@core/__mocks__/browser.ts");
 
-  return worker.start({
-    onUnhandledRequest: "bypass",
+  return await worker.start({
+    onUnhandledRequest: "warn",
   });
 }
 

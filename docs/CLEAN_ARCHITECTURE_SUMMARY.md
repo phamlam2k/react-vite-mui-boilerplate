@@ -53,56 +53,96 @@ modules/products/
 ├── types/              🔵 Domain
 │   └── Product.type.ts
 │
-├── _api/               🟢 Use Cases + 🔵 Domain
-│   ├── products.type.ts    (DTOs)
-│   └── products.api.ts     (Gateway)
+├── _domain/            🔵 Domain (Innermost)
+│   ├── <feature>.model.ts   # Business models
+│   └── <feature>.rules.ts   # Business rules, constants
 │
-├── hooks/              🟢 Use Cases
-│   ├── useProducts.ts
-│   └── useCreateProduct.ts
+├── _usecases/          🟢 Use Cases
+│   ├── validations.ts       # Zod schemas (uses domain rules)
+│   └── mappers.ts           # Transformations (DTO ↔ Model)
 │
-├── utils/              🟢 Use Cases
-│   ├── validations.ts
-│   └── mappers.ts
+├── _api/               🟢 Use Cases (Gateway)
+│   ├── <feature>.api.ts     # API calls
+│   └── <feature>.type.ts    # DTOs
 │
-├── components/         🟡 Adapters
-│   ├── ProductCard.tsx
-│   └── ProductForm.tsx
+├── _providers/         🔴 Infrastructure (optional)
+│   └── <Feature>Provider.tsx
 │
-└── pages/              🟡 Adapters
-    └── ProductsPage.tsx
+├── _routes/            🟡 Adapters
+│   ├── index.tsx
+│   └── path.ts
+│
+├── <sub-feature>/      # Sub-feature (optional)
+│   ├── components/          # 🟡 Adapters
+│   ├── hooks/               # 🟢 Use Cases
+│   └── pages/               # 🟡 Adapters
+│
+├── components/         🟡 Adapters (top-level)
+├── hooks/              🟢 Use Cases (top-level)
+└── pages/              🟡 Adapters (top-level)
 ```
 
 ## 🔄 Data Flow Example
 
 ```typescript
-// 1. 🔵 Domain - Types
-interface Product {
+// 1. 🔵 Domain - Business Rules
+// modules/auth/_domain/auth.rules.ts
+export const MIN_PASSWORD_LENGTH = 8;
+
+// 2. 🔵 Domain - Models
+// modules/auth/_domain/auth.model.ts
+export interface User {
   id: string;
+  email: string;
   name: string;
-  price: number;
 }
 
-// 2. 🟢 Use Case - API
-const productsApi = {
-  getAll: async () => {
-    const res = await axios.get('/products');
-    return res.data.map(mapDTOToProduct); // Transform
+// 3. 🟢 Use Case - Validation (uses domain rules)
+// modules/auth/_usecases/validations.ts
+import { MIN_PASSWORD_LENGTH } from "../_domain/auth.rules";
+
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(MIN_PASSWORD_LENGTH),
+});
+
+// 4. 🟢 Use Case - Mapper
+// modules/auth/_usecases/mappers.ts
+export function mapLoginFormToApi(data: LoginSchema): AuthLoginRequest {
+  return {
+    usernameOrEmail: data.email.trim(),
+    password: data.password,
+  };
+}
+
+// 5. 🟢 Use Case - API Gateway (uses mapper)
+// modules/auth/_api/auth.api.ts
+const authApi = {
+  login: async (data: AuthLoginRequest) => {
+    const res = await axiosInstance.post('/auth/login', data);
+    return res.data;
   }
 };
 
-// 3. 🟢 Use Case - Hook
-const useProducts = () => {
-  return useQuery({
-    queryKey: ['products'],
-    queryFn: productsApi.getAll,
+// 6. 🟢 Use Case - Hook (uses API)
+// modules/auth/login/hooks/useLoginMutate.ts
+const useLoginMutate = () => {
+  return useMutation({
+    mutationFn: authApi.login,
   });
 };
 
-// 4. 🟡 Adapter - Page
-function ProductsPage() {
-  const { data } = useProducts();
-  return <ProductList products={data} />;
+// 7. 🟡 Adapter - Component (uses hook & validation)
+// modules/auth/login/components/LoginForm.tsx
+function LoginForm() {
+  const { mutate } = useLoginMutate();
+  const form = useForm({ resolver: zodResolver(loginSchema) });
+  
+  const onSubmit = (data: LoginSchema) => {
+    mutate(mapLoginFormToApi(data));
+  };
+  
+  return <form onSubmit={form.handleSubmit(onSubmit)}>...</form>;
 }
 ```
 

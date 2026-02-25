@@ -1,12 +1,13 @@
-import { http, HttpResponse } from "msw";
 import { authHandlers } from "./handlers/auth/index.js";
+import { usersHandlers } from "./handlers/users/index.js";
+import { employeesHandlers } from "./handlers/employees/index.js";
+import { organizationsHandlers } from "./handlers/organizations/index.js";
+import { permissionsHandlers } from "./handlers/permissions/index.js";
 
 export const handlers = [
   ...authHandlers,
-  http.get("https://api.example.com/user", () => {
-    return HttpResponse.json({
-      firstName: "John",
-      lastName: "Maverick",
-    });
-  }),
+  ...usersHandlers,
+  ...employeesHandlers,
+  ...organizationsHandlers,
+  ...permissionsHandlers,
 ];

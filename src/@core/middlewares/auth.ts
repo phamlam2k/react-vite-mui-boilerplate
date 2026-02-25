@@ -7,7 +7,7 @@ const authMiddleware = async (_args: any, next: any) => {
   //   throw redirect(AuthUrls.LOGIN);
   // }
 
-  return next();
+  return await next();
 };
 
 export default authMiddleware;

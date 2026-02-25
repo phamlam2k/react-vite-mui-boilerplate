@@ -7,4 +7,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   base: "./",
   plugins: [react(), tailwindcss(), tsconfigPaths()],
+  server: {
+    host: true,
+    port: 5173,
+  },
 });

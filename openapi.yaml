@@ -1,9 +1,10 @@
 openapi: 3.0.2
 info:
   version: 1.0.0
-  title: Example.com
+  title: HRM SaaS API
   termsOfService: "https://example.com/terms/"
   contact:
+    name: HRM SaaS Support
     email: contact@example.com
     url: "http://example.com/contact"
   license:
@@ -12,58 +13,91 @@ info:
   x-logo:
     url: "https://redocly.github.io/openapi-template/logo.png"
   description: >
-    This is an **example** API to demonstrate features of OpenAPI specification
-
-    # Introduction
-
-    This API definition is intended to to be a good starting point for
-    describing your API in 
-
-    [OpenAPI/Swagger
-    format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md).
-
-    It also demonstrates features of
-    [create-openapi-repo](https://github.com/Redocly/create-openapi-repo) tool
-    and 
-
-    [Redoc](https://github.com/Redocly/Redoc) documentation engine. So beyond
-    the standard OpenAPI syntax we use a few 
-
-    [vendor
-    extensions](https://github.com/Redocly/Redoc/blob/master/docs/redoc-vendor-extensions.md).
+    Production-grade **HRM SaaS** REST API — multi-tenant, role-based, and
+    OpenAPI-first.
 
 
-    # OpenAPI Specification
+    ## Modules
 
-    The goal of The OpenAPI Specification is to define a standard,
-    language-agnostic interface to REST APIs which
+    | Tag | Description | |-----|-------------| | Auth | Login, register, token
+    refresh, current user | | Organization | Company → BU → Department → Team
+    hierarchy | | Employee | Onboarding, profiles, employment contracts | |
+    Attendance | Check-in/out, corrections & approvals | | Timesheet | Weekly
+    time entries, submit & approve flow | | Payroll | Payroll cycles,
+    calculation, approval, payslips | | Project | Project lifecycle & resource
+    allocation | | Task | Tasks with status transitions | | Leave | Leave
+    requests, balances, policies | | Performance Review | Review cycles and
+    results | | RBAC | Roles and fine-grained permissions | | Reporting | Async
+    report generation and download |
 
-    allows both humans and computers to discover and understand the capabilities
-    of the service without access to source
 
-    code, documentation, or through network traffic inspection. When properly
-    defined via OpenAPI, a consumer can 
+    ## Authentication
 
-    understand and interact with the remote service with a minimal amount of
-    implementation logic. Similar to what
+    All endpoints (except `/auth/login` and `/auth/register`) require a `Bearer`
+    JWT access token obtained from `/auth/login`.
 
-    interfaces have done for lower-level programming, OpenAPI removes the
-    guesswork in calling the service.
+    ``` Authorization: Bearer <accessToken> ```
+
+    Use `/auth/refresh-token` to renew the access token before expiry.
+
+
+    ## Pagination
+
+    List endpoints return:
+
+    ```json {
+      "data": [...],
+      "meta": { "page": 1, "pageSize": 20, "totalItems": 125, "totalPages": 7 }
+    } ```
+
+    ## Error format
+
+    ```json {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "One or more fields are invalid",
+        "details": [{ "field": "email", "message": "Must be a valid email" }]
+      }
+    } ```
 externalDocs:
-  description: Find out how to create a GitHub repo for your OpenAPI definition.
-  url: "https://github.com/Rebilly/generator-openapi-repo"
+  description: Architecture overview and onboarding guide
+  url: "https://github.com/example/hrm-saas"
 tags:
-  - name: Echo
-    description: Example echo operations
-  - name: User
-    description: Operations about user
   - name: Auth
     description: Authentication and token lifecycle
+  - name: Organization
+    description: Company / BU / Department / Team management
+  - name: Employee
+    description: "Employee onboarding, profiles and contracts"
+  - name: Attendance
+    description: "Check-in/out, corrections and approvals"
+  - name: Timesheet
+    description: "Weekly timesheets, submission and approval"
+  - name: Payroll
+    description: "Payroll cycles, calculation, lock and payslips"
+  - name: Project
+    description: Project lifecycle and resource management
+  - name: Task
+    description: Tasks within projects with status transitions
+  - name: Leave
+    description: "Leave requests, balances and policies"
+  - name: Performance Review
+    description: Review cycles and individual results
+  - name: RBAC
+    description: Roles and fine-grained permission management
+  - name: Reporting
+    description: Async report generation and download
   - name: User Management
     description: Administrative user management APIs
+  - name: User
+    description: Legacy user profile operations
+  - name: Echo
+    description: Example echo operations
 servers:
-  - url: "http://example.com/api/v1"
-  - url: "https://example.com/api/v1"
+  - url: "http://localhost:3000/api/v1"
+    description: Local development
+  - url: "https://api.hrm.example.com/v1"
+    description: Production
 paths:
   /auth/register:
     post:
@@ -171,6 +205,2689 @@ paths:
                 $ref: "#/components/schemas/UserProfile"
         "401":
           description: Invalid or missing access token
+  /organizations:
+    get:
+      tags:
+        - Organization
+      summary: List organizational units
+      operationId: listOrgUnits
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: type
+          in: query
+          description: Filter by unit type
+          schema:
+            type: string
+            enum:
+              - company
+              - business_unit
+              - department
+              - team
+        - name: parentId
+          in: query
+          description: Filter by parent org unit id
+          schema:
+            type: string
+            format: uuid
+        - name: isActive
+          in: query
+          schema:
+            type: boolean
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 20
+      responses:
+        "200":
+          description: Paginated list of org units
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgUnitListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Organization
+      summary: Create organizational unit
+      operationId: createOrgUnit
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrgUnitCreateRequest"
+      responses:
+        "201":
+          description: Org unit created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgUnit"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Code already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/organizations/{orgId}":
+    parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Organizational unit ID (UUID)
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Organization
+      summary: Get organizational unit by id
+      operationId: getOrgUnitById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Org unit detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgUnit"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - Organization
+      summary: Update organizational unit
+      operationId: updateOrgUnit
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrgUnitUpdateRequest"
+      responses:
+        "200":
+          description: Updated org unit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgUnit"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - Organization
+      summary: Delete organizational unit (soft delete)
+      operationId: deleteOrgUnit
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Deleted
+        "400":
+          description: Cannot delete unit with active members
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/organizations/{orgId}/children":
+    parameters:
+      - name: orgId
+        in: path
+        required: true
+        description: Parent organizational unit ID
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Organization
+      summary: Get direct children of an organizational unit
+      operationId: getOrgUnitChildren
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of direct children
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgUnitListResponse"
+        "404":
+          description: Parent org unit not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /employees:
+    get:
+      tags:
+        - Employee
+      summary: List employees
+      operationId: listEmployees
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          description: "Search by name, email, or employee code"
+          schema:
+            type: string
+        - name: orgUnitId
+          in: query
+          description: Filter by department/team
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - probation
+              - active
+              - on_leave
+              - terminated
+        - name: workMode
+          in: query
+          schema:
+            type: string
+            enum:
+              - office
+              - remote
+              - hybrid
+        - name: managerId
+          in: query
+          description: Filter by direct manager
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 20
+      responses:
+        "200":
+          description: Paginated list of employees
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Employee
+      summary: Onboard a new employee
+      operationId: createEmployee
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmployeeCreateRequest"
+      responses:
+        "201":
+          description: Employee created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeProfile"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/employees/{employeeId}":
+    parameters:
+      - name: employeeId
+        in: path
+        required: true
+        description: Employee ID (UUID)
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Employee
+      summary: Get employee by id
+      operationId: getEmployeeById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Employee profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeProfile"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - Employee
+      summary: Update employee profile
+      operationId: updateEmployee
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmployeeUpdateRequest"
+      responses:
+        "200":
+          description: Updated employee profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeProfile"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - Employee
+      summary: Terminate / soft-delete employee
+      operationId: deleteEmployee
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Employee terminated
+        "404":
+          description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/employees/{employeeId}/contracts":
+    parameters:
+      - name: employeeId
+        in: path
+        required: true
+        description: Employee ID (UUID)
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Employee
+      summary: List contracts for an employee
+      operationId: listEmployeeContracts
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of contracts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Contract"
+        "404":
+          description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Employee
+      summary: Add a new contract for an employee
+      operationId: createEmployeeContract
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContractCreateRequest"
+      responses:
+        "201":
+          description: Contract created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Contract"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Business rule violation (e.g. overlapping contract dates)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /attendance/check-in:
+    post:
+      tags:
+        - Attendance
+      summary: Employee check-in
+      operationId: attendanceCheckIn
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttendanceCheckInRequest"
+      responses:
+        "201":
+          description: Check-in recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceRecord"
+        "400":
+          description: Already checked in today
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: GPS out of geofence / work mode not allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /attendance/check-out:
+    post:
+      tags:
+        - Attendance
+      summary: Employee check-out
+      operationId: attendanceCheckOut
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttendanceCheckOutRequest"
+      responses:
+        "200":
+          description: Check-out recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceRecord"
+        "400":
+          description: No active check-in found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /attendance/records:
+    get:
+      tags:
+        - Attendance
+      summary: List attendance records
+      operationId: listAttendanceRecords
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: employeeId
+          in: query
+          description: Filter by employee (managers can query team; employees see own)
+          schema:
+            type: string
+            format: uuid
+        - name: orgUnitId
+          in: query
+          description: Filter by department
+          schema:
+            type: string
+            format: uuid
+        - name: dateFrom
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+            example: "2024-06-01"
+        - name: dateTo
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+            example: "2024-06-30"
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - present
+              - absent
+              - late
+              - half_day
+              - corrected
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 20
+      responses:
+        "200":
+          description: Paginated attendance records
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /attendance/corrections:
+    get:
+      tags:
+        - Attendance
+      summary: List attendance correction requests
+      operationId: listAttendanceCorrections
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: employeeId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - pending
+              - approved
+              - rejected
+        - name: dateFrom
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Paginated correction requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceCorrectionListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Attendance
+      summary: Submit attendance correction request
+      operationId: createAttendanceCorrection
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttendanceCorrectionRequest"
+      responses:
+        "201":
+          description: Correction request submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceCorrection"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/attendance/corrections/{correctionId}/approve":
+    parameters:
+      - name: correctionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Attendance
+      summary: Approve an attendance correction request
+      operationId: approveAttendanceCorrection
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note:
+                  type: string
+                  nullable: true
+                  example: Confirmed with office reception log
+      responses:
+        "200":
+          description: Correction approved and attendance record updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceCorrection"
+        "404":
+          description: Correction request not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Request is not in pending state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/attendance/corrections/{correctionId}/reject":
+    parameters:
+      - name: correctionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Attendance
+      summary: Reject an attendance correction request
+      operationId: rejectAttendanceCorrection
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  minLength: 5
+                  example: No supporting evidence found in security logs
+              required:
+                - reason
+      responses:
+        "200":
+          description: Correction rejected
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendanceCorrection"
+        "404":
+          description: Correction request not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Request is not in pending state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /timesheets:
+    get:
+      tags:
+        - Timesheet
+      summary: List timesheets
+      operationId: listTimesheets
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: employeeId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - draft
+              - submitted
+              - approved
+              - rejected
+              - locked
+        - name: periodStart
+          in: query
+          schema:
+            type: string
+            format: date
+            example: "2024-06-01"
+        - name: periodEnd
+          in: query
+          schema:
+            type: string
+            format: date
+            example: "2024-06-30"
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Paginated timesheets
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TimesheetListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Timesheet
+      summary: Create a timesheet
+      operationId: createTimesheet
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TimesheetCreateRequest"
+      responses:
+        "201":
+          description: Timesheet created as draft
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Timesheet"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Timesheet already exists for this period
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/timesheets/{timesheetId}":
+    parameters:
+      - name: timesheetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Timesheet
+      summary: Get timesheet by id
+      operationId: getTimesheetById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Timesheet with entries
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Timesheet"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/timesheets/{timesheetId}/submit":
+    parameters:
+      - name: timesheetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Timesheet
+      summary: Submit timesheet for approval
+      operationId: submitTimesheet
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Timesheet submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Timesheet"
+        "404":
+          description: Timesheet not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Timesheet is not in draft state or missing required hours
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/timesheets/{timesheetId}/approve":
+    parameters:
+      - name: timesheetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Timesheet
+      summary: Approve a submitted timesheet
+      operationId: approveTimesheet
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Timesheet approved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Timesheet"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Timesheet is not in submitted state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/timesheets/{timesheetId}/reject":
+    parameters:
+      - name: timesheetId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Timesheet
+      summary: Reject a submitted timesheet
+      operationId: rejectTimesheet
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TimesheetRejectRequest"
+      responses:
+        "200":
+          description: Timesheet rejected
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Timesheet"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Timesheet is not in submitted state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /payroll/cycles:
+    get:
+      tags:
+        - Payroll
+      summary: List payroll cycles
+      operationId: listPayrollCycles
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - draft
+              - calculated
+              - approved
+              - locked
+              - paid
+        - name: year
+          in: query
+          schema:
+            type: integer
+            example: 2024
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Paginated payroll cycles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayrollCycleListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Payroll
+      summary: Create a new payroll cycle
+      operationId: createPayrollCycle
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PayrollCycleCreateRequest"
+      responses:
+        "201":
+          description: Payroll cycle created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayrollCycle"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Overlapping cycle already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/payroll/cycles/{cycleId}":
+    parameters:
+      - name: cycleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Payroll
+      summary: Get payroll cycle by id
+      operationId: getPayrollCycleById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Payroll cycle detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayrollCycle"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/payroll/cycles/{cycleId}/calculate":
+    parameters:
+      - name: cycleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Payroll
+      summary: Trigger payroll calculation for a cycle
+      description: >
+        Calculates gross/net salaries for all employees by pulling active
+        contracts, approved timesheets, and salary components. Results are
+        stored as draft payroll records.
+      operationId: calculatePayrollCycle
+      security:
+        - bearerAuth: []
+      responses:
+        "202":
+          description: Calculation job triggered; poll cycle status for completion
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayrollCycle"
+        "404":
+          description: Cycle not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Cycle is locked or already calculated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/payroll/cycles/{cycleId}/approve":
+    parameters:
+      - name: cycleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Payroll
+      summary: Approve a calculated payroll cycle
+      operationId: approvePayrollCycle
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note:
+                  type: string
+                  nullable: true
+                  example: All records reviewed and confirmed correct
+      responses:
+        "200":
+          description: Payroll cycle approved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayrollCycle"
+        "404":
+          description: Cycle not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Cycle is not in calculated state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/payroll/cycles/{cycleId}/lock":
+    parameters:
+      - name: cycleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Payroll
+      summary: Lock an approved payroll cycle
+      description: >
+        Locking freezes all payroll records, generates payslips, and triggers
+        banking/accounting export. No changes are allowed after locking.
+      operationId: lockPayrollCycle
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Payroll cycle locked
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayrollCycle"
+        "404":
+          description: Cycle not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Cycle is not in approved state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/payroll/cycles/{cycleId}/records":
+    parameters:
+      - name: cycleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Payroll
+      summary: List payroll records in a cycle
+      operationId: listPayrollRecords
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: employeeId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: orgUnitId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - draft
+              - approved
+              - locked
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 20
+      responses:
+        "200":
+          description: Paginated payroll records (payslip list)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayrollRecordListResponse"
+        "404":
+          description: Cycle not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/payroll/records/{recordId}":
+    parameters:
+      - name: recordId
+        in: path
+        required: true
+        description: Payroll record (payslip) ID
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Payroll
+      summary: Get payroll record (payslip) by id
+      description: >-
+        Returns full payslip with all salary component lines. Employees can
+        access only their own record.
+      operationId: getPayrollRecordById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Full payslip detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PayrollRecord"
+        "403":
+          description: Forbidden — not own payslip and no payroll.view.all permission
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Record not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /projects:
+    get:
+      tags:
+        - Project
+      summary: List projects
+      operationId: listProjects
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - planned
+              - active
+              - on_hold
+              - completed
+              - cancelled
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: managerId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Paginated projects
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Project
+      summary: Create a project
+      operationId: createProject
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectCreateRequest"
+      responses:
+        "201":
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/projects/{projectId}":
+    parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Project
+      summary: Get project by id
+      operationId: getProjectById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Project detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - Project
+      summary: Update project
+      operationId: updateProject
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectUpdateRequest"
+      responses:
+        "200":
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - Project
+      summary: Delete (archive) a project
+      operationId: deleteProject
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Project deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/projects/{projectId}/members":
+    parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Project
+      summary: List project members
+      operationId: listProjectMembers
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: isActive
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of project members
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ProjectMember"
+        "404":
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Project
+      summary: Add member to project
+      operationId: addProjectMember
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectMemberCreateRequest"
+      responses:
+        "201":
+          description: Member added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectMember"
+        "409":
+          description: Employee is already a member of this project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/projects/{projectId}/members/{memberId}":
+    parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: memberId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    delete:
+      tags:
+        - Project
+      summary: Remove member from project
+      operationId: removeProjectMember
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Member removed
+        "404":
+          description: Project or member not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/projects/{projectId}/tasks":
+    parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Task
+      summary: List tasks in a project
+      operationId: listProjectTasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - todo
+              - in_progress
+              - in_review
+              - done
+              - cancelled
+        - name: assigneeId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: priority
+          in: query
+          schema:
+            type: string
+            enum:
+              - low
+              - medium
+              - high
+              - critical
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 20
+      responses:
+        "200":
+          description: Paginated tasks
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskListResponse"
+        "404":
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Task
+      summary: Create a task in a project
+      operationId: createTask
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskCreateRequest"
+      responses:
+        "201":
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/tasks/{taskId}":
+    parameters:
+      - name: taskId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Task
+      summary: Get task by id
+      operationId: getTaskById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Task detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - Task
+      summary: Update task
+      operationId: updateTask
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskUpdateRequest"
+      responses:
+        "200":
+          description: Updated task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - Task
+      summary: Delete task
+      operationId: deleteTask
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Task deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/tasks/{taskId}/status":
+    parameters:
+      - name: taskId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Task
+      summary: Transition task to a new status
+      operationId: updateTaskStatus
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskStatusUpdateRequest"
+      responses:
+        "200":
+          description: Task status updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Invalid status transition
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /leave/requests:
+    get:
+      tags:
+        - Leave
+      summary: List leave requests
+      operationId: listLeaveRequests
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: employeeId
+          in: query
+          description: Filter by employee; employees see only own requests
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - draft
+              - submitted
+              - approved
+              - rejected
+              - cancelled
+        - name: policyCode
+          in: query
+          schema:
+            type: string
+            example: ANNUAL
+        - name: dateFrom
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Paginated leave requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequestListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Leave
+      summary: Submit a leave request
+      operationId: createLeaveRequest
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeaveRequestCreateRequest"
+      responses:
+        "201":
+          description: Leave request submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+        "400":
+          description: Invalid payload or date range
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Insufficient balance or blackout period
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/leave/requests/{requestId}":
+    parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Leave
+      summary: Get leave request by id
+      operationId: getLeaveRequestById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Leave request detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/leave/requests/{requestId}/approve":
+    parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Leave
+      summary: Approve a leave request
+      operationId: approveLeaveRequest
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeaveDecisionRequest"
+      responses:
+        "200":
+          description: Leave request approved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+        "403":
+          description: Not in approver chain
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Request is not in submitted state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/leave/requests/{requestId}/reject":
+    parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Leave
+      summary: Reject a leave request
+      operationId: rejectLeaveRequest
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeaveDecisionRequest"
+      responses:
+        "200":
+          description: Leave request rejected
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+        "403":
+          description: Not in approver chain
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Request is not in submitted state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/leave/requests/{requestId}/cancel":
+    parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Leave
+      summary: Cancel own leave request
+      operationId: cancelLeaveRequest
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Leave request cancelled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveRequest"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Cannot cancel an already approved or rejected request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /leave/balances:
+    get:
+      tags:
+        - Leave
+      summary: Get leave balances
+      operationId: getLeaveBalances
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: employeeId
+          in: query
+          description: Employee to query; defaults to current user
+          schema:
+            type: string
+            format: uuid
+        - name: year
+          in: query
+          schema:
+            type: integer
+            example: 2024
+      responses:
+        "200":
+          description: Leave balances per policy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaveBalanceListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /leave/policies:
+    get:
+      tags:
+        - Leave
+      summary: List leave policies for the tenant
+      operationId: listLeavePolicies
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: isActive
+          in: query
+          schema:
+            type: boolean
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - annual
+              - sick
+              - unpaid
+              - maternity
+              - paternity
+              - compensatory
+              - other
+      responses:
+        "200":
+          description: Paginated leave policies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeavePolicyListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /reviews/cycles:
+    get:
+      tags:
+        - Performance Review
+      summary: List performance review cycles
+      operationId: listReviewCycles
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - draft
+              - active
+              - in_calibration
+              - completed
+              - cancelled
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - annual
+              - semi_annual
+              - quarterly
+              - probation
+              - custom
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+      responses:
+        "200":
+          description: Paginated review cycles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewCycleListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Performance Review
+      summary: Create a performance review cycle
+      operationId: createReviewCycle
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewCycleCreateRequest"
+      responses:
+        "201":
+          description: Review cycle created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewCycle"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/reviews/cycles/{cycleId}":
+    parameters:
+      - name: cycleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Performance Review
+      summary: Get review cycle by id
+      operationId: getReviewCycleById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Review cycle detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewCycle"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/reviews/cycles/{cycleId}/results":
+    parameters:
+      - name: cycleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Performance Review
+      summary: List review results for a cycle
+      operationId: listReviewResults
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - pending
+              - self_submitted
+              - manager_submitted
+              - finalized
+        - name: employeeId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Paginated review results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewResultListResponse"
+        "404":
+          description: Cycle not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/reviews/cycles/{cycleId}/finalize":
+    parameters:
+      - name: cycleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - Performance Review
+      summary: Finalize a review cycle
+      description: Marks the cycle as completed and makes all results read-only.
+      operationId: finalizeReviewCycle
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Review cycle finalized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewCycle"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Not all results have been submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /roles:
+    get:
+      tags:
+        - RBAC
+      summary: List roles
+      operationId: listRoles
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Paginated roles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - RBAC
+      summary: Create a custom role
+      operationId: createRole
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleCreateRequest"
+      responses:
+        "201":
+          description: Role created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "409":
+          description: Role name already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/roles/{roleId}":
+    parameters:
+      - name: roleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - RBAC
+      summary: Get role by id with permissions
+      operationId: getRoleById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Role with all permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - RBAC
+      summary: Update role name / description
+      operationId: updateRole
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 2
+                  example: Payroll Admin
+                description:
+                  type: string
+                  nullable: true
+                  example: Full access to payroll module
+      responses:
+        "200":
+          description: Updated role
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - RBAC
+      summary: Delete a custom role
+      operationId: deleteRole
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Role deleted
+        "400":
+          description: Cannot delete a system role
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/roles/{roleId}/permissions":
+    parameters:
+      - name: roleId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - RBAC
+      summary: Get permissions assigned to a role
+      operationId: getRolePermissions
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Permissions assigned to role
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PermissionListResponse"
+        "404":
+          description: Role not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - RBAC
+      summary: Replace the full permission set of a role
+      operationId: setRolePermissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RolePermissionsUpdateRequest"
+      responses:
+        "200":
+          description: Updated permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PermissionListResponse"
+        "404":
+          description: Role not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /permissions:
+    get:
+      tags:
+        - RBAC
+      summary: List all available permissions
+      description: >-
+        Returns the full catalog of permission keys for use in role
+        configuration UIs.
+      operationId: listPermissions
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: group
+          in: query
+          description: "Filter by permission group (e.g. Payroll, Leave)"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: All permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PermissionListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /reports:
+    get:
+      tags:
+        - Reporting
+      summary: List previously generated reports
+      operationId: listReports
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - payroll_summary
+              - attendance_summary
+              - leave_summary
+              - headcount
+              - project_utilization
+              - performance_distribution
+              - custom
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - pending
+              - processing
+              - ready
+              - failed
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Paginated report list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportListResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /reports/run:
+    post:
+      tags:
+        - Reporting
+      summary: Trigger a report generation job
+      description: >-
+        Async – returns 202 with report id. Poll GET /reports/{id} until
+        status=ready.
+      operationId: runReport
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReportRunRequest"
+      responses:
+        "202":
+          description: Report job accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  "/reports/{reportId}":
+    parameters:
+      - name: reportId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Reporting
+      summary: Get report by id (poll for status and download URL)
+      operationId: getReportById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Report status and download link when ready
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+        "404":
+          description: Report not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /users:
     get:
       tags:
@@ -445,6 +3162,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: JWT access token obtained from /auth/login
     main_auth:
       type: oauth2
       flows:
@@ -634,6 +3352,66 @@ components:
           type: string
           description: Refresh token to invalidate (omit to logout all sessions)
           example: dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
+    OrgUnit:
+      type: object
+      description: "An organizational unit — company, business unit, department, or team"
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        name:
+          type: string
+          example: Engineering
+        type:
+          type: string
+          enum:
+            - company
+            - business_unit
+            - department
+            - team
+          example: department
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+          example: 9c1f84a2-1234-4321-abcd-0987654321ef
+        code:
+          type: string
+          example: ENG-001
+        description:
+          type: string
+          nullable: true
+          example: Core software engineering department
+        isActive:
+          type: boolean
+          example: true
+        headEmployeeId:
+          type: string
+          format: uuid
+          nullable: true
+          description: Employee designated as department head
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T08:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-06-01T12:00:00Z"
+      required:
+        - id
+        - tenantId
+        - name
+        - type
+        - isActive
+        - createdAt
+        - updatedAt
     PaginationMeta:
       type: object
       description: Pagination metadata for list responses
@@ -660,6 +3438,2767 @@ components:
         - pageSize
         - totalItems
         - totalPages
+    OrgUnitListResponse:
+      type: object
+      description: Paginated list of organizational units
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrgUnit"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    ErrorResponse:
+      type: object
+      description: Standard error envelope returned on all non-2xx responses
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              example: VALIDATION_ERROR
+            message:
+              type: string
+              description: Human-readable summary
+              example: One or more fields are invalid
+            details:
+              type: array
+              description: Field-level validation errors (optional)
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    example: email
+                  message:
+                    type: string
+                    example: Must be a valid email address
+          required:
+            - code
+            - message
+      required:
+        - error
+    OrgUnitCreateRequest:
+      type: object
+      description: Payload to create a new organizational unit
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: Engineering
+        type:
+          type: string
+          enum:
+            - company
+            - business_unit
+            - department
+            - team
+          example: department
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+          description: Parent org unit id; null for root (company)
+          example: 9c1f84a2-1234-4321-abcd-0987654321ef
+        code:
+          type: string
+          maxLength: 20
+          example: ENG-001
+        description:
+          type: string
+          nullable: true
+          example: Core software engineering department
+        headEmployeeId:
+          type: string
+          format: uuid
+          nullable: true
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      required:
+        - name
+        - type
+    OrgUnitUpdateRequest:
+      type: object
+      description: Partial update payload for an organizational unit
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: Engineering & Platform
+        code:
+          type: string
+          maxLength: 20
+          example: ENG-002
+        description:
+          type: string
+          nullable: true
+          example: Engineering and Platform division
+        headEmployeeId:
+          type: string
+          format: uuid
+          nullable: true
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        isActive:
+          type: boolean
+          example: true
+    EmployeeProfile:
+      type: object
+      description: Full employee profile as returned by the API
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        userId:
+          type: string
+          format: uuid
+          nullable: true
+          description: Linked user account (if any)
+          example: f0a1b2c3-d4e5-6789-abcd-ef0123456789
+        employeeCode:
+          type: string
+          description: Human-readable employee code
+          example: EMP-0042
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Smith
+        email:
+          type: string
+          format: email
+          example: john.smith@example.com
+        phone:
+          type: string
+          nullable: true
+          example: "+84901234567"
+        gender:
+          type: string
+          enum:
+            - male
+            - female
+            - other
+            - prefer_not_to_say
+          example: male
+        dateOfBirth:
+          type: string
+          format: date
+          example: "1990-05-15"
+        nationalId:
+          type: string
+          nullable: true
+          example: 079090012345
+        taxId:
+          type: string
+          nullable: true
+          example: "8901234567"
+        orgUnitId:
+          type: string
+          format: uuid
+          description: Primary department/team
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        orgUnitName:
+          type: string
+          example: Engineering
+        positionTitle:
+          type: string
+          example: Senior Software Engineer
+        managerId:
+          type: string
+          format: uuid
+          nullable: true
+          description: Direct manager employee id
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        managerName:
+          type: string
+          nullable: true
+          example: Jane Doe
+        status:
+          type: string
+          enum:
+            - probation
+            - active
+            - on_leave
+            - terminated
+          example: active
+        hireDate:
+          type: string
+          format: date
+          example: "2022-03-01"
+        terminationDate:
+          type: string
+          format: date
+          nullable: true
+          example: null
+        workMode:
+          type: string
+          enum:
+            - office
+            - remote
+            - hybrid
+          example: hybrid
+        createdAt:
+          type: string
+          format: date-time
+          example: "2022-03-01T07:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-06-01T12:00:00Z"
+      required:
+        - id
+        - tenantId
+        - employeeCode
+        - firstName
+        - lastName
+        - email
+        - orgUnitId
+        - orgUnitName
+        - positionTitle
+        - status
+        - hireDate
+        - createdAt
+        - updatedAt
+    EmployeeListResponse:
+      type: object
+      description: Paginated list of employee profiles
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/EmployeeProfile"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    ContractCreateRequest:
+      type: object
+      description: Payload to create a new employment contract
+      properties:
+        type:
+          type: string
+          enum:
+            - probation
+            - fixed_term
+            - permanent
+            - part_time
+            - contractor
+          example: permanent
+        startDate:
+          type: string
+          format: date
+          example: "2024-07-01"
+        endDate:
+          type: string
+          format: date
+          nullable: true
+          description: Required for fixed_term and probation contracts
+          example: null
+        baseSalary:
+          type: number
+          format: double
+          minimum: 0
+          example: 35000000
+        currency:
+          type: string
+          example: VND
+        paySchedule:
+          type: string
+          enum:
+            - monthly
+            - bi_weekly
+            - weekly
+          default: monthly
+        payGrade:
+          type: string
+          nullable: true
+          example: L4
+      required:
+        - type
+        - startDate
+        - baseSalary
+        - currency
+    EmployeeCreateRequest:
+      type: object
+      description: Payload to onboard a new employee
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          type: string
+          minLength: 1
+          example: Smith
+        email:
+          type: string
+          format: email
+          example: john.smith@example.com
+        phone:
+          type: string
+          nullable: true
+          example: "+84901234567"
+        gender:
+          type: string
+          enum:
+            - male
+            - female
+            - other
+            - prefer_not_to_say
+          example: male
+        dateOfBirth:
+          type: string
+          format: date
+          example: "1990-05-15"
+        nationalId:
+          type: string
+          nullable: true
+          example: 079090012345
+        taxId:
+          type: string
+          nullable: true
+          example: "8901234567"
+        orgUnitId:
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        positionTitle:
+          type: string
+          example: Senior Software Engineer
+        managerId:
+          type: string
+          format: uuid
+          nullable: true
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        hireDate:
+          type: string
+          format: date
+          example: "2024-07-01"
+        workMode:
+          type: string
+          enum:
+            - office
+            - remote
+            - hybrid
+          default: office
+        contract:
+          $ref: "#/components/schemas/ContractCreateRequest"
+      required:
+        - firstName
+        - lastName
+        - email
+        - orgUnitId
+        - positionTitle
+        - hireDate
+        - contract
+    EmployeeUpdateRequest:
+      type: object
+      description: Partial update payload for an employee profile
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+          example: John
+        lastName:
+          type: string
+          minLength: 1
+          example: Smith
+        phone:
+          type: string
+          nullable: true
+          example: "+84901234567"
+        orgUnitId:
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        positionTitle:
+          type: string
+          example: Staff Engineer
+        managerId:
+          type: string
+          format: uuid
+          nullable: true
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        status:
+          type: string
+          enum:
+            - probation
+            - active
+            - on_leave
+            - terminated
+          example: active
+        workMode:
+          type: string
+          enum:
+            - office
+            - remote
+            - hybrid
+          example: hybrid
+        terminationDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2025-12-31"
+    Contract:
+      type: object
+      description: Employment contract of an employee
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: c1a2b3c4-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        contractNumber:
+          type: string
+          example: CTR-2024-0042
+        type:
+          type: string
+          enum:
+            - probation
+            - fixed_term
+            - permanent
+            - part_time
+            - contractor
+          example: permanent
+        startDate:
+          type: string
+          format: date
+          example: "2024-07-01"
+        endDate:
+          type: string
+          format: date
+          nullable: true
+          example: null
+        baseSalary:
+          type: number
+          format: double
+          example: 35000000
+        currency:
+          type: string
+          example: VND
+        paySchedule:
+          type: string
+          enum:
+            - monthly
+            - bi_weekly
+            - weekly
+          example: monthly
+        payGrade:
+          type: string
+          nullable: true
+          example: L4
+        isActive:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-06-20T09:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-06-20T09:00:00Z"
+      required:
+        - id
+        - tenantId
+        - employeeId
+        - contractNumber
+        - type
+        - startDate
+        - baseSalary
+        - currency
+        - paySchedule
+        - isActive
+        - createdAt
+        - updatedAt
+    AttendanceCheckInRequest:
+      type: object
+      description: Payload for employee check-in
+      properties:
+        workMode:
+          type: string
+          enum:
+            - office
+            - remote
+          example: office
+        gps:
+          type: object
+          nullable: true
+          description: GPS coordinate (required in remote mode if GPS enforcement is on)
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 10.7769
+            lng:
+              type: number
+              format: double
+              example: 106.7009
+        deviceInfo:
+          type: string
+          nullable: true
+          description: Device fingerprint or user-agent
+          example: Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)
+        note:
+          type: string
+          nullable: true
+          example: Working from home today
+      required:
+        - workMode
+    AttendanceRecord:
+      type: object
+      description: A single attendance record for one day
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a1b2c3d4-e5f6-7890-1234-567890abcdef
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeName:
+          type: string
+          example: John Smith
+        date:
+          type: string
+          format: date
+          example: "2024-06-10"
+        checkInAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-06-10T08:02:00Z"
+        checkOutAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-06-10T17:10:00Z"
+        workMode:
+          type: string
+          enum:
+            - office
+            - remote
+          example: office
+        checkInGps:
+          type: object
+          nullable: true
+          description: GPS coordinate at check-in
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 10.7769
+            lng:
+              type: number
+              format: double
+              example: 106.7009
+        checkOutGps:
+          type: object
+          nullable: true
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 10.7769
+            lng:
+              type: number
+              format: double
+              example: 106.7009
+        workedMinutes:
+          type: integer
+          description: Total minutes worked (computed)
+          example: 548
+        lateMinutes:
+          type: integer
+          description: Minutes late vs scheduled start
+          example: 2
+        overtimeMinutes:
+          type: integer
+          description: Approved overtime minutes
+          example: 70
+        status:
+          type: string
+          enum:
+            - present
+            - absent
+            - late
+            - half_day
+            - corrected
+          example: present
+        note:
+          type: string
+          nullable: true
+          example: ""
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-06-10T08:02:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-06-10T17:10:00Z"
+      required:
+        - id
+        - tenantId
+        - employeeId
+        - employeeName
+        - date
+        - workMode
+        - status
+        - createdAt
+        - updatedAt
+    AttendanceCheckOutRequest:
+      type: object
+      description: Payload for employee check-out
+      properties:
+        gps:
+          type: object
+          nullable: true
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 10.7769
+            lng:
+              type: number
+              format: double
+              example: 106.7009
+        deviceInfo:
+          type: string
+          nullable: true
+          example: Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)
+        note:
+          type: string
+          nullable: true
+          example: Leaving for client meeting
+    AttendanceListResponse:
+      type: object
+      description: Paginated list of attendance records
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/AttendanceRecord"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    AttendanceCorrection:
+      type: object
+      description: A manual attendance correction request
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: b2c3d4e5-f6a7-8901-2345-678901bcdef0
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeName:
+          type: string
+          example: John Smith
+        attendanceRecordId:
+          type: string
+          format: uuid
+          nullable: true
+          example: a1b2c3d4-e5f6-7890-1234-567890abcdef
+        date:
+          type: string
+          format: date
+          example: "2024-06-10"
+        requestedCheckInAt:
+          type: string
+          format: date-time
+          example: "2024-06-10T08:00:00Z"
+        requestedCheckOutAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-06-10T17:00:00Z"
+        reason:
+          type: string
+          example: Forgot to check in at the office
+        status:
+          type: string
+          enum:
+            - pending
+            - approved
+            - rejected
+          example: pending
+        reviewedBy:
+          type: string
+          format: uuid
+          nullable: true
+          example: null
+        reviewNote:
+          type: string
+          nullable: true
+          example: null
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-06-11T09:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-06-11T09:00:00Z"
+      required:
+        - id
+        - tenantId
+        - employeeId
+        - employeeName
+        - date
+        - requestedCheckInAt
+        - reason
+        - status
+        - createdAt
+        - updatedAt
+    AttendanceCorrectionListResponse:
+      type: object
+      description: Paginated list of attendance correction requests
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/AttendanceCorrection"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    AttendanceCorrectionRequest:
+      type: object
+      description: Request to manually correct an attendance record
+      properties:
+        attendanceRecordId:
+          type: string
+          format: uuid
+          nullable: true
+          description: Existing record to correct; omit if creating a missing check-in/out
+          example: a1b2c3d4-e5f6-7890-1234-567890abcdef
+        date:
+          type: string
+          format: date
+          example: "2024-06-10"
+        checkInAt:
+          type: string
+          format: date-time
+          example: "2024-06-10T08:00:00Z"
+        checkOutAt:
+          type: string
+          format: date-time
+          example: "2024-06-10T17:00:00Z"
+        reason:
+          type: string
+          minLength: 10
+          example: "Forgot to check in at the office, confirmed by manager"
+        evidenceUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: Supporting documents or screenshots
+          example:
+            - "https://storage.example.com/evidence/abc.png"
+      required:
+        - date
+        - checkInAt
+        - reason
+    TimesheetEntry:
+      type: object
+      description: A single time entry within a timesheet
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d4e5f6a7-b8c9-0123-4567-890abcdef012
+        timesheetId:
+          type: string
+          format: uuid
+          example: c3d4e5f6-a7b8-9012-3456-7890abcdef01
+        projectId:
+          type: string
+          format: uuid
+          nullable: true
+          example: f6a7b8c9-d0e1-2345-6789-0abcdef01234
+        projectName:
+          type: string
+          nullable: true
+          example: HRM SaaS v2
+        taskId:
+          type: string
+          format: uuid
+          nullable: true
+          example: a7b8c9d0-e1f2-3456-7890-abcdef012345
+        taskName:
+          type: string
+          nullable: true
+          example: Implement payroll module
+        date:
+          type: string
+          format: date
+          example: "2024-06-10"
+        hours:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 24
+          example: 8.5
+        activityType:
+          type: string
+          enum:
+            - regular
+            - overtime
+            - billable
+            - internal
+          example: regular
+        notes:
+          type: string
+          nullable: true
+          example: Finished payroll formula engine
+      required:
+        - id
+        - timesheetId
+        - date
+        - hours
+        - activityType
+    Timesheet:
+      type: object
+      description: A weekly or bi-weekly timesheet submitted by an employee
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: c3d4e5f6-a7b8-9012-3456-7890abcdef01
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeName:
+          type: string
+          example: John Smith
+        periodStart:
+          type: string
+          format: date
+          example: "2024-06-10"
+        periodEnd:
+          type: string
+          format: date
+          example: "2024-06-16"
+        totalHours:
+          type: number
+          format: double
+          description: Sum of all entry hours (computed)
+          example: 42.5
+        overtimeHours:
+          type: number
+          format: double
+          example: 2.5
+        status:
+          type: string
+          enum:
+            - draft
+            - submitted
+            - approved
+            - rejected
+            - locked
+          example: submitted
+        submittedAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-06-17T08:30:00Z"
+        approvedAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        approvedBy:
+          type: string
+          format: uuid
+          nullable: true
+          example: null
+        rejectionReason:
+          type: string
+          nullable: true
+          example: null
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/TimesheetEntry"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-06-10T07:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-06-17T08:30:00Z"
+      required:
+        - id
+        - tenantId
+        - employeeId
+        - employeeName
+        - periodStart
+        - periodEnd
+        - totalHours
+        - overtimeHours
+        - status
+        - createdAt
+        - updatedAt
+    TimesheetListResponse:
+      type: object
+      description: Paginated list of timesheets
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Timesheet"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    TimesheetCreateRequest:
+      type: object
+      description: Payload to create a timesheet with time entries
+      properties:
+        periodStart:
+          type: string
+          format: date
+          example: "2024-06-10"
+        periodEnd:
+          type: string
+          format: date
+          example: "2024-06-16"
+        entries:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              projectId:
+                type: string
+                format: uuid
+                nullable: true
+                example: f6a7b8c9-d0e1-2345-6789-0abcdef01234
+              taskId:
+                type: string
+                format: uuid
+                nullable: true
+                example: a7b8c9d0-e1f2-3456-7890-abcdef012345
+              date:
+                type: string
+                format: date
+                example: "2024-06-10"
+              hours:
+                type: number
+                format: double
+                minimum: 0.5
+                maximum: 24
+                example: 8
+              activityType:
+                type: string
+                enum:
+                  - regular
+                  - overtime
+                  - billable
+                  - internal
+                default: regular
+              notes:
+                type: string
+                nullable: true
+                example: Sprint planning meeting
+            required:
+              - date
+              - hours
+      required:
+        - periodStart
+        - periodEnd
+        - entries
+    TimesheetRejectRequest:
+      type: object
+      description: Payload for rejecting a timesheet
+      properties:
+        reason:
+          type: string
+          minLength: 10
+          example: >-
+            Several entries are missing project assignments. Please update and
+            resubmit.
+      required:
+        - reason
+    PayrollCycle:
+      type: object
+      description: A payroll processing cycle for a given period
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: p1a2b3c4-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        name:
+          type: string
+          example: June 2024 Payroll
+        periodStart:
+          type: string
+          format: date
+          example: "2024-06-01"
+        periodEnd:
+          type: string
+          format: date
+          example: "2024-06-30"
+        currency:
+          type: string
+          example: VND
+        status:
+          type: string
+          enum:
+            - draft
+            - calculated
+            - approved
+            - locked
+            - paid
+          example: calculated
+        totalGross:
+          type: number
+          format: double
+          nullable: true
+          example: 1200000000
+        totalNet:
+          type: number
+          format: double
+          nullable: true
+          example: 980000000
+        employeeCount:
+          type: integer
+          nullable: true
+          example: 42
+        calculatedAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-07-01T09:00:00Z"
+        approvedAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        approvedBy:
+          type: string
+          format: uuid
+          nullable: true
+          example: null
+        lockedAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-06-28T08:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-07-01T09:00:00Z"
+      required:
+        - id
+        - tenantId
+        - name
+        - periodStart
+        - periodEnd
+        - currency
+        - status
+        - createdAt
+        - updatedAt
+    PayrollCycleListResponse:
+      type: object
+      description: Paginated list of payroll cycles
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/PayrollCycle"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    PayrollCycleCreateRequest:
+      type: object
+      description: Payload to open a new payroll cycle
+      properties:
+        name:
+          type: string
+          example: June 2024 Payroll
+        periodStart:
+          type: string
+          format: date
+          example: "2024-06-01"
+        periodEnd:
+          type: string
+          format: date
+          example: "2024-06-30"
+        currency:
+          type: string
+          example: VND
+        notes:
+          type: string
+          nullable: true
+          example: Regular monthly run; include overtime from timesheets
+      required:
+        - name
+        - periodStart
+        - periodEnd
+        - currency
+    PayrollRecordLine:
+      type: object
+      description: A single salary component line within a payroll record
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: l1a2b3c4-d5e6-7890-abcd-ef1234567890
+        payrollRecordId:
+          type: string
+          format: uuid
+          example: r1a2b3c4-d5e6-7890-abcd-ef1234567890
+        componentCode:
+          type: string
+          example: BASE_SALARY
+        componentName:
+          type: string
+          example: Base Salary
+        type:
+          type: string
+          enum:
+            - base
+            - allowance
+            - overtime
+            - bonus
+            - deduction
+            - tax
+            - social_insurance
+          example: base
+        amount:
+          type: number
+          format: double
+          example: 35000000
+        formulaSnapshot:
+          type: string
+          nullable: true
+          description: Formula expression evaluated at calculation time
+          example: "${baseSalary} * (${workedDays} / ${totalDays})"
+      required:
+        - id
+        - payrollRecordId
+        - componentCode
+        - componentName
+        - type
+        - amount
+    PayrollRecord:
+      type: object
+      description: Individual payroll record for one employee in a cycle (payslip data)
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: r1a2b3c4-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        cycleId:
+          type: string
+          format: uuid
+          example: p1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeName:
+          type: string
+          example: John Smith
+        employeeCode:
+          type: string
+          example: EMP-0042
+        positionTitle:
+          type: string
+          example: Senior Software Engineer
+        currency:
+          type: string
+          example: VND
+        baseSalary:
+          type: number
+          format: double
+          example: 35000000
+        totalAllowances:
+          type: number
+          format: double
+          example: 3000000
+        totalOvertimePay:
+          type: number
+          format: double
+          example: 1500000
+        totalBonuses:
+          type: number
+          format: double
+          example: 0
+        totalDeductions:
+          type: number
+          format: double
+          example: 2000000
+        totalTax:
+          type: number
+          format: double
+          example: 4600000
+        totalSocialInsurance:
+          type: number
+          format: double
+          example: 2625000
+        grossSalary:
+          type: number
+          format: double
+          example: 39500000
+        netSalary:
+          type: number
+          format: double
+          example: 30275000
+        workedDays:
+          type: integer
+          example: 22
+        totalDays:
+          type: integer
+          example: 22
+        overtimeHours:
+          type: number
+          format: double
+          example: 5
+        status:
+          type: string
+          enum:
+            - draft
+            - approved
+            - locked
+          example: approved
+        lines:
+          type: array
+          items:
+            $ref: "#/components/schemas/PayrollRecordLine"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-07-01T09:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-07-01T10:00:00Z"
+      required:
+        - id
+        - tenantId
+        - cycleId
+        - employeeId
+        - employeeName
+        - employeeCode
+        - currency
+        - baseSalary
+        - grossSalary
+        - netSalary
+        - status
+        - createdAt
+        - updatedAt
+    PayrollRecordListResponse:
+      type: object
+      description: Paginated list of payroll records within a cycle
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/PayrollRecord"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    Project:
+      type: object
+      description: A project entity managed within the HRM system
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: j1a2b3c4-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        code:
+          type: string
+          example: PROJ-2024-01
+        name:
+          type: string
+          example: HRM SaaS v2
+        description:
+          type: string
+          nullable: true
+          example: Full redevelopment of the HRM platform with microservices
+        clientName:
+          type: string
+          nullable: true
+          example: Acme Corp
+        status:
+          type: string
+          enum:
+            - planned
+            - active
+            - on_hold
+            - completed
+            - cancelled
+          example: active
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+            - critical
+          example: high
+        startDate:
+          type: string
+          format: date
+          example: "2024-01-15"
+        endDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-12-31"
+        budget:
+          type: number
+          format: double
+          nullable: true
+          example: 500000000
+        currency:
+          type: string
+          example: VND
+        actualCost:
+          type: number
+          format: double
+          description: Computed from approved timesheets * bill rate
+          example: 123450000
+        progressPercent:
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: 42
+        managerId:
+          type: string
+          format: uuid
+          description: Employee who is the PM
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        managerName:
+          type: string
+          example: Jane Doe
+        memberCount:
+          type: integer
+          example: 8
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-10T08:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-06-01T10:00:00Z"
+      required:
+        - id
+        - tenantId
+        - code
+        - name
+        - status
+        - priority
+        - startDate
+        - currency
+        - managerId
+        - managerName
+        - createdAt
+        - updatedAt
+    ProjectListResponse:
+      type: object
+      description: Paginated list of projects
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Project"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    ProjectCreateRequest:
+      type: object
+      description: Payload to create a new project
+      properties:
+        name:
+          type: string
+          minLength: 1
+          example: HRM SaaS v2
+        description:
+          type: string
+          nullable: true
+          example: Full redevelopment of the HRM platform with microservices
+        clientName:
+          type: string
+          nullable: true
+          example: Acme Corp
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+            - critical
+          default: medium
+        startDate:
+          type: string
+          format: date
+          example: "2024-01-15"
+        endDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-12-31"
+        budget:
+          type: number
+          format: double
+          nullable: true
+          minimum: 0
+          example: 500000000
+        currency:
+          type: string
+          example: VND
+        managerId:
+          type: string
+          format: uuid
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      required:
+        - name
+        - startDate
+        - currency
+        - managerId
+    ProjectUpdateRequest:
+      type: object
+      description: Partial update payload for a project
+      properties:
+        name:
+          type: string
+          minLength: 1
+          example: HRM SaaS v3
+        description:
+          type: string
+          nullable: true
+          example: Updated scope
+        clientName:
+          type: string
+          nullable: true
+          example: Acme Corp
+        status:
+          type: string
+          enum:
+            - planned
+            - active
+            - on_hold
+            - completed
+            - cancelled
+          example: on_hold
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+            - critical
+          example: high
+        endDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2025-03-31"
+        budget:
+          type: number
+          format: double
+          nullable: true
+          example: 600000000
+        managerId:
+          type: string
+          format: uuid
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        progressPercent:
+          type: integer
+          minimum: 0
+          maximum: 100
+          example: 50
+    ProjectMember:
+      type: object
+      description: A member assigned to a project with a role and allocation
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: m1a2b3c4-d5e6-7890-abcd-ef1234567890
+        projectId:
+          type: string
+          format: uuid
+          example: j1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeName:
+          type: string
+          example: John Smith
+        role:
+          type: string
+          enum:
+            - pm
+            - tech_lead
+            - ba
+            - developer
+            - tester
+            - designer
+            - devops
+            - other
+          example: developer
+        allocationPercent:
+          type: integer
+          minimum: 10
+          maximum: 100
+          description: Percentage of working time allocated to this project
+          example: 80
+        billRate:
+          type: number
+          format: double
+          nullable: true
+          description: Hourly or daily bill rate for cost tracking
+          example: 500000
+        joinedAt:
+          type: string
+          format: date
+          example: "2024-01-15"
+        leftAt:
+          type: string
+          format: date
+          nullable: true
+          example: null
+        isActive:
+          type: boolean
+          example: true
+      required:
+        - id
+        - projectId
+        - employeeId
+        - employeeName
+        - role
+        - allocationPercent
+        - joinedAt
+        - isActive
+    ProjectMemberCreateRequest:
+      type: object
+      description: Payload to add a member to a project
+      properties:
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        role:
+          type: string
+          enum:
+            - pm
+            - tech_lead
+            - ba
+            - developer
+            - tester
+            - designer
+            - devops
+            - other
+          example: developer
+        allocationPercent:
+          type: integer
+          minimum: 10
+          maximum: 100
+          default: 100
+        billRate:
+          type: number
+          format: double
+          nullable: true
+          example: 500000
+        joinedAt:
+          type: string
+          format: date
+          example: "2024-01-15"
+      required:
+        - employeeId
+        - role
+    Task:
+      type: object
+      description: A task within a project
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: t1a2b3c4-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        projectId:
+          type: string
+          format: uuid
+          example: j1a2b3c4-d5e6-7890-abcd-ef1234567890
+        projectName:
+          type: string
+          example: HRM SaaS v2
+        parentTaskId:
+          type: string
+          format: uuid
+          nullable: true
+          description: Parent task for subtasks
+          example: null
+        title:
+          type: string
+          example: Implement payroll formula engine
+        description:
+          type: string
+          nullable: true
+          example: Build DSL interpreter for configurable salary formulas
+        status:
+          type: string
+          enum:
+            - todo
+            - in_progress
+            - in_review
+            - done
+            - cancelled
+          example: in_progress
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+            - critical
+          example: high
+        assigneeId:
+          type: string
+          format: uuid
+          nullable: true
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        assigneeName:
+          type: string
+          nullable: true
+          example: John Smith
+        estimatedHours:
+          type: number
+          format: double
+          nullable: true
+          example: 16
+        loggedHours:
+          type: number
+          format: double
+          description: Hours logged from approved timesheets
+          example: 7.5
+        startDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-06-01"
+        dueDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-06-15"
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+            - backend
+            - payroll
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-05-25T09:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-06-10T11:00:00Z"
+      required:
+        - id
+        - tenantId
+        - projectId
+        - projectName
+        - title
+        - status
+        - priority
+        - loggedHours
+        - createdAt
+        - updatedAt
+    TaskListResponse:
+      type: object
+      description: Paginated list of tasks
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Task"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    TaskCreateRequest:
+      type: object
+      description: Payload to create a task within a project
+      properties:
+        title:
+          type: string
+          minLength: 1
+          example: Implement payroll formula engine
+        description:
+          type: string
+          nullable: true
+          example: Build DSL interpreter for configurable salary formulas
+        parentTaskId:
+          type: string
+          format: uuid
+          nullable: true
+          example: null
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+            - critical
+          default: medium
+        assigneeId:
+          type: string
+          format: uuid
+          nullable: true
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        estimatedHours:
+          type: number
+          format: double
+          nullable: true
+          minimum: 0
+          example: 16
+        startDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-06-01"
+        dueDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-06-15"
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+            - backend
+            - payroll
+      required:
+        - title
+    TaskUpdateRequest:
+      type: object
+      description: Partial update payload for a task
+      properties:
+        title:
+          type: string
+          minLength: 1
+          example: Implement payroll formula engine v2
+        description:
+          type: string
+          nullable: true
+          example: Updated spec after design review
+        priority:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+            - critical
+          example: critical
+        assigneeId:
+          type: string
+          format: uuid
+          nullable: true
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        estimatedHours:
+          type: number
+          format: double
+          nullable: true
+          example: 20
+        startDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-06-01"
+        dueDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-06-20"
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+            - backend
+            - payroll
+            - v2
+    TaskStatusUpdateRequest:
+      type: object
+      description: Payload to transition a task to a new status
+      properties:
+        status:
+          type: string
+          enum:
+            - todo
+            - in_progress
+            - in_review
+            - done
+            - cancelled
+          example: done
+        comment:
+          type: string
+          nullable: true
+          example: "All tests passing, merged to main"
+      required:
+        - status
+    LeaveRequest:
+      type: object
+      description: A leave request submitted by an employee
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: lr1a2b3c-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeName:
+          type: string
+          example: John Smith
+        policyId:
+          type: string
+          format: uuid
+          example: lp1a2b3c-d5e6-7890-abcd-ef1234567890
+        policyName:
+          type: string
+          example: Annual Leave
+        policyCode:
+          type: string
+          example: ANNUAL
+        startDate:
+          type: string
+          format: date
+          example: "2024-07-15"
+        endDate:
+          type: string
+          format: date
+          example: "2024-07-19"
+        totalDays:
+          type: number
+          format: double
+          description: Business days requested (computed)
+          example: 5
+        halfDay:
+          type: boolean
+          description: True if requesting a half-day leave
+          example: false
+        halfDayType:
+          type: string
+          enum:
+            - morning
+            - afternoon
+          nullable: true
+          example: null
+        reason:
+          type: string
+          nullable: true
+          example: Family vacation
+        attachmentUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          example: []
+        status:
+          type: string
+          enum:
+            - draft
+            - submitted
+            - approved
+            - rejected
+            - cancelled
+          example: submitted
+        approvalChain:
+          type: array
+          description: Ordered list of approvers and their decisions
+          items:
+            type: object
+            properties:
+              approverId:
+                type: string
+                format: uuid
+                example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              approverName:
+                type: string
+                example: Jane Doe
+              decision:
+                type: string
+                enum:
+                  - pending
+                  - approved
+                  - rejected
+                example: pending
+              decidedAt:
+                type: string
+                format: date-time
+                nullable: true
+                example: null
+              comment:
+                type: string
+                nullable: true
+                example: null
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-07-08T09:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-07-08T09:00:00Z"
+      required:
+        - id
+        - tenantId
+        - employeeId
+        - employeeName
+        - policyId
+        - policyName
+        - policyCode
+        - startDate
+        - endDate
+        - totalDays
+        - halfDay
+        - status
+        - approvalChain
+        - createdAt
+        - updatedAt
+    LeaveRequestListResponse:
+      type: object
+      description: Paginated list of leave requests
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/LeaveRequest"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    LeaveRequestCreateRequest:
+      type: object
+      description: Payload to submit a leave request
+      properties:
+        policyId:
+          type: string
+          format: uuid
+          example: lp1a2b3c-d5e6-7890-abcd-ef1234567890
+        startDate:
+          type: string
+          format: date
+          example: "2024-07-15"
+        endDate:
+          type: string
+          format: date
+          example: "2024-07-19"
+        halfDay:
+          type: boolean
+          default: false
+        halfDayType:
+          type: string
+          enum:
+            - morning
+            - afternoon
+          nullable: true
+          example: null
+        reason:
+          type: string
+          nullable: true
+          example: Family vacation
+        attachmentUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          example: []
+      required:
+        - policyId
+        - startDate
+        - endDate
+    LeaveDecisionRequest:
+      type: object
+      description: Payload for approving or rejecting a leave request
+      properties:
+        comment:
+          type: string
+          nullable: true
+          example: "Approved, please ensure project handover is done before leaving"
+    LeaveBalance:
+      type: object
+      description: Current leave balance for an employee under a specific policy
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: lb1a2b3c-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeName:
+          type: string
+          example: John Smith
+        policyId:
+          type: string
+          format: uuid
+          example: lp1a2b3c-d5e6-7890-abcd-ef1234567890
+        policyName:
+          type: string
+          example: Annual Leave
+        policyCode:
+          type: string
+          example: ANNUAL
+        entitled:
+          type: number
+          format: double
+          description: Total days entitled in the current period
+          example: 12
+        accrued:
+          type: number
+          format: double
+          description: Days accrued so far this period
+          example: 6
+        used:
+          type: number
+          format: double
+          description: Days consumed by approved leave
+          example: 2
+        pending:
+          type: number
+          format: double
+          description: Days requested but not yet approved
+          example: 1
+        remaining:
+          type: number
+          format: double
+          description: accrued - used - pending
+          example: 3
+        year:
+          type: integer
+          example: 2024
+      required:
+        - id
+        - tenantId
+        - employeeId
+        - employeeName
+        - policyId
+        - policyName
+        - policyCode
+        - entitled
+        - accrued
+        - used
+        - pending
+        - remaining
+        - year
+    LeaveBalanceListResponse:
+      type: object
+      description: List of leave balances for an employee across all policies
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/LeaveBalance"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    LeavePolicy:
+      type: object
+      description: A leave policy defining entitlement rules for a leave type
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: lp1a2b3c-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        name:
+          type: string
+          example: Annual Leave
+        code:
+          type: string
+          example: ANNUAL
+        type:
+          type: string
+          enum:
+            - annual
+            - sick
+            - unpaid
+            - maternity
+            - paternity
+            - compensatory
+            - other
+          example: annual
+        daysPerYear:
+          type: number
+          format: double
+          example: 12
+        accrualType:
+          type: string
+          enum:
+            - upfront
+            - monthly
+            - daily
+          description: How entitlement is accrued
+          example: monthly
+        allowCarryOver:
+          type: boolean
+          example: true
+        maxCarryOverDays:
+          type: number
+          format: double
+          nullable: true
+          example: 5
+        allowNegativeBalance:
+          type: boolean
+          example: false
+        requireApproval:
+          type: boolean
+          example: true
+        minAdvanceDays:
+          type: integer
+          description: Minimum notice days required before leave start
+          example: 3
+        isActive:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T08:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T08:00:00Z"
+      required:
+        - id
+        - tenantId
+        - name
+        - code
+        - type
+        - daysPerYear
+        - accrualType
+        - allowCarryOver
+        - allowNegativeBalance
+        - requireApproval
+        - isActive
+        - createdAt
+        - updatedAt
+    LeavePolicyListResponse:
+      type: object
+      description: Paginated list of leave policies
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/LeavePolicy"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    ReviewCycle:
+      type: object
+      description: "A performance review cycle (e.g. Q2 2024, Annual 2024)"
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: rc1a2b3c-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        name:
+          type: string
+          example: Annual Performance Review 2024
+        type:
+          type: string
+          enum:
+            - annual
+            - semi_annual
+            - quarterly
+            - probation
+            - custom
+          example: annual
+        periodStart:
+          type: string
+          format: date
+          example: "2024-01-01"
+        periodEnd:
+          type: string
+          format: date
+          example: "2024-12-31"
+        selfReviewDeadline:
+          type: string
+          format: date
+          example: "2025-01-10"
+        managerReviewDeadline:
+          type: string
+          format: date
+          example: "2025-01-20"
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - in_calibration
+            - completed
+            - cancelled
+          example: active
+        participantCount:
+          type: integer
+          example: 35
+        completedCount:
+          type: integer
+          example: 12
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-12-15T08:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-12-15T08:00:00Z"
+      required:
+        - id
+        - tenantId
+        - name
+        - type
+        - periodStart
+        - periodEnd
+        - status
+        - createdAt
+        - updatedAt
+    ReviewCycleListResponse:
+      type: object
+      description: Paginated list of review cycles
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReviewCycle"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    ReviewCycleCreateRequest:
+      type: object
+      description: Payload to create a performance review cycle
+      properties:
+        name:
+          type: string
+          example: Annual Performance Review 2024
+        type:
+          type: string
+          enum:
+            - annual
+            - semi_annual
+            - quarterly
+            - probation
+            - custom
+          example: annual
+        periodStart:
+          type: string
+          format: date
+          example: "2024-01-01"
+        periodEnd:
+          type: string
+          format: date
+          example: "2024-12-31"
+        selfReviewDeadline:
+          type: string
+          format: date
+          example: "2025-01-10"
+        managerReviewDeadline:
+          type: string
+          format: date
+          example: "2025-01-20"
+        participantEmployeeIds:
+          type: array
+          description: Employee ids to include; omit to include all active employees
+          items:
+            type: string
+            format: uuid
+          example: []
+      required:
+        - name
+        - type
+        - periodStart
+        - periodEnd
+        - selfReviewDeadline
+        - managerReviewDeadline
+    ReviewResult:
+      type: object
+      description: Individual performance review result for an employee in a cycle
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: rr1a2b3c-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        cycleId:
+          type: string
+          format: uuid
+          example: rc1a2b3c-d5e6-7890-abcd-ef1234567890
+        cycleName:
+          type: string
+          example: Annual Performance Review 2024
+        employeeId:
+          type: string
+          format: uuid
+          example: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+        employeeName:
+          type: string
+          example: John Smith
+        reviewerId:
+          type: string
+          format: uuid
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        reviewerName:
+          type: string
+          example: Jane Doe
+        selfScore:
+          type: number
+          format: double
+          nullable: true
+          description: Self-assessed score (0-100)
+          example: 78
+        managerScore:
+          type: number
+          format: double
+          nullable: true
+          description: Manager-assessed score (0-100)
+          example: 82
+        finalScore:
+          type: number
+          format: double
+          nullable: true
+          description: Calibrated final score (0-100)
+          example: 80
+        rating:
+          type: string
+          enum:
+            - exceeds_expectations
+            - meets_expectations
+            - needs_improvement
+            - unsatisfactory
+          nullable: true
+          example: meets_expectations
+        selfComment:
+          type: string
+          nullable: true
+          example: I delivered all assigned tasks and mentored two junior developers.
+        managerComment:
+          type: string
+          nullable: true
+          example: >-
+            John consistently delivers quality work and is a reliable team
+            member.
+        status:
+          type: string
+          enum:
+            - pending
+            - self_submitted
+            - manager_submitted
+            - finalized
+          example: manager_submitted
+        createdAt:
+          type: string
+          format: date-time
+          example: "2025-01-05T08:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2025-01-18T16:00:00Z"
+      required:
+        - id
+        - tenantId
+        - cycleId
+        - cycleName
+        - employeeId
+        - employeeName
+        - reviewerId
+        - reviewerName
+        - status
+        - createdAt
+        - updatedAt
+    ReviewResultListResponse:
+      type: object
+      description: Paginated list of review results in a cycle
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReviewResult"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    Permission:
+      type: object
+      description: A fine-grained permission key
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: pm1a2b3c-d5e6-7890-abcd-ef1234567890
+        key:
+          type: string
+          description: Namespaced permission key
+          example: payroll.view.all
+        group:
+          type: string
+          description: Logical group for UI grouping
+          example: Payroll
+        description:
+          type: string
+          example: View payroll records for all employees
+      required:
+        - id
+        - key
+        - group
+        - description
+    Role:
+      type: object
+      description: A role with a set of permissions assignable to users
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: ro1a2b3c-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        name:
+          type: string
+          example: Payroll Manager
+        description:
+          type: string
+          nullable: true
+          example: "Can view, calculate, and approve payroll cycles"
+        isSystem:
+          type: boolean
+          description: System roles cannot be deleted
+          example: false
+        permissionCount:
+          type: integer
+          example: 12
+        permissions:
+          type: array
+          description: Included when role detail is fetched
+          items:
+            $ref: "#/components/schemas/Permission"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-05T08:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-01-05T08:00:00Z"
+      required:
+        - id
+        - tenantId
+        - name
+        - isSystem
+        - permissionCount
+        - createdAt
+        - updatedAt
+    RoleListResponse:
+      type: object
+      description: Paginated list of roles
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    RoleCreateRequest:
+      type: object
+      description: Payload to create a custom role
+      properties:
+        name:
+          type: string
+          minLength: 2
+          example: Payroll Manager
+        description:
+          type: string
+          nullable: true
+          example: "Can view, calculate, and approve payroll cycles"
+        permissionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: List of permission ids to assign initially
+          example:
+            - pm1a2b3c-d5e6-7890-abcd-ef1234567890
+      required:
+        - name
+    PermissionListResponse:
+      type: object
+      description: "List of all permissions (non-paginated, used for role configuration UI)"
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Permission"
+      required:
+        - data
+    RolePermissionsUpdateRequest:
+      type: object
+      description: Replace the full set of permissions for a role
+      properties:
+        permissionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Complete list of permission ids (replaces existing set)
+          example:
+            - pm1a2b3c-d5e6-7890-abcd-ef1234567890
+            - pm2b3c4d-e6f7-8901-bcde-f01234567891
+      required:
+        - permissionIds
+    Report:
+      type: object
+      description: A report definition or generated report result
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: rp1a2b3c-d5e6-7890-abcd-ef1234567890
+        tenantId:
+          type: string
+          format: uuid
+          example: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+        name:
+          type: string
+          example: Monthly Payroll Summary
+        type:
+          type: string
+          enum:
+            - payroll_summary
+            - attendance_summary
+            - leave_summary
+            - headcount
+            - project_utilization
+            - performance_distribution
+            - custom
+          example: payroll_summary
+        filters:
+          type: object
+          description: "Applied filters (period, department, etc.)"
+          example:
+            periodStart: "2024-06-01"
+            periodEnd: "2024-06-30"
+            orgUnitId: null
+        status:
+          type: string
+          enum:
+            - pending
+            - processing
+            - ready
+            - failed
+          example: ready
+        downloadUrl:
+          type: string
+          format: uri
+          nullable: true
+          description: Signed download URL valid for 15 minutes
+          example: "https://storage.example.com/reports/payroll-june-2024.xlsx?token=abc"
+        generatedAt:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-07-02T10:00:00Z"
+        requestedBy:
+          type: string
+          format: uuid
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-07-02T09:55:00Z"
+      required:
+        - id
+        - tenantId
+        - name
+        - type
+        - status
+        - requestedBy
+        - createdAt
+    ReportListResponse:
+      type: object
+      description: Paginated list of reports
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Report"
+        meta:
+          $ref: "#/components/schemas/PaginationMeta"
+      required:
+        - data
+        - meta
+    ReportRunRequest:
+      type: object
+      description: Payload to trigger a report generation job
+      properties:
+        type:
+          type: string
+          enum:
+            - payroll_summary
+            - attendance_summary
+            - leave_summary
+            - headcount
+            - project_utilization
+            - performance_distribution
+            - custom
+          example: payroll_summary
+        name:
+          type: string
+          example: Monthly Payroll Summary June 2024
+        filters:
+          type: object
+          description: Report-specific filter parameters
+          properties:
+            periodStart:
+              type: string
+              format: date
+              nullable: true
+              example: "2024-06-01"
+            periodEnd:
+              type: string
+              format: date
+              nullable: true
+              example: "2024-06-30"
+            orgUnitId:
+              type: string
+              format: uuid
+              nullable: true
+              example: null
+            employeeIds:
+              type: array
+              items:
+                type: string
+                format: uuid
+              example: []
+          example:
+            periodStart: "2024-06-01"
+            periodEnd: "2024-06-30"
+        format:
+          type: string
+          enum:
+            - xlsx
+            - csv
+            - pdf
+          default: xlsx
+      required:
+        - type
+        - name
     UserListResponse:
       type: object
       description: Paginated list of users

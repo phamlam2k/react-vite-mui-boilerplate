@@ -1,11 +1,17 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { loginSchemaResolver, type LoginSchema } from "../utils/validations";
 import BaseTextFieldForm from "@shared/components/forms/BaseTextFieldForm";
 import Button from "@mui/material/Button";
 import { useLoginMutate } from "../hooks/useLoginMutate";
-import { mapLoginFormToApi } from "../utils/mapLoginForm";
+import {
+  loginSchemaResolver,
+  type LoginSchema,
+} from "@modules/auth/_usecases/login/login.validation";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const form = useForm<LoginSchema>({
     resolver: loginSchemaResolver,
     defaultValues: {
@@ -18,7 +24,15 @@ const LoginForm = () => {
   const onSubmit = (data: LoginSchema) => {
     if (isPending) return;
 
-    mutate(mapLoginFormToApi(data));
+    mutate(data, {
+      onSuccess: () => {
+        toast.success("Login successful");
+        navigate("/");
+      },
+      onError: () => {
+        toast.error("Login failed");
+      },
+    });
   };
 
   return (

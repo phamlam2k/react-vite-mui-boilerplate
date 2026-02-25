@@ -12,6 +12,7 @@ const fakeUser = {
 };
 
 export const authHandlers = [
+  // LOGIN
   http.post("/api/v1/auth/login", async ({ request }) => {
     const { usernameOrEmail, password } =
       (await request.json()) as AuthLoginRequest;
@@ -23,26 +24,37 @@ export const authHandlers = [
       );
     }
 
+    // 🔥 Mock cookie set (dev only)
+    document.cookie = `access_token=${fakeAccessToken}; path=/;`;
+
     return HttpResponse.json({
-      accessToken: fakeAccessToken,
       user: fakeUser,
     });
   }),
 
-  http.get("/api/v1/auth/me", ({ request }) => {
-    const authHeader = request.headers.get("authorization");
-    const token = authHeader?.replace("Bearer ", "");
+  // GET CURRENT USER
+  http.get("/api/v1/auth/me", async () => {
+    // 🔥 Read cookie
+    const token = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("access_token="))
+      ?.split("=")[1];
 
     if (!token || token !== fakeAccessToken) {
-      return HttpResponse.json(
-        { message: "Không có accessToken hoặc accessToken không hợp lệ" },
-        { status: 401 }
-      );
+      return HttpResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     return HttpResponse.json({
       user: fakeUser,
-      accessToken: fakeAccessToken,
+    });
+  }),
+
+  // LOGOUT (optional but recommended)
+  http.post("/api/v1/auth/logout", async () => {
+    document.cookie = "access_token=; Max-Age=0; path=/";
+
+    return HttpResponse.json({
+      message: "Logout success",
     });
   }),
 ];

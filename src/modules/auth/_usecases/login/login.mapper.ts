@@ -1,5 +1,5 @@
 import type { AuthLoginRequest } from "@modules/auth/_api/auth.type";
-import type { LoginSchema } from "./validations";
+import type { LoginSchema } from "./login.validation";
 
 export function mapLoginFormToApi(data: LoginSchema): AuthLoginRequest {
   return {

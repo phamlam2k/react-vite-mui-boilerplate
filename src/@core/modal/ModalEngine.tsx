@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { useModalStore } from "./store/modal.store";
 
-export default function ModalEngine() {
+const ModalEngine = () => {
   const { stack, registry } = useModalStore();
   if (!stack.length) return null;
 
@@ -24,4 +25,6 @@ export default function ModalEngine() {
       })}
     </>
   );
-}
+};
+
+export default memo(ModalEngine);

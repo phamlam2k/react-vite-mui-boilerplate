@@ -5,9 +5,19 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(config => {
+  const token = document.cookie
+    .split("; ")
+    .find(row => row.startsWith("access_token="))
+    ?.split("=")[1];
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
   return config;
 });
 
