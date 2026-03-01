@@ -1,4 +1,5 @@
 import axiosInstance from "@core/axios";
+import type { IOrganizationsPort } from "@modules/organizations/_usecases/organizations.port";
 import type {
   OrganizationsListParams,
   OrganizationsListResponse,
@@ -6,16 +7,18 @@ import type {
 
 export const OrganizationsApiRoutes = {
   Organizations: "/organizations",
-};
+} as const;
 
-const organizationsApi = {
-  getOrganizationsList: async (params: OrganizationsListParams) => {
+export class OrganizationsApiGateway implements IOrganizationsPort {
+  async getOrganizationsList(
+    params: OrganizationsListParams
+  ): Promise<OrganizationsListResponse> {
     const response = await axiosInstance.get<OrganizationsListResponse>(
       OrganizationsApiRoutes.Organizations,
       { params }
     );
     return response.data;
-  },
-};
+  }
+}
 
-export default organizationsApi;
+export const organizationsApiGateway = new OrganizationsApiGateway();

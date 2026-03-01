@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { ColorNames, generateRamp } from "./utils";
 import fs from "fs";
@@ -21,4 +22,4 @@ const baseColors = ${JSON.stringify(baseColors, null, 2)} as const;
 export default baseColors;
 `;
 
-fs.writeFileSync("src/@themes/colors/base.ts", content);
+fs.writeFileSync("src/shared/constants/colors.ts", content);

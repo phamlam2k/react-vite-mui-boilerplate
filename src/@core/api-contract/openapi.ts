@@ -4,6678 +4,6991 @@
  */
 
 export interface paths {
-    "/auth/register": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Register a new user */
-        post: operations["registerUser"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/auth/register": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Login with username or email */
-        post: operations["loginUser"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Register a new user */
+    post: operations["registerUser"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/login": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/refresh-token": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Refresh access token */
-        post: operations["refreshAccessToken"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Login with username or email */
+    post: operations["loginUser"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/refresh-token": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/logout": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Logout and revoke refresh token */
-        post: operations["logoutUser"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Refresh access token */
+    post: operations["refreshAccessToken"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/logout": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/me": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get current user profile
-         * @description Returns the profile of the authenticated user based on the provided access token.
-         */
-        get: operations["getCurrentUser"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Logout and revoke refresh token */
+    post: operations["logoutUser"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/me": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/organizations": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List organizational units */
-        get: operations["listOrgUnits"];
-        put?: never;
-        /** Create organizational unit */
-        post: operations["createOrgUnit"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get current user profile
+     * @description Returns the profile of the authenticated user based on the provided access token.
+     */
+    get: operations["getCurrentUser"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/organizations": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/organizations/{orgId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Organizational unit ID (UUID) */
-                orgId: string;
-            };
-            cookie?: never;
-        };
-        /** Get organizational unit by id */
-        get: operations["getOrgUnitById"];
-        put?: never;
-        post?: never;
-        /** Delete organizational unit (soft delete) */
-        delete: operations["deleteOrgUnit"];
-        options?: never;
-        head?: never;
-        /** Update organizational unit */
-        patch: operations["updateOrgUnit"];
-        trace?: never;
+    /** List organizational units */
+    get: operations["listOrgUnits"];
+    put?: never;
+    /** Create organizational unit */
+    post: operations["createOrgUnit"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/organizations/{orgId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Organizational unit ID (UUID) */
+        orgId: string;
+      };
+      cookie?: never;
     };
-    "/organizations/{orgId}/children": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Parent organizational unit ID */
-                orgId: string;
-            };
-            cookie?: never;
-        };
-        /** Get direct children of an organizational unit */
-        get: operations["getOrgUnitChildren"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get organizational unit by id */
+    get: operations["getOrgUnitById"];
+    put?: never;
+    post?: never;
+    /** Delete organizational unit (soft delete) */
+    delete: operations["deleteOrgUnit"];
+    options?: never;
+    head?: never;
+    /** Update organizational unit */
+    patch: operations["updateOrgUnit"];
+    trace?: never;
+  };
+  "/organizations/{orgId}/children": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Parent organizational unit ID */
+        orgId: string;
+      };
+      cookie?: never;
     };
-    "/employees": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List employees */
-        get: operations["listEmployees"];
-        put?: never;
-        /** Onboard a new employee */
-        post: operations["createEmployee"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get direct children of an organizational unit */
+    get: operations["getOrgUnitChildren"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/employees": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/employees/{employeeId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Employee ID (UUID) */
-                employeeId: string;
-            };
-            cookie?: never;
-        };
-        /** Get employee by id */
-        get: operations["getEmployeeById"];
-        put?: never;
-        post?: never;
-        /** Terminate / soft-delete employee */
-        delete: operations["deleteEmployee"];
-        options?: never;
-        head?: never;
-        /** Update employee profile */
-        patch: operations["updateEmployee"];
-        trace?: never;
+    /** List employees */
+    get: operations["listEmployees"];
+    put?: never;
+    /** Onboard a new employee */
+    post: operations["createEmployee"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/employees/{employeeId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Employee ID (UUID) */
+        employeeId: string;
+      };
+      cookie?: never;
     };
-    "/employees/{employeeId}/contracts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Employee ID (UUID) */
-                employeeId: string;
-            };
-            cookie?: never;
-        };
-        /** List contracts for an employee */
-        get: operations["listEmployeeContracts"];
-        put?: never;
-        /** Add a new contract for an employee */
-        post: operations["createEmployeeContract"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get employee by id */
+    get: operations["getEmployeeById"];
+    put?: never;
+    post?: never;
+    /** Terminate / soft-delete employee */
+    delete: operations["deleteEmployee"];
+    options?: never;
+    head?: never;
+    /** Update employee profile */
+    patch: operations["updateEmployee"];
+    trace?: never;
+  };
+  "/employees/{employeeId}/contracts": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Employee ID (UUID) */
+        employeeId: string;
+      };
+      cookie?: never;
     };
-    "/attendance/check-in": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Employee check-in */
-        post: operations["attendanceCheckIn"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List contracts for an employee */
+    get: operations["listEmployeeContracts"];
+    put?: never;
+    /** Add a new contract for an employee */
+    post: operations["createEmployeeContract"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/attendance/check-in": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/attendance/check-out": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Employee check-out */
-        post: operations["attendanceCheckOut"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Employee check-in */
+    post: operations["attendanceCheckIn"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/attendance/check-out": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/attendance/records": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List attendance records */
-        get: operations["listAttendanceRecords"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Employee check-out */
+    post: operations["attendanceCheckOut"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/attendance/records": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/attendance/corrections": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List attendance correction requests */
-        get: operations["listAttendanceCorrections"];
-        put?: never;
-        /** Submit attendance correction request */
-        post: operations["createAttendanceCorrection"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List attendance records */
+    get: operations["listAttendanceRecords"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/attendance/corrections": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/attendance/corrections/{correctionId}/approve": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                correctionId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Approve an attendance correction request */
-        post: operations["approveAttendanceCorrection"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List attendance correction requests */
+    get: operations["listAttendanceCorrections"];
+    put?: never;
+    /** Submit attendance correction request */
+    post: operations["createAttendanceCorrection"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/attendance/corrections/{correctionId}/approve": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        correctionId: string;
+      };
+      cookie?: never;
     };
-    "/attendance/corrections/{correctionId}/reject": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                correctionId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Reject an attendance correction request */
-        post: operations["rejectAttendanceCorrection"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Approve an attendance correction request */
+    post: operations["approveAttendanceCorrection"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/attendance/corrections/{correctionId}/reject": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        correctionId: string;
+      };
+      cookie?: never;
     };
-    "/timesheets": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List timesheets */
-        get: operations["listTimesheets"];
-        put?: never;
-        /** Create a timesheet */
-        post: operations["createTimesheet"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Reject an attendance correction request */
+    post: operations["rejectAttendanceCorrection"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/timesheets": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/timesheets/{timesheetId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheetId: string;
-            };
-            cookie?: never;
-        };
-        /** Get timesheet by id */
-        get: operations["getTimesheetById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List timesheets */
+    get: operations["listTimesheets"];
+    put?: never;
+    /** Create a timesheet */
+    post: operations["createTimesheet"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/timesheets/{timesheetId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheetId: string;
+      };
+      cookie?: never;
     };
-    "/timesheets/{timesheetId}/submit": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheetId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Submit timesheet for approval */
-        post: operations["submitTimesheet"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get timesheet by id */
+    get: operations["getTimesheetById"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/timesheets/{timesheetId}/submit": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheetId: string;
+      };
+      cookie?: never;
     };
-    "/timesheets/{timesheetId}/approve": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheetId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Approve a submitted timesheet */
-        post: operations["approveTimesheet"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Submit timesheet for approval */
+    post: operations["submitTimesheet"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/timesheets/{timesheetId}/approve": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheetId: string;
+      };
+      cookie?: never;
     };
-    "/timesheets/{timesheetId}/reject": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheetId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Reject a submitted timesheet */
-        post: operations["rejectTimesheet"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Approve a submitted timesheet */
+    post: operations["approveTimesheet"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/timesheets/{timesheetId}/reject": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheetId: string;
+      };
+      cookie?: never;
     };
-    "/payroll/cycles": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List payroll cycles */
-        get: operations["listPayrollCycles"];
-        put?: never;
-        /** Create a new payroll cycle */
-        post: operations["createPayrollCycle"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Reject a submitted timesheet */
+    post: operations["rejectTimesheet"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/payroll/cycles": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/payroll/cycles/{cycleId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        /** Get payroll cycle by id */
-        get: operations["getPayrollCycleById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List payroll cycles */
+    get: operations["listPayrollCycles"];
+    put?: never;
+    /** Create a new payroll cycle */
+    post: operations["createPayrollCycle"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/payroll/cycles/{cycleId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
     };
-    "/payroll/cycles/{cycleId}/calculate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Trigger payroll calculation for a cycle
-         * @description Calculates gross/net salaries for all employees by pulling active contracts, approved timesheets, and salary components. Results are stored as draft payroll records.
-         */
-        post: operations["calculatePayrollCycle"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get payroll cycle by id */
+    get: operations["getPayrollCycleById"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/payroll/cycles/{cycleId}/calculate": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
     };
-    "/payroll/cycles/{cycleId}/approve": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Approve a calculated payroll cycle */
-        post: operations["approvePayrollCycle"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Trigger payroll calculation for a cycle
+     * @description Calculates gross/net salaries for all employees by pulling active contracts, approved timesheets, and salary components. Results are stored as draft payroll records.
+     */
+    post: operations["calculatePayrollCycle"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/payroll/cycles/{cycleId}/approve": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
     };
-    "/payroll/cycles/{cycleId}/lock": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Lock an approved payroll cycle
-         * @description Locking freezes all payroll records, generates payslips, and triggers banking/accounting export. No changes are allowed after locking.
-         */
-        post: operations["lockPayrollCycle"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Approve a calculated payroll cycle */
+    post: operations["approvePayrollCycle"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/payroll/cycles/{cycleId}/lock": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
     };
-    "/payroll/cycles/{cycleId}/records": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        /** List payroll records in a cycle */
-        get: operations["listPayrollRecords"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Lock an approved payroll cycle
+     * @description Locking freezes all payroll records, generates payslips, and triggers banking/accounting export. No changes are allowed after locking.
+     */
+    post: operations["lockPayrollCycle"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/payroll/cycles/{cycleId}/records": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
     };
-    "/payroll/records/{recordId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Payroll record (payslip) ID */
-                recordId: string;
-            };
-            cookie?: never;
-        };
-        /**
-         * Get payroll record (payslip) by id
-         * @description Returns full payslip with all salary component lines. Employees can access only their own record.
-         */
-        get: operations["getPayrollRecordById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List payroll records in a cycle */
+    get: operations["listPayrollRecords"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/payroll/records/{recordId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Payroll record (payslip) ID */
+        recordId: string;
+      };
+      cookie?: never;
     };
-    "/projects": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List projects */
-        get: operations["listProjects"];
-        put?: never;
-        /** Create a project */
-        post: operations["createProject"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get payroll record (payslip) by id
+     * @description Returns full payslip with all salary component lines. Employees can access only their own record.
+     */
+    get: operations["getPayrollRecordById"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/projects": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/projects/{projectId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        /** Get project by id */
-        get: operations["getProjectById"];
-        put?: never;
-        post?: never;
-        /** Delete (archive) a project */
-        delete: operations["deleteProject"];
-        options?: never;
-        head?: never;
-        /** Update project */
-        patch: operations["updateProject"];
-        trace?: never;
+    /** List projects */
+    get: operations["listProjects"];
+    put?: never;
+    /** Create a project */
+    post: operations["createProject"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/projects/{projectId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
     };
-    "/projects/{projectId}/members": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        /** List project members */
-        get: operations["listProjectMembers"];
-        put?: never;
-        /** Add member to project */
-        post: operations["addProjectMember"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get project by id */
+    get: operations["getProjectById"];
+    put?: never;
+    post?: never;
+    /** Delete (archive) a project */
+    delete: operations["deleteProject"];
+    options?: never;
+    head?: never;
+    /** Update project */
+    patch: operations["updateProject"];
+    trace?: never;
+  };
+  "/projects/{projectId}/members": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
     };
-    "/projects/{projectId}/members/{memberId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                memberId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /** Remove member from project */
-        delete: operations["removeProjectMember"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List project members */
+    get: operations["listProjectMembers"];
+    put?: never;
+    /** Add member to project */
+    post: operations["addProjectMember"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/projects/{projectId}/members/{memberId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+        memberId: string;
+      };
+      cookie?: never;
     };
-    "/projects/{projectId}/tasks": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        /** List tasks in a project */
-        get: operations["listProjectTasks"];
-        put?: never;
-        /** Create a task in a project */
-        post: operations["createTask"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /** Remove member from project */
+    delete: operations["removeProjectMember"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/projects/{projectId}/tasks": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
     };
-    "/tasks/{taskId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        /** Get task by id */
-        get: operations["getTaskById"];
-        put?: never;
-        post?: never;
-        /** Delete task */
-        delete: operations["deleteTask"];
-        options?: never;
-        head?: never;
-        /** Update task */
-        patch: operations["updateTask"];
-        trace?: never;
+    /** List tasks in a project */
+    get: operations["listProjectTasks"];
+    put?: never;
+    /** Create a task in a project */
+    post: operations["createTask"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/tasks/{taskId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        taskId: string;
+      };
+      cookie?: never;
     };
-    "/tasks/{taskId}/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Transition task to a new status */
-        post: operations["updateTaskStatus"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get task by id */
+    get: operations["getTaskById"];
+    put?: never;
+    post?: never;
+    /** Delete task */
+    delete: operations["deleteTask"];
+    options?: never;
+    head?: never;
+    /** Update task */
+    patch: operations["updateTask"];
+    trace?: never;
+  };
+  "/tasks/{taskId}/status": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        taskId: string;
+      };
+      cookie?: never;
     };
-    "/leave/requests": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List leave requests */
-        get: operations["listLeaveRequests"];
-        put?: never;
-        /** Submit a leave request */
-        post: operations["createLeaveRequest"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Transition task to a new status */
+    post: operations["updateTaskStatus"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/leave/requests": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/leave/requests/{requestId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                requestId: string;
-            };
-            cookie?: never;
-        };
-        /** Get leave request by id */
-        get: operations["getLeaveRequestById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List leave requests */
+    get: operations["listLeaveRequests"];
+    put?: never;
+    /** Submit a leave request */
+    post: operations["createLeaveRequest"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/leave/requests/{requestId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        requestId: string;
+      };
+      cookie?: never;
     };
-    "/leave/requests/{requestId}/approve": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                requestId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Approve a leave request */
-        post: operations["approveLeaveRequest"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get leave request by id */
+    get: operations["getLeaveRequestById"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/leave/requests/{requestId}/approve": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        requestId: string;
+      };
+      cookie?: never;
     };
-    "/leave/requests/{requestId}/reject": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                requestId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Reject a leave request */
-        post: operations["rejectLeaveRequest"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Approve a leave request */
+    post: operations["approveLeaveRequest"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/leave/requests/{requestId}/reject": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        requestId: string;
+      };
+      cookie?: never;
     };
-    "/leave/requests/{requestId}/cancel": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                requestId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Cancel own leave request */
-        post: operations["cancelLeaveRequest"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Reject a leave request */
+    post: operations["rejectLeaveRequest"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/leave/requests/{requestId}/cancel": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        requestId: string;
+      };
+      cookie?: never;
     };
-    "/leave/balances": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get leave balances */
-        get: operations["getLeaveBalances"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Cancel own leave request */
+    post: operations["cancelLeaveRequest"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/leave/balances": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/leave/policies": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List leave policies for the tenant */
-        get: operations["listLeavePolicies"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get leave balances */
+    get: operations["getLeaveBalances"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/leave/policies": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/reviews/cycles": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List performance review cycles */
-        get: operations["listReviewCycles"];
-        put?: never;
-        /** Create a performance review cycle */
-        post: operations["createReviewCycle"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List leave policies for the tenant */
+    get: operations["listLeavePolicies"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/reviews/cycles": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/reviews/cycles/{cycleId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        /** Get review cycle by id */
-        get: operations["getReviewCycleById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List performance review cycles */
+    get: operations["listReviewCycles"];
+    put?: never;
+    /** Create a performance review cycle */
+    post: operations["createReviewCycle"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/reviews/cycles/{cycleId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
     };
-    "/reviews/cycles/{cycleId}/results": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        /** List review results for a cycle */
-        get: operations["listReviewResults"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get review cycle by id */
+    get: operations["getReviewCycleById"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/reviews/cycles/{cycleId}/results": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
     };
-    "/reviews/cycles/{cycleId}/finalize": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Finalize a review cycle
-         * @description Marks the cycle as completed and makes all results read-only.
-         */
-        post: operations["finalizeReviewCycle"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List review results for a cycle */
+    get: operations["listReviewResults"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/reviews/cycles/{cycleId}/finalize": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
     };
-    "/roles": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List roles */
-        get: operations["listRoles"];
-        put?: never;
-        /** Create a custom role */
-        post: operations["createRole"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Finalize a review cycle
+     * @description Marks the cycle as completed and makes all results read-only.
+     */
+    post: operations["finalizeReviewCycle"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/roles": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/roles/{roleId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        /** Get role by id with permissions */
-        get: operations["getRoleById"];
-        put?: never;
-        post?: never;
-        /** Delete a custom role */
-        delete: operations["deleteRole"];
-        options?: never;
-        head?: never;
-        /** Update role name / description */
-        patch: operations["updateRole"];
-        trace?: never;
+    /** List roles */
+    get: operations["listRoles"];
+    put?: never;
+    /** Create a custom role */
+    post: operations["createRole"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/roles/{roleId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        roleId: string;
+      };
+      cookie?: never;
     };
-    "/roles/{roleId}/permissions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        /** Get permissions assigned to a role */
-        get: operations["getRolePermissions"];
-        /** Replace the full permission set of a role */
-        put: operations["setRolePermissions"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get role by id with permissions */
+    get: operations["getRoleById"];
+    put?: never;
+    post?: never;
+    /** Delete a custom role */
+    delete: operations["deleteRole"];
+    options?: never;
+    head?: never;
+    /** Update role name / description */
+    patch: operations["updateRole"];
+    trace?: never;
+  };
+  "/roles/{roleId}/permissions": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        roleId: string;
+      };
+      cookie?: never;
     };
-    "/permissions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * List all available permissions
-         * @description Returns the full catalog of permission keys for use in role configuration UIs.
-         */
-        get: operations["listPermissions"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get permissions assigned to a role */
+    get: operations["getRolePermissions"];
+    /** Replace the full permission set of a role */
+    put: operations["setRolePermissions"];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/permissions": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/reports": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List previously generated reports */
-        get: operations["listReports"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * List all available permissions
+     * @description Returns the full catalog of permission keys for use in role configuration UIs.
+     */
+    get: operations["listPermissions"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/reports": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/reports/run": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Trigger a report generation job
-         * @description Async – returns 202 with report id. Poll GET /reports/{id} until status=ready.
-         */
-        post: operations["runReport"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List previously generated reports */
+    get: operations["listReports"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/reports/run": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/reports/{reportId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                reportId: string;
-            };
-            cookie?: never;
-        };
-        /** Get report by id (poll for status and download URL) */
-        get: operations["getReportById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Trigger a report generation job
+     * @description Async – returns 202 with report id. Poll GET /reports/{id} until status=ready.
+     */
+    post: operations["runReport"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/reports/{reportId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        reportId: string;
+      };
+      cookie?: never;
     };
-    "/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** List users */
-        get: operations["listUsers"];
-        put?: never;
-        /** Create user */
-        post: operations["createUser"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get report by id (poll for status and download URL) */
+    get: operations["getReportById"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/{userId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description User identifier (UUID) */
-                userId: string;
-            };
-            cookie?: never;
-        };
-        /** Get user by id */
-        get: operations["getUserById"];
-        put?: never;
-        post?: never;
-        /** Delete user */
-        delete: operations["deleteUserById"];
-        options?: never;
-        head?: never;
-        /** Update user */
-        patch: operations["updateUserById"];
-        trace?: never;
+    /** List users */
+    get: operations["listUsers"];
+    put?: never;
+    /** Create user */
+    post: operations["createUser"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users/{userId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description User identifier (UUID) */
+        userId: string;
+      };
+      cookie?: never;
     };
-    "/users/{username}": {
-        parameters: {
-            query?: {
-                /** @description Pretty print response */
-                pretty_print?: boolean;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get user by user name
-         * @description Some description of the operation.
-         *     You can use `markdown` here.
-         */
-        get: operations["getUserByName"];
-        /**
-         * Updated user
-         * @description This can only be done by the logged in user.
-         */
-        put: operations["updateUser"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Get user by id */
+    get: operations["getUserById"];
+    put?: never;
+    post?: never;
+    /** Delete user */
+    delete: operations["deleteUserById"];
+    options?: never;
+    head?: never;
+    /** Update user */
+    patch: operations["updateUserById"];
+    trace?: never;
+  };
+  "/users/{userId}/roles": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        userId: string;
+      };
+      cookie?: never;
     };
-    "/echo": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Echo test
-         * @description Receive the exact message you've sent
-         */
-        post: operations["echo"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** List RBAC roles assigned to a user */
+    get: operations["getUserRoles"];
+    /** Replace all RBAC roles assigned to a user */
+    put: operations["setUserRoles"];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users/{userId}/roles/{roleId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        userId: string;
+        roleId: string;
+      };
+      cookie?: never;
     };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** Remove one RBAC role from a user */
+    delete: operations["removeUserRole"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users/{username}": {
+    parameters: {
+      query?: {
+        /** @description Pretty print response */
+        pretty_print?: boolean;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get user by user name
+     * @description Some description of the operation.
+     *     You can use `markdown` here.
+     */
+    get: operations["getUserByName"];
+    /**
+     * Updated user
+     * @description This can only be done by the logged in user.
+     */
+    put: operations["updateUser"];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/echo": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Echo test
+     * @description Receive the exact message you've sent
+     */
+    post: operations["echo"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
+  schemas: {
+    /**
+     * Format: email
+     * @description User email address
+     * @example john.smith@example.com
+     */
+    Email: string;
+    /** @description Registration payload for creating a new account (optionally under a business/tenant) */
+    AuthRegisterRequest: {
+      /** @example johnsmith */
+      username: string;
+      email: components["schemas"]["Email"];
+      /**
+       * Format: password
+       * @description User password
+       * @example StrongPass!123
+       */
+      password: string;
+      /** @example John */
+      firstName: string;
+      /** @example Smith */
+      lastName: string;
+      /**
+       * Format: uuid
+       * @description Business (tenant) to register under; omit for global account
+       */
+      tenantId?: string;
+      /** @description Business slug (e.g. acme) instead of tenantId */
+      tenantSlug?: string;
+    };
+    /** @description Access and refresh tokens issued after authentication */
+    AuthTokens: {
+      /**
+       * @description JWT used for authenticated requests
+       * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+       */
+      accessToken: string;
+      /**
+       * @description Long-lived token used to obtain a new access token
+       * @example dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
+       */
+      refreshToken: string;
+      /**
+       * Format: int64
+       * @description Access token lifetime in seconds
+       * @example 3600
+       */
+      expiresIn: number;
+      /**
+       * @description Token type indicator
+       * @default Bearer
+       */
+      tokenType: string;
+    };
+    /** @description Rich user profile returned by the API (includes business/tenant and org context when applicable) */
+    UserProfile: {
+      /**
+       * Format: uuid
+       * @example 8b2e7f2d-4fd5-40a0-9e65-7e3d4c9f0f11
+       */
+      id: string;
+      /** @example johnsmith */
+      username: string;
+      email: components["schemas"]["Email"];
+      /** @example John */
+      firstName: string;
+      /** @example Smith */
+      lastName: string;
+      /**
+       * @description Indicates whether the user account is active
+       * @example true
+       */
+      isActive: boolean;
+      /**
+       * Format: date-time
+       * @description Timestamp of the most recent successful login
+       * @example 2024-05-10T14:32:10Z
+       */
+      lastLoginAt?: string;
+      /**
+       * Format: date-time
+       * @example 2024-01-01T08:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-05-10T14:32:10Z
+       */
+      updatedAt: string;
+      /**
+       * Format: uuid
+       * @description Business (tenant) the user belongs to
+       */
+      tenantId?: string | null;
+      /** @description Business/tenant display name */
+      tenantName?: string | null;
+      /**
+       * Format: uuid
+       * @description Linked employee id (if user is an employee)
+       */
+      employeeId?: string | null;
+      /**
+       * Format: uuid
+       * @description Primary org unit (department/team) of the employee
+       */
+      orgUnitId?: string | null;
+      /** @description Org unit display name */
+      orgUnitName?: string | null;
+      /**
+       * Format: uuid
+       * @description BU (business unit) the employee belongs to
+       */
+      businessUnitId?: string | null;
+      /** @description BU display name */
+      businessUnitName?: string | null;
+      /** @description RBAC roles assigned to the user (from user_roles) */
+      roles?: components["schemas"]["RoleSummary"][];
+      /** @description All permissions the user has (from their roles), for authz checks */
+      permissions?: components["schemas"]["PermissionSummary"][];
+    };
+    /** @description Short role info for user profile */
+    RoleSummary: {
+      /** Format: uuid */
+      id: string;
+      name: string;
+      code: string;
+    };
+    /** @description Short permission info for user profile (from user's roles) */
+    PermissionSummary: {
+      /** Format: uuid */
+      id: string;
+      /** @description Permission code (e.g. payroll.view.all) */
+      code: string;
+      name?: string | null;
+      /** @description Resource/group for UI */
+      resource?: string | null;
+    };
+    /** @description Tokens and user profile returned after authentication */
+    AuthLoginResponse: {
+      tokens: components["schemas"]["AuthTokens"];
+      user: components["schemas"]["UserProfile"];
+    };
+    /** @description Credentials used to authenticate a user (optionally scoped by business/tenant) */
+    AuthLoginRequest: {
+      /**
+       * @description Username or email used to login
+       * @example john.smith@example.com
+       */
+      usernameOrEmail: string;
+      /**
+       * Format: password
+       * @description User password
+       * @example StrongPass!123
+       */
+      password: string;
+      /**
+       * Format: uuid
+       * @description Business (tenant) to login into; omit to match any tenant
+       */
+      tenantId?: string;
+      /** @description Business slug (e.g. acme) instead of tenantId */
+      tenantSlug?: string;
+    };
+    /** @description Payload used to obtain a new access token */
+    AuthRefreshRequest: {
+      /**
+       * @description Valid refresh token issued during login or registration
+       * @example dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
+       */
+      refreshToken: string;
+    };
+    /** @description Tokens returned after refreshing an access token */
+    AuthRefreshResponse: {
+      tokens: components["schemas"]["AuthTokens"];
+    };
+    /** @description Optional payload to revoke a specific refresh token during logout */
+    AuthLogoutRequest: {
+      /**
+       * @description Refresh token to invalidate (omit to logout all sessions)
+       * @example dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
+       */
+      refreshToken?: string;
+    };
+    /** @description An organizational unit — company, business unit, department, or team */
+    OrgUnit: {
+      /**
+       * Format: uuid
+       * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /** @example Engineering */
+      name: string;
+      /**
+       * @example department
+       * @enum {string}
+       */
+      type: "company" | "business_unit" | "department" | "team";
+      /**
+       * Format: uuid
+       * @example 9c1f84a2-1234-4321-abcd-0987654321ef
+       */
+      parentId?: string | null;
+      /** @example ENG-001 */
+      code?: string;
+      /** @example Core software engineering department */
+      description?: string | null;
+      /** @example true */
+      isActive: boolean;
+      /**
+       * Format: uuid
+       * @description Employee designated as department head
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      headEmployeeId?: string | null;
+      /**
+       * Format: date-time
+       * @example 2024-01-01T08:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-01T12:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Pagination metadata for list responses */
+    PaginationMeta: {
+      /** @example 1 */
+      page: number;
+      /** @example 20 */
+      pageSize: number;
+      /** @example 125 */
+      totalItems: number;
+      /** @example 7 */
+      totalPages: number;
+    };
+    /** @description Paginated list of organizational units */
+    OrgUnitListResponse: {
+      data: components["schemas"]["OrgUnit"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Standard error envelope returned on all non-2xx responses */
+    ErrorResponse: {
+      error: {
         /**
-         * Format: email
-         * @description User email address
-         * @example john.smith@example.com
+         * @description Machine-readable error code
+         * @example VALIDATION_ERROR
          */
-        Email: string;
-        /** @description Registration payload for creating a new account */
-        AuthRegisterRequest: {
-            /** @example johnsmith */
-            username: string;
-            email: components["schemas"]["Email"];
-            /**
-             * Format: password
-             * @description User password
-             * @example StrongPass!123
-             */
-            password: string;
-            /** @example John */
-            firstName: string;
-            /** @example Smith */
-            lastName: string;
-        };
-        /** @description Access and refresh tokens issued after authentication */
-        AuthTokens: {
-            /**
-             * @description JWT used for authenticated requests
-             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-             */
-            accessToken: string;
-            /**
-             * @description Long-lived token used to obtain a new access token
-             * @example dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
-             */
-            refreshToken: string;
-            /**
-             * Format: int64
-             * @description Access token lifetime in seconds
-             * @example 3600
-             */
-            expiresIn: number;
-            /**
-             * @description Token type indicator
-             * @default Bearer
-             */
-            tokenType: string;
-        };
-        /** @description Rich user profile returned by the API */
-        UserProfile: {
-            /**
-             * Format: uuid
-             * @example 8b2e7f2d-4fd5-40a0-9e65-7e3d4c9f0f11
-             */
-            id: string;
-            /** @example johnsmith */
-            username: string;
-            email: components["schemas"]["Email"];
-            /** @example John */
-            firstName: string;
-            /** @example Smith */
-            lastName: string;
-            /**
-             * @description Role assigned to the user
-             * @example user
-             * @enum {string}
-             */
-            role: "user" | "admin";
-            /**
-             * @description Indicates whether the user account is active
-             * @example true
-             */
-            isActive: boolean;
-            /**
-             * Format: date-time
-             * @description Timestamp of the most recent successful login
-             * @example 2024-05-10T14:32:10Z
-             */
-            lastLoginAt?: string;
-            /**
-             * Format: date-time
-             * @example 2024-01-01T08:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-05-10T14:32:10Z
-             */
-            updatedAt: string;
-        };
-        /** @description Tokens and user profile returned after authentication */
-        AuthLoginResponse: {
-            tokens: components["schemas"]["AuthTokens"];
-            user: components["schemas"]["UserProfile"];
-        };
-        /** @description Credentials used to authenticate a user */
-        AuthLoginRequest: {
-            /**
-             * @description Username or email used to login
-             * @example john.smith@example.com
-             */
-            usernameOrEmail: string;
-            /**
-             * Format: password
-             * @description User password
-             * @example StrongPass!123
-             */
-            password: string;
-        };
-        /** @description Payload used to obtain a new access token */
-        AuthRefreshRequest: {
-            /**
-             * @description Valid refresh token issued during login or registration
-             * @example dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
-             */
-            refreshToken: string;
-        };
-        /** @description Tokens returned after refreshing an access token */
-        AuthRefreshResponse: {
-            tokens: components["schemas"]["AuthTokens"];
-        };
-        /** @description Optional payload to revoke a specific refresh token during logout */
-        AuthLogoutRequest: {
-            /**
-             * @description Refresh token to invalidate (omit to logout all sessions)
-             * @example dcb29211-7b4e-4a1c-8ccf-4a4b6c8d2a51
-             */
-            refreshToken?: string;
-        };
-        /** @description An organizational unit — company, business unit, department, or team */
-        OrgUnit: {
-            /**
-             * Format: uuid
-             * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /** @example Engineering */
-            name: string;
-            /**
-             * @example department
-             * @enum {string}
-             */
-            type: "company" | "business_unit" | "department" | "team";
-            /**
-             * Format: uuid
-             * @example 9c1f84a2-1234-4321-abcd-0987654321ef
-             */
-            parentId?: string | null;
-            /** @example ENG-001 */
-            code?: string;
-            /** @example Core software engineering department */
-            description?: string | null;
-            /** @example true */
-            isActive: boolean;
-            /**
-             * Format: uuid
-             * @description Employee designated as department head
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            headEmployeeId?: string | null;
-            /**
-             * Format: date-time
-             * @example 2024-01-01T08:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-01T12:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Pagination metadata for list responses */
-        PaginationMeta: {
-            /** @example 1 */
-            page: number;
-            /** @example 20 */
-            pageSize: number;
-            /** @example 125 */
-            totalItems: number;
-            /** @example 7 */
-            totalPages: number;
-        };
-        /** @description Paginated list of organizational units */
-        OrgUnitListResponse: {
-            data: components["schemas"]["OrgUnit"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Standard error envelope returned on all non-2xx responses */
-        ErrorResponse: {
-            error: {
-                /**
-                 * @description Machine-readable error code
-                 * @example VALIDATION_ERROR
-                 */
-                code: string;
-                /**
-                 * @description Human-readable summary
-                 * @example One or more fields are invalid
-                 */
-                message: string;
-                /** @description Field-level validation errors (optional) */
-                details?: {
-                    /** @example email */
-                    field?: string;
-                    /** @example Must be a valid email address */
-                    message?: string;
-                }[];
-            };
-        };
-        /** @description Payload to create a new organizational unit */
-        OrgUnitCreateRequest: {
-            /** @example Engineering */
-            name: string;
-            /**
-             * @example department
-             * @enum {string}
-             */
-            type: "company" | "business_unit" | "department" | "team";
-            /**
-             * Format: uuid
-             * @description Parent org unit id; null for root (company)
-             * @example 9c1f84a2-1234-4321-abcd-0987654321ef
-             */
-            parentId?: string | null;
-            /** @example ENG-001 */
-            code?: string;
-            /** @example Core software engineering department */
-            description?: string | null;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            headEmployeeId?: string | null;
-        };
-        /** @description Partial update payload for an organizational unit */
-        OrgUnitUpdateRequest: {
-            /** @example Engineering & Platform */
-            name?: string;
-            /** @example ENG-002 */
-            code?: string;
-            /** @example Engineering and Platform division */
-            description?: string | null;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            headEmployeeId?: string | null;
-            /** @example true */
-            isActive?: boolean;
-        };
-        /** @description Full employee profile as returned by the API */
-        EmployeeProfile: {
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @description Linked user account (if any)
-             * @example f0a1b2c3-d4e5-6789-abcd-ef0123456789
-             */
-            userId?: string | null;
-            /**
-             * @description Human-readable employee code
-             * @example EMP-0042
-             */
-            employeeCode: string;
-            /** @example John */
-            firstName: string;
-            /** @example Smith */
-            lastName: string;
-            /**
-             * Format: email
-             * @example john.smith@example.com
-             */
-            email: string;
-            /** @example +84901234567 */
-            phone?: string | null;
-            /**
-             * @example male
-             * @enum {string}
-             */
-            gender?: "male" | "female" | "other" | "prefer_not_to_say";
-            /**
-             * Format: date
-             * @example 1990-05-15
-             */
-            dateOfBirth?: string;
-            /** @example 79090012345 */
-            nationalId?: string | null;
-            /** @example 8901234567 */
-            taxId?: string | null;
-            /**
-             * Format: uuid
-             * @description Primary department/team
-             * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
-             */
-            orgUnitId: string;
-            /** @example Engineering */
-            orgUnitName: string;
-            /** @example Senior Software Engineer */
-            positionTitle: string;
-            /**
-             * Format: uuid
-             * @description Direct manager employee id
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            managerId?: string | null;
-            /** @example Jane Doe */
-            managerName?: string | null;
-            /**
-             * @example active
-             * @enum {string}
-             */
-            status: "probation" | "active" | "on_leave" | "terminated";
-            /**
-             * Format: date
-             * @example 2022-03-01
-             */
-            hireDate: string;
-            /**
-             * Format: date
-             * @example null
-             */
-            terminationDate?: string | null;
-            /**
-             * @example hybrid
-             * @enum {string}
-             */
-            workMode?: "office" | "remote" | "hybrid";
-            /**
-             * Format: date-time
-             * @example 2022-03-01T07:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-01T12:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of employee profiles */
-        EmployeeListResponse: {
-            data: components["schemas"]["EmployeeProfile"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to create a new employment contract */
-        ContractCreateRequest: {
-            /**
-             * @example permanent
-             * @enum {string}
-             */
-            type: "probation" | "fixed_term" | "permanent" | "part_time" | "contractor";
-            /**
-             * Format: date
-             * @example 2024-07-01
-             */
-            startDate: string;
-            /**
-             * Format: date
-             * @description Required for fixed_term and probation contracts
-             * @example null
-             */
-            endDate?: string | null;
-            /**
-             * Format: double
-             * @example 35000000
-             */
-            baseSalary: number;
-            /** @example VND */
-            currency: string;
-            /**
-             * @default monthly
-             * @enum {string}
-             */
-            paySchedule: "monthly" | "bi_weekly" | "weekly";
-            /** @example L4 */
-            payGrade?: string | null;
-        };
-        /** @description Payload to onboard a new employee */
-        EmployeeCreateRequest: {
-            /** @example John */
-            firstName: string;
-            /** @example Smith */
-            lastName: string;
-            /**
-             * Format: email
-             * @example john.smith@example.com
-             */
-            email: string;
-            /** @example +84901234567 */
-            phone?: string | null;
-            /**
-             * @example male
-             * @enum {string}
-             */
-            gender?: "male" | "female" | "other" | "prefer_not_to_say";
-            /**
-             * Format: date
-             * @example 1990-05-15
-             */
-            dateOfBirth?: string;
-            /** @example 79090012345 */
-            nationalId?: string | null;
-            /** @example 8901234567 */
-            taxId?: string | null;
-            /**
-             * Format: uuid
-             * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
-             */
-            orgUnitId: string;
-            /** @example Senior Software Engineer */
-            positionTitle: string;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            managerId?: string | null;
-            /**
-             * Format: date
-             * @example 2024-07-01
-             */
-            hireDate: string;
-            /**
-             * @default office
-             * @enum {string}
-             */
-            workMode: "office" | "remote" | "hybrid";
-            contract: components["schemas"]["ContractCreateRequest"];
-        };
-        /** @description Partial update payload for an employee profile */
-        EmployeeUpdateRequest: {
-            /** @example John */
-            firstName?: string;
-            /** @example Smith */
-            lastName?: string;
-            /** @example +84901234567 */
-            phone?: string | null;
-            /**
-             * Format: uuid
-             * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
-             */
-            orgUnitId?: string;
-            /** @example Staff Engineer */
-            positionTitle?: string;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            managerId?: string | null;
-            /**
-             * @example active
-             * @enum {string}
-             */
-            status?: "probation" | "active" | "on_leave" | "terminated";
-            /**
-             * @example hybrid
-             * @enum {string}
-             */
-            workMode?: "office" | "remote" | "hybrid";
-            /**
-             * Format: date
-             * @example 2025-12-31
-             */
-            terminationDate?: string | null;
-        };
-        /** @description Employment contract of an employee */
-        Contract: {
-            /**
-             * Format: uuid
-             * @example c1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example CTR-2024-0042 */
-            contractNumber: string;
-            /**
-             * @example permanent
-             * @enum {string}
-             */
-            type: "probation" | "fixed_term" | "permanent" | "part_time" | "contractor";
-            /**
-             * Format: date
-             * @example 2024-07-01
-             */
-            startDate: string;
-            /**
-             * Format: date
-             * @example null
-             */
-            endDate?: string | null;
-            /**
-             * Format: double
-             * @example 35000000
-             */
-            baseSalary: number;
-            /** @example VND */
-            currency: string;
-            /**
-             * @example monthly
-             * @enum {string}
-             */
-            paySchedule: "monthly" | "bi_weekly" | "weekly";
-            /** @example L4 */
-            payGrade?: string | null;
-            /** @example true */
-            isActive: boolean;
-            /**
-             * Format: date-time
-             * @example 2024-06-20T09:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-20T09:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Payload for employee check-in */
-        AttendanceCheckInRequest: {
-            /**
-             * @example office
-             * @enum {string}
-             */
-            workMode: "office" | "remote";
-            /** @description GPS coordinate (required in remote mode if GPS enforcement is on) */
-            gps?: {
-                /**
-                 * Format: double
-                 * @example 10.7769
-                 */
-                lat?: number;
-                /**
-                 * Format: double
-                 * @example 106.7009
-                 */
-                lng?: number;
-            } | null;
-            /**
-             * @description Device fingerprint or user-agent
-             * @example Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)
-             */
-            deviceInfo?: string | null;
-            /** @example Working from home today */
-            note?: string | null;
-        };
-        /** @description A single attendance record for one day */
-        AttendanceRecord: {
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-1234-567890abcdef
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example John Smith */
-            employeeName: string;
-            /**
-             * Format: date
-             * @example 2024-06-10
-             */
-            date: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T08:02:00Z
-             */
-            checkInAt?: string | null;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T17:10:00Z
-             */
-            checkOutAt?: string | null;
-            /**
-             * @example office
-             * @enum {string}
-             */
-            workMode: "office" | "remote";
-            /** @description GPS coordinate at check-in */
-            checkInGps?: {
-                /**
-                 * Format: double
-                 * @example 10.7769
-                 */
-                lat?: number;
-                /**
-                 * Format: double
-                 * @example 106.7009
-                 */
-                lng?: number;
-            } | null;
-            checkOutGps?: {
-                /**
-                 * Format: double
-                 * @example 10.7769
-                 */
-                lat?: number;
-                /**
-                 * Format: double
-                 * @example 106.7009
-                 */
-                lng?: number;
-            } | null;
-            /**
-             * @description Total minutes worked (computed)
-             * @example 548
-             */
-            workedMinutes?: number;
-            /**
-             * @description Minutes late vs scheduled start
-             * @example 2
-             */
-            lateMinutes?: number;
-            /**
-             * @description Approved overtime minutes
-             * @example 70
-             */
-            overtimeMinutes?: number;
-            /**
-             * @example present
-             * @enum {string}
-             */
-            status: "present" | "absent" | "late" | "half_day" | "corrected";
-            /** @example  */
-            note?: string | null;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T08:02:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T17:10:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Payload for employee check-out */
-        AttendanceCheckOutRequest: {
-            gps?: {
-                /**
-                 * Format: double
-                 * @example 10.7769
-                 */
-                lat?: number;
-                /**
-                 * Format: double
-                 * @example 106.7009
-                 */
-                lng?: number;
-            } | null;
-            /** @example Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) */
-            deviceInfo?: string | null;
-            /** @example Leaving for client meeting */
-            note?: string | null;
-        };
-        /** @description Paginated list of attendance records */
-        AttendanceListResponse: {
-            data: components["schemas"]["AttendanceRecord"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description A manual attendance correction request */
-        AttendanceCorrection: {
-            /**
-             * Format: uuid
-             * @example b2c3d4e5-f6a7-8901-2345-678901bcdef0
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example John Smith */
-            employeeName: string;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-1234-567890abcdef
-             */
-            attendanceRecordId?: string | null;
-            /**
-             * Format: date
-             * @example 2024-06-10
-             */
-            date: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T08:00:00Z
-             */
-            requestedCheckInAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T17:00:00Z
-             */
-            requestedCheckOutAt?: string | null;
-            /** @example Forgot to check in at the office */
-            reason: string;
-            /**
-             * @example pending
-             * @enum {string}
-             */
-            status: "pending" | "approved" | "rejected";
-            /**
-             * Format: uuid
-             * @example null
-             */
-            reviewedBy?: string | null;
-            /** @example null */
-            reviewNote?: string | null;
-            /**
-             * Format: date-time
-             * @example 2024-06-11T09:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-11T09:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of attendance correction requests */
-        AttendanceCorrectionListResponse: {
-            data: components["schemas"]["AttendanceCorrection"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Request to manually correct an attendance record */
-        AttendanceCorrectionRequest: {
-            /**
-             * Format: uuid
-             * @description Existing record to correct; omit if creating a missing check-in/out
-             * @example a1b2c3d4-e5f6-7890-1234-567890abcdef
-             */
-            attendanceRecordId?: string | null;
-            /**
-             * Format: date
-             * @example 2024-06-10
-             */
-            date: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T08:00:00Z
-             */
-            checkInAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T17:00:00Z
-             */
-            checkOutAt?: string;
-            /** @example Forgot to check in at the office, confirmed by manager */
-            reason: string;
-            /**
-             * @description Supporting documents or screenshots
-             * @example [
-             *       "https://storage.example.com/evidence/abc.png"
-             *     ]
-             */
-            evidenceUrls?: string[];
-        };
-        /** @description A single time entry within a timesheet */
-        TimesheetEntry: {
-            /**
-             * Format: uuid
-             * @example d4e5f6a7-b8c9-0123-4567-890abcdef012
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example c3d4e5f6-a7b8-9012-3456-7890abcdef01
-             */
-            timesheetId: string;
-            /**
-             * Format: uuid
-             * @example f6a7b8c9-d0e1-2345-6789-0abcdef01234
-             */
-            projectId?: string | null;
-            /** @example HRM SaaS v2 */
-            projectName?: string | null;
-            /**
-             * Format: uuid
-             * @example a7b8c9d0-e1f2-3456-7890-abcdef012345
-             */
-            taskId?: string | null;
-            /** @example Implement payroll module */
-            taskName?: string | null;
-            /**
-             * Format: date
-             * @example 2024-06-10
-             */
-            date: string;
-            /**
-             * Format: double
-             * @example 8.5
-             */
-            hours: number;
-            /**
-             * @example regular
-             * @enum {string}
-             */
-            activityType: "regular" | "overtime" | "billable" | "internal";
-            /** @example Finished payroll formula engine */
-            notes?: string | null;
-        };
-        /** @description A weekly or bi-weekly timesheet submitted by an employee */
-        Timesheet: {
-            /**
-             * Format: uuid
-             * @example c3d4e5f6-a7b8-9012-3456-7890abcdef01
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example John Smith */
-            employeeName: string;
-            /**
-             * Format: date
-             * @example 2024-06-10
-             */
-            periodStart: string;
-            /**
-             * Format: date
-             * @example 2024-06-16
-             */
-            periodEnd: string;
-            /**
-             * Format: double
-             * @description Sum of all entry hours (computed)
-             * @example 42.5
-             */
-            totalHours: number;
-            /**
-             * Format: double
-             * @example 2.5
-             */
-            overtimeHours: number;
-            /**
-             * @example submitted
-             * @enum {string}
-             */
-            status: "draft" | "submitted" | "approved" | "rejected" | "locked";
-            /**
-             * Format: date-time
-             * @example 2024-06-17T08:30:00Z
-             */
-            submittedAt?: string | null;
-            /**
-             * Format: date-time
-             * @example null
-             */
-            approvedAt?: string | null;
-            /**
-             * Format: uuid
-             * @example null
-             */
-            approvedBy?: string | null;
-            /** @example null */
-            rejectionReason?: string | null;
-            entries?: components["schemas"]["TimesheetEntry"][];
-            /**
-             * Format: date-time
-             * @example 2024-06-10T07:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-17T08:30:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of timesheets */
-        TimesheetListResponse: {
-            data: components["schemas"]["Timesheet"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to create a timesheet with time entries */
-        TimesheetCreateRequest: {
-            /**
-             * Format: date
-             * @example 2024-06-10
-             */
-            periodStart: string;
-            /**
-             * Format: date
-             * @example 2024-06-16
-             */
-            periodEnd: string;
-            entries: {
-                /**
-                 * Format: uuid
-                 * @example f6a7b8c9-d0e1-2345-6789-0abcdef01234
-                 */
-                projectId?: string | null;
-                /**
-                 * Format: uuid
-                 * @example a7b8c9d0-e1f2-3456-7890-abcdef012345
-                 */
-                taskId?: string | null;
-                /**
-                 * Format: date
-                 * @example 2024-06-10
-                 */
-                date: string;
-                /**
-                 * Format: double
-                 * @example 8
-                 */
-                hours: number;
-                /**
-                 * @default regular
-                 * @enum {string}
-                 */
-                activityType: "regular" | "overtime" | "billable" | "internal";
-                /** @example Sprint planning meeting */
-                notes?: string | null;
-            }[];
-        };
-        /** @description Payload for rejecting a timesheet */
-        TimesheetRejectRequest: {
-            /** @example Several entries are missing project assignments. Please update and resubmit. */
-            reason: string;
-        };
-        /** @description A payroll processing cycle for a given period */
-        PayrollCycle: {
-            /**
-             * Format: uuid
-             * @example p1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /** @example June 2024 Payroll */
-            name: string;
-            /**
-             * Format: date
-             * @example 2024-06-01
-             */
-            periodStart: string;
-            /**
-             * Format: date
-             * @example 2024-06-30
-             */
-            periodEnd: string;
-            /** @example VND */
-            currency: string;
-            /**
-             * @example calculated
-             * @enum {string}
-             */
-            status: "draft" | "calculated" | "approved" | "locked" | "paid";
-            /**
-             * Format: double
-             * @example 1200000000
-             */
-            totalGross?: number | null;
-            /**
-             * Format: double
-             * @example 980000000
-             */
-            totalNet?: number | null;
-            /** @example 42 */
-            employeeCount?: number | null;
-            /**
-             * Format: date-time
-             * @example 2024-07-01T09:00:00Z
-             */
-            calculatedAt?: string | null;
-            /**
-             * Format: date-time
-             * @example null
-             */
-            approvedAt?: string | null;
-            /**
-             * Format: uuid
-             * @example null
-             */
-            approvedBy?: string | null;
-            /**
-             * Format: date-time
-             * @example null
-             */
-            lockedAt?: string | null;
-            /**
-             * Format: date-time
-             * @example 2024-06-28T08:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-07-01T09:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of payroll cycles */
-        PayrollCycleListResponse: {
-            data: components["schemas"]["PayrollCycle"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to open a new payroll cycle */
-        PayrollCycleCreateRequest: {
-            /** @example June 2024 Payroll */
-            name: string;
-            /**
-             * Format: date
-             * @example 2024-06-01
-             */
-            periodStart: string;
-            /**
-             * Format: date
-             * @example 2024-06-30
-             */
-            periodEnd: string;
-            /** @example VND */
-            currency: string;
-            /** @example Regular monthly run; include overtime from timesheets */
-            notes?: string | null;
-        };
-        /** @description A single salary component line within a payroll record */
-        PayrollRecordLine: {
-            /**
-             * Format: uuid
-             * @example l1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example r1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            payrollRecordId: string;
-            /** @example BASE_SALARY */
-            componentCode: string;
-            /** @example Base Salary */
-            componentName: string;
-            /**
-             * @example base
-             * @enum {string}
-             */
-            type: "base" | "allowance" | "overtime" | "bonus" | "deduction" | "tax" | "social_insurance";
-            /**
-             * Format: double
-             * @example 35000000
-             */
-            amount: number;
-            /**
-             * @description Formula expression evaluated at calculation time
-             * @example ${baseSalary} * (${workedDays} / ${totalDays})
-             */
-            formulaSnapshot?: string | null;
-        };
-        /** @description Individual payroll record for one employee in a cycle (payslip data) */
-        PayrollRecord: {
-            /**
-             * Format: uuid
-             * @example r1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example p1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            cycleId: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example John Smith */
-            employeeName: string;
-            /** @example EMP-0042 */
-            employeeCode: string;
-            /** @example Senior Software Engineer */
-            positionTitle?: string;
-            /** @example VND */
-            currency: string;
-            /**
-             * Format: double
-             * @example 35000000
-             */
-            baseSalary: number;
-            /**
-             * Format: double
-             * @example 3000000
-             */
-            totalAllowances?: number;
-            /**
-             * Format: double
-             * @example 1500000
-             */
-            totalOvertimePay?: number;
-            /**
-             * Format: double
-             * @example 0
-             */
-            totalBonuses?: number;
-            /**
-             * Format: double
-             * @example 2000000
-             */
-            totalDeductions?: number;
-            /**
-             * Format: double
-             * @example 4600000
-             */
-            totalTax?: number;
-            /**
-             * Format: double
-             * @example 2625000
-             */
-            totalSocialInsurance?: number;
-            /**
-             * Format: double
-             * @example 39500000
-             */
-            grossSalary: number;
-            /**
-             * Format: double
-             * @example 30275000
-             */
-            netSalary: number;
-            /** @example 22 */
-            workedDays?: number;
-            /** @example 22 */
-            totalDays?: number;
-            /**
-             * Format: double
-             * @example 5
-             */
-            overtimeHours?: number;
-            /**
-             * @example approved
-             * @enum {string}
-             */
-            status: "draft" | "approved" | "locked";
-            lines?: components["schemas"]["PayrollRecordLine"][];
-            /**
-             * Format: date-time
-             * @example 2024-07-01T09:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-07-01T10:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of payroll records within a cycle */
-        PayrollRecordListResponse: {
-            data: components["schemas"]["PayrollRecord"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description A project entity managed within the HRM system */
-        Project: {
-            /**
-             * Format: uuid
-             * @example j1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /** @example PROJ-2024-01 */
-            code: string;
-            /** @example HRM SaaS v2 */
-            name: string;
-            /** @example Full redevelopment of the HRM platform with microservices */
-            description?: string | null;
-            /** @example Acme Corp */
-            clientName?: string | null;
-            /**
-             * @example active
-             * @enum {string}
-             */
-            status: "planned" | "active" | "on_hold" | "completed" | "cancelled";
-            /**
-             * @example high
-             * @enum {string}
-             */
-            priority: "low" | "medium" | "high" | "critical";
-            /**
-             * Format: date
-             * @example 2024-01-15
-             */
-            startDate: string;
-            /**
-             * Format: date
-             * @example 2024-12-31
-             */
-            endDate?: string | null;
-            /**
-             * Format: double
-             * @example 500000000
-             */
-            budget?: number | null;
-            /** @example VND */
-            currency: string;
-            /**
-             * Format: double
-             * @description Computed from approved timesheets * bill rate
-             * @example 123450000
-             */
-            actualCost?: number;
-            /** @example 42 */
-            progressPercent?: number;
-            /**
-             * Format: uuid
-             * @description Employee who is the PM
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            managerId: string;
-            /** @example Jane Doe */
-            managerName: string;
-            /** @example 8 */
-            memberCount?: number;
-            /**
-             * Format: date-time
-             * @example 2024-01-10T08:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-01T10:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of projects */
-        ProjectListResponse: {
-            data: components["schemas"]["Project"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to create a new project */
-        ProjectCreateRequest: {
-            /** @example HRM SaaS v2 */
-            name: string;
-            /** @example Full redevelopment of the HRM platform with microservices */
-            description?: string | null;
-            /** @example Acme Corp */
-            clientName?: string | null;
-            /**
-             * @default medium
-             * @enum {string}
-             */
-            priority: "low" | "medium" | "high" | "critical";
-            /**
-             * Format: date
-             * @example 2024-01-15
-             */
-            startDate: string;
-            /**
-             * Format: date
-             * @example 2024-12-31
-             */
-            endDate?: string | null;
-            /**
-             * Format: double
-             * @example 500000000
-             */
-            budget?: number | null;
-            /** @example VND */
-            currency: string;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            managerId: string;
-        };
-        /** @description Partial update payload for a project */
-        ProjectUpdateRequest: {
-            /** @example HRM SaaS v3 */
-            name?: string;
-            /** @example Updated scope */
-            description?: string | null;
-            /** @example Acme Corp */
-            clientName?: string | null;
-            /**
-             * @example on_hold
-             * @enum {string}
-             */
-            status?: "planned" | "active" | "on_hold" | "completed" | "cancelled";
-            /**
-             * @example high
-             * @enum {string}
-             */
-            priority?: "low" | "medium" | "high" | "critical";
-            /**
-             * Format: date
-             * @example 2025-03-31
-             */
-            endDate?: string | null;
-            /**
-             * Format: double
-             * @example 600000000
-             */
-            budget?: number | null;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            managerId?: string;
-            /** @example 50 */
-            progressPercent?: number;
-        };
-        /** @description A member assigned to a project with a role and allocation */
-        ProjectMember: {
-            /**
-             * Format: uuid
-             * @example m1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example j1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            projectId: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example John Smith */
-            employeeName: string;
-            /**
-             * @example developer
-             * @enum {string}
-             */
-            role: "pm" | "tech_lead" | "ba" | "developer" | "tester" | "designer" | "devops" | "other";
-            /**
-             * @description Percentage of working time allocated to this project
-             * @example 80
-             */
-            allocationPercent: number;
-            /**
-             * Format: double
-             * @description Hourly or daily bill rate for cost tracking
-             * @example 500000
-             */
-            billRate?: number | null;
-            /**
-             * Format: date
-             * @example 2024-01-15
-             */
-            joinedAt: string;
-            /**
-             * Format: date
-             * @example null
-             */
-            leftAt?: string | null;
-            /** @example true */
-            isActive: boolean;
-        };
-        /** @description Payload to add a member to a project */
-        ProjectMemberCreateRequest: {
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /**
-             * @example developer
-             * @enum {string}
-             */
-            role: "pm" | "tech_lead" | "ba" | "developer" | "tester" | "designer" | "devops" | "other";
-            /** @default 100 */
-            allocationPercent: number;
-            /**
-             * Format: double
-             * @example 500000
-             */
-            billRate?: number | null;
-            /**
-             * Format: date
-             * @example 2024-01-15
-             */
-            joinedAt?: string;
-        };
-        /** @description A task within a project */
-        Task: {
-            /**
-             * Format: uuid
-             * @example t1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example j1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            projectId: string;
-            /** @example HRM SaaS v2 */
-            projectName: string;
-            /**
-             * Format: uuid
-             * @description Parent task for subtasks
-             * @example null
-             */
-            parentTaskId?: string | null;
-            /** @example Implement payroll formula engine */
-            title: string;
-            /** @example Build DSL interpreter for configurable salary formulas */
-            description?: string | null;
-            /**
-             * @example in_progress
-             * @enum {string}
-             */
-            status: "todo" | "in_progress" | "in_review" | "done" | "cancelled";
-            /**
-             * @example high
-             * @enum {string}
-             */
-            priority: "low" | "medium" | "high" | "critical";
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            assigneeId?: string | null;
-            /** @example John Smith */
-            assigneeName?: string | null;
-            /**
-             * Format: double
-             * @example 16
-             */
-            estimatedHours?: number | null;
-            /**
-             * Format: double
-             * @description Hours logged from approved timesheets
-             * @example 7.5
-             */
-            loggedHours: number;
-            /**
-             * Format: date
-             * @example 2024-06-01
-             */
-            startDate?: string | null;
-            /**
-             * Format: date
-             * @example 2024-06-15
-             */
-            dueDate?: string | null;
-            /**
-             * Format: date-time
-             * @example null
-             */
-            completedAt?: string | null;
-            /**
-             * @example [
-             *       "backend",
-             *       "payroll"
-             *     ]
-             */
-            tags?: string[];
-            /**
-             * Format: date-time
-             * @example 2024-05-25T09:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-06-10T11:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of tasks */
-        TaskListResponse: {
-            data: components["schemas"]["Task"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to create a task within a project */
-        TaskCreateRequest: {
-            /** @example Implement payroll formula engine */
-            title: string;
-            /** @example Build DSL interpreter for configurable salary formulas */
-            description?: string | null;
-            /**
-             * Format: uuid
-             * @example null
-             */
-            parentTaskId?: string | null;
-            /**
-             * @default medium
-             * @enum {string}
-             */
-            priority: "low" | "medium" | "high" | "critical";
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            assigneeId?: string | null;
-            /**
-             * Format: double
-             * @example 16
-             */
-            estimatedHours?: number | null;
-            /**
-             * Format: date
-             * @example 2024-06-01
-             */
-            startDate?: string | null;
-            /**
-             * Format: date
-             * @example 2024-06-15
-             */
-            dueDate?: string | null;
-            /**
-             * @example [
-             *       "backend",
-             *       "payroll"
-             *     ]
-             */
-            tags?: string[];
-        };
-        /** @description Partial update payload for a task */
-        TaskUpdateRequest: {
-            /** @example Implement payroll formula engine v2 */
-            title?: string;
-            /** @example Updated spec after design review */
-            description?: string | null;
-            /**
-             * @example critical
-             * @enum {string}
-             */
-            priority?: "low" | "medium" | "high" | "critical";
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            assigneeId?: string | null;
-            /**
-             * Format: double
-             * @example 20
-             */
-            estimatedHours?: number | null;
-            /**
-             * Format: date
-             * @example 2024-06-01
-             */
-            startDate?: string | null;
-            /**
-             * Format: date
-             * @example 2024-06-20
-             */
-            dueDate?: string | null;
-            /**
-             * @example [
-             *       "backend",
-             *       "payroll",
-             *       "v2"
-             *     ]
-             */
-            tags?: string[];
-        };
-        /** @description Payload to transition a task to a new status */
-        TaskStatusUpdateRequest: {
-            /**
-             * @example done
-             * @enum {string}
-             */
-            status: "todo" | "in_progress" | "in_review" | "done" | "cancelled";
-            /** @example All tests passing, merged to main */
-            comment?: string | null;
-        };
-        /** @description A leave request submitted by an employee */
-        LeaveRequest: {
-            /**
-             * Format: uuid
-             * @example lr1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example John Smith */
-            employeeName: string;
-            /**
-             * Format: uuid
-             * @example lp1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            policyId: string;
-            /** @example Annual Leave */
-            policyName: string;
-            /** @example ANNUAL */
-            policyCode: string;
-            /**
-             * Format: date
-             * @example 2024-07-15
-             */
-            startDate: string;
-            /**
-             * Format: date
-             * @example 2024-07-19
-             */
-            endDate: string;
-            /**
-             * Format: double
-             * @description Business days requested (computed)
-             * @example 5
-             */
-            totalDays: number;
-            /**
-             * @description True if requesting a half-day leave
-             * @example false
-             */
-            halfDay: boolean;
-            /**
-             * @example null
-             * @enum {string|null}
-             */
-            halfDayType?: "morning" | "afternoon" | null;
-            /** @example Family vacation */
-            reason?: string | null;
-            /** @example [] */
-            attachmentUrls?: string[];
-            /**
-             * @example submitted
-             * @enum {string}
-             */
-            status: "draft" | "submitted" | "approved" | "rejected" | "cancelled";
-            /** @description Ordered list of approvers and their decisions */
-            approvalChain: {
-                /**
-                 * Format: uuid
-                 * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-                 */
-                approverId?: string;
-                /** @example Jane Doe */
-                approverName?: string;
-                /**
-                 * @example pending
-                 * @enum {string}
-                 */
-                decision?: "pending" | "approved" | "rejected";
-                /**
-                 * Format: date-time
-                 * @example null
-                 */
-                decidedAt?: string | null;
-                /** @example null */
-                comment?: string | null;
-            }[];
-            /**
-             * Format: date-time
-             * @example 2024-07-08T09:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-07-08T09:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of leave requests */
-        LeaveRequestListResponse: {
-            data: components["schemas"]["LeaveRequest"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to submit a leave request */
-        LeaveRequestCreateRequest: {
-            /**
-             * Format: uuid
-             * @example lp1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            policyId: string;
-            /**
-             * Format: date
-             * @example 2024-07-15
-             */
-            startDate: string;
-            /**
-             * Format: date
-             * @example 2024-07-19
-             */
-            endDate: string;
-            /** @default false */
-            halfDay: boolean;
-            /**
-             * @example null
-             * @enum {string|null}
-             */
-            halfDayType?: "morning" | "afternoon" | null;
-            /** @example Family vacation */
-            reason?: string | null;
-            /** @example [] */
-            attachmentUrls?: string[];
-        };
-        /** @description Payload for approving or rejecting a leave request */
-        LeaveDecisionRequest: {
-            /** @example Approved, please ensure project handover is done before leaving */
-            comment?: string | null;
-        };
-        /** @description Current leave balance for an employee under a specific policy */
-        LeaveBalance: {
-            /**
-             * Format: uuid
-             * @example lb1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example John Smith */
-            employeeName: string;
-            /**
-             * Format: uuid
-             * @example lp1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            policyId: string;
-            /** @example Annual Leave */
-            policyName: string;
-            /** @example ANNUAL */
-            policyCode: string;
-            /**
-             * Format: double
-             * @description Total days entitled in the current period
-             * @example 12
-             */
-            entitled: number;
-            /**
-             * Format: double
-             * @description Days accrued so far this period
-             * @example 6
-             */
-            accrued: number;
-            /**
-             * Format: double
-             * @description Days consumed by approved leave
-             * @example 2
-             */
-            used: number;
-            /**
-             * Format: double
-             * @description Days requested but not yet approved
-             * @example 1
-             */
-            pending: number;
-            /**
-             * Format: double
-             * @description accrued - used - pending
-             * @example 3
-             */
-            remaining: number;
-            /** @example 2024 */
-            year: number;
-        };
-        /** @description List of leave balances for an employee across all policies */
-        LeaveBalanceListResponse: {
-            data: components["schemas"]["LeaveBalance"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description A leave policy defining entitlement rules for a leave type */
-        LeavePolicy: {
-            /**
-             * Format: uuid
-             * @example lp1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /** @example Annual Leave */
-            name: string;
-            /** @example ANNUAL */
-            code: string;
-            /**
-             * @example annual
-             * @enum {string}
-             */
-            type: "annual" | "sick" | "unpaid" | "maternity" | "paternity" | "compensatory" | "other";
-            /**
-             * Format: double
-             * @example 12
-             */
-            daysPerYear: number;
-            /**
-             * @description How entitlement is accrued
-             * @example monthly
-             * @enum {string}
-             */
-            accrualType: "upfront" | "monthly" | "daily";
-            /** @example true */
-            allowCarryOver: boolean;
-            /**
-             * Format: double
-             * @example 5
-             */
-            maxCarryOverDays?: number | null;
-            /** @example false */
-            allowNegativeBalance: boolean;
-            /** @example true */
-            requireApproval: boolean;
-            /**
-             * @description Minimum notice days required before leave start
-             * @example 3
-             */
-            minAdvanceDays?: number;
-            /** @example true */
-            isActive: boolean;
-            /**
-             * Format: date-time
-             * @example 2024-01-01T08:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-01-01T08:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of leave policies */
-        LeavePolicyListResponse: {
-            data: components["schemas"]["LeavePolicy"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description A performance review cycle (e.g. Q2 2024, Annual 2024) */
-        ReviewCycle: {
-            /**
-             * Format: uuid
-             * @example rc1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /** @example Annual Performance Review 2024 */
-            name: string;
-            /**
-             * @example annual
-             * @enum {string}
-             */
-            type: "annual" | "semi_annual" | "quarterly" | "probation" | "custom";
-            /**
-             * Format: date
-             * @example 2024-01-01
-             */
-            periodStart: string;
-            /**
-             * Format: date
-             * @example 2024-12-31
-             */
-            periodEnd: string;
-            /**
-             * Format: date
-             * @example 2025-01-10
-             */
-            selfReviewDeadline?: string;
-            /**
-             * Format: date
-             * @example 2025-01-20
-             */
-            managerReviewDeadline?: string;
-            /**
-             * @example active
-             * @enum {string}
-             */
-            status: "draft" | "active" | "in_calibration" | "completed" | "cancelled";
-            /** @example 35 */
-            participantCount?: number;
-            /** @example 12 */
-            completedCount?: number;
-            /**
-             * Format: date-time
-             * @example 2024-12-15T08:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-12-15T08:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of review cycles */
-        ReviewCycleListResponse: {
-            data: components["schemas"]["ReviewCycle"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to create a performance review cycle */
-        ReviewCycleCreateRequest: {
-            /** @example Annual Performance Review 2024 */
-            name: string;
-            /**
-             * @example annual
-             * @enum {string}
-             */
-            type: "annual" | "semi_annual" | "quarterly" | "probation" | "custom";
-            /**
-             * Format: date
-             * @example 2024-01-01
-             */
-            periodStart: string;
-            /**
-             * Format: date
-             * @example 2024-12-31
-             */
-            periodEnd: string;
-            /**
-             * Format: date
-             * @example 2025-01-10
-             */
-            selfReviewDeadline: string;
-            /**
-             * Format: date
-             * @example 2025-01-20
-             */
-            managerReviewDeadline: string;
-            /**
-             * @description Employee ids to include; omit to include all active employees
-             * @example []
-             */
-            participantEmployeeIds?: string[];
-        };
-        /** @description Individual performance review result for an employee in a cycle */
-        ReviewResult: {
-            /**
-             * Format: uuid
-             * @example rr1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /**
-             * Format: uuid
-             * @example rc1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            cycleId: string;
-            /** @example Annual Performance Review 2024 */
-            cycleName: string;
-            /**
-             * Format: uuid
-             * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
-             */
-            employeeId: string;
-            /** @example John Smith */
-            employeeName: string;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            reviewerId: string;
-            /** @example Jane Doe */
-            reviewerName: string;
-            /**
-             * Format: double
-             * @description Self-assessed score (0-100)
-             * @example 78
-             */
-            selfScore?: number | null;
-            /**
-             * Format: double
-             * @description Manager-assessed score (0-100)
-             * @example 82
-             */
-            managerScore?: number | null;
-            /**
-             * Format: double
-             * @description Calibrated final score (0-100)
-             * @example 80
-             */
-            finalScore?: number | null;
-            /**
-             * @example meets_expectations
-             * @enum {string|null}
-             */
-            rating?: "exceeds_expectations" | "meets_expectations" | "needs_improvement" | "unsatisfactory" | null;
-            /** @example I delivered all assigned tasks and mentored two junior developers. */
-            selfComment?: string | null;
-            /** @example John consistently delivers quality work and is a reliable team member. */
-            managerComment?: string | null;
-            /**
-             * @example manager_submitted
-             * @enum {string}
-             */
-            status: "pending" | "self_submitted" | "manager_submitted" | "finalized";
-            /**
-             * Format: date-time
-             * @example 2025-01-05T08:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2025-01-18T16:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of review results in a cycle */
-        ReviewResultListResponse: {
-            data: components["schemas"]["ReviewResult"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description A fine-grained permission key */
-        Permission: {
-            /**
-             * Format: uuid
-             * @example pm1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * @description Namespaced permission key
-             * @example payroll.view.all
-             */
-            key: string;
-            /**
-             * @description Logical group for UI grouping
-             * @example Payroll
-             */
-            group: string;
-            /** @example View payroll records for all employees */
-            description: string;
-        };
-        /** @description A role with a set of permissions assignable to users */
-        Role: {
-            /**
-             * Format: uuid
-             * @example ro1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /** @example Payroll Manager */
-            name: string;
-            /** @example Can view, calculate, and approve payroll cycles */
-            description?: string | null;
-            /**
-             * @description System roles cannot be deleted
-             * @example false
-             */
-            isSystem: boolean;
-            /** @example 12 */
-            permissionCount: number;
-            /** @description Included when role detail is fetched */
-            permissions?: components["schemas"]["Permission"][];
-            /**
-             * Format: date-time
-             * @example 2024-01-05T08:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-01-05T08:00:00Z
-             */
-            updatedAt: string;
-        };
-        /** @description Paginated list of roles */
-        RoleListResponse: {
-            data: components["schemas"]["Role"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to create a custom role */
-        RoleCreateRequest: {
-            /** @example Payroll Manager */
-            name: string;
-            /** @example Can view, calculate, and approve payroll cycles */
-            description?: string | null;
-            /**
-             * @description List of permission ids to assign initially
-             * @example [
-             *       "pm1a2b3c-d5e6-7890-abcd-ef1234567890"
-             *     ]
-             */
-            permissionIds?: string[];
-        };
-        /** @description List of all permissions (non-paginated, used for role configuration UI) */
-        PermissionListResponse: {
-            data: components["schemas"]["Permission"][];
-        };
-        /** @description Replace the full set of permissions for a role */
-        RolePermissionsUpdateRequest: {
-            /**
-             * @description Complete list of permission ids (replaces existing set)
-             * @example [
-             *       "pm1a2b3c-d5e6-7890-abcd-ef1234567890",
-             *       "pm2b3c4d-e6f7-8901-bcde-f01234567891"
-             *     ]
-             */
-            permissionIds: string[];
-        };
-        /** @description A report definition or generated report result */
-        Report: {
-            /**
-             * Format: uuid
-             * @example rp1a2b3c-d5e6-7890-abcd-ef1234567890
-             */
-            id: string;
-            /**
-             * Format: uuid
-             * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-             */
-            tenantId: string;
-            /** @example Monthly Payroll Summary */
-            name: string;
-            /**
-             * @example payroll_summary
-             * @enum {string}
-             */
-            type: "payroll_summary" | "attendance_summary" | "leave_summary" | "headcount" | "project_utilization" | "performance_distribution" | "custom";
-            /**
-             * @description Applied filters (period, department, etc.)
-             * @example {
-             *       "periodStart": "2024-06-01",
-             *       "periodEnd": "2024-06-30",
-             *       "orgUnitId": null
-             *     }
-             */
-            filters?: Record<string, never>;
-            /**
-             * @example ready
-             * @enum {string}
-             */
-            status: "pending" | "processing" | "ready" | "failed";
-            /**
-             * Format: uri
-             * @description Signed download URL valid for 15 minutes
-             * @example https://storage.example.com/reports/payroll-june-2024.xlsx?token=abc
-             */
-            downloadUrl?: string | null;
-            /**
-             * Format: date-time
-             * @example 2024-07-02T10:00:00Z
-             */
-            generatedAt?: string | null;
-            /**
-             * Format: uuid
-             * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
-             */
-            requestedBy: string;
-            /**
-             * Format: date-time
-             * @example 2024-07-02T09:55:00Z
-             */
-            createdAt: string;
-        };
-        /** @description Paginated list of reports */
-        ReportListResponse: {
-            data: components["schemas"]["Report"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload to trigger a report generation job */
-        ReportRunRequest: {
-            /**
-             * @example payroll_summary
-             * @enum {string}
-             */
-            type: "payroll_summary" | "attendance_summary" | "leave_summary" | "headcount" | "project_utilization" | "performance_distribution" | "custom";
-            /** @example Monthly Payroll Summary June 2024 */
-            name: string;
-            /**
-             * @description Report-specific filter parameters
-             * @example {
-             *       "periodStart": "2024-06-01",
-             *       "periodEnd": "2024-06-30"
-             *     }
-             */
-            filters?: {
-                /**
-                 * Format: date
-                 * @example 2024-06-01
-                 */
-                periodStart?: string | null;
-                /**
-                 * Format: date
-                 * @example 2024-06-30
-                 */
-                periodEnd?: string | null;
-                /**
-                 * Format: uuid
-                 * @example null
-                 */
-                orgUnitId?: string | null;
-                /** @example [] */
-                employeeIds?: string[];
-            };
-            /**
-             * @default xlsx
-             * @enum {string}
-             */
-            format: "xlsx" | "csv" | "pdf";
-        };
-        /** @description Paginated list of users */
-        UserListResponse: {
-            data: components["schemas"]["UserProfile"][];
-            meta: components["schemas"]["PaginationMeta"];
-        };
-        /** @description Payload used to create a new user by an administrator */
-        UserCreateRequest: {
-            /** @example johnsmith */
-            username: string;
-            email: components["schemas"]["Email"];
-            /**
-             * Format: password
-             * @description Temporary or initial password
-             * @example StrongPass!123
-             */
-            password: string;
-            /** @example John */
-            firstName: string;
-            /** @example Smith */
-            lastName: string;
-            /**
-             * @default user
-             * @enum {string}
-             */
-            role: "user" | "admin";
-            /** @default true */
-            isActive: boolean;
-        };
-        /** @description Partial update payload for an existing user */
-        UserUpdateRequest: {
-            email?: components["schemas"]["Email"];
-            /** @example John */
-            firstName?: string;
-            /** @example Smith */
-            lastName?: string;
-            /**
-             * Format: password
-             * @description New password; omit to keep current
-             * @example StrongPass!123
-             */
-            password?: string;
-            /** @enum {string} */
-            role?: "user" | "admin";
-            isActive?: boolean;
-        };
-        User: {
-            /**
-             * @description User supplied username
-             * @example John78
-             */
-            username?: string;
-            /**
-             * @description User first name
-             * @example John
-             */
-            firstName?: string;
-            /**
-             * @description User last name
-             * @example Smith
-             */
-            lastName?: string;
-            email?: components["schemas"]["Email"];
-        };
+        code: string;
+        /**
+         * @description Human-readable summary
+         * @example One or more fields are invalid
+         */
+        message: string;
+        /** @description Field-level validation errors (optional) */
+        details?: {
+          /** @example email */
+          field?: string;
+          /** @example Must be a valid email address */
+          message?: string;
+        }[];
+      };
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: {
-        /** @description date in UTC when token expires */
-        ExpiresAfter: string;
+    /** @description Payload to create a new organizational unit */
+    OrgUnitCreateRequest: {
+      /** @example Engineering */
+      name: string;
+      /**
+       * @example department
+       * @enum {string}
+       */
+      type: "company" | "business_unit" | "department" | "team";
+      /**
+       * Format: uuid
+       * @description Parent org unit id; null for root (company)
+       * @example 9c1f84a2-1234-4321-abcd-0987654321ef
+       */
+      parentId?: string | null;
+      /** @example ENG-001 */
+      code?: string;
+      /** @example Core software engineering department */
+      description?: string | null;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      headEmployeeId?: string | null;
     };
-    pathItems: never;
+    /** @description Partial update payload for an organizational unit */
+    OrgUnitUpdateRequest: {
+      /** @example Engineering & Platform */
+      name?: string;
+      /** @example ENG-002 */
+      code?: string;
+      /** @example Engineering and Platform division */
+      description?: string | null;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      headEmployeeId?: string | null;
+      /** @example true */
+      isActive?: boolean;
+    };
+    /** @description Full employee profile as returned by the API */
+    EmployeeProfile: {
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @description Linked user account (if any)
+       * @example f0a1b2c3-d4e5-6789-abcd-ef0123456789
+       */
+      userId?: string | null;
+      /**
+       * @description Human-readable employee code
+       * @example EMP-0042
+       */
+      employeeCode: string;
+      /** @example John */
+      firstName: string;
+      /** @example Smith */
+      lastName: string;
+      /**
+       * Format: email
+       * @example john.smith@example.com
+       */
+      email: string;
+      /** @example +84901234567 */
+      phone?: string | null;
+      /**
+       * @example male
+       * @enum {string}
+       */
+      gender?: "male" | "female" | "other" | "prefer_not_to_say";
+      /**
+       * Format: date
+       * @example 1990-05-15
+       */
+      dateOfBirth?: string;
+      /** @example 79090012345 */
+      nationalId?: string | null;
+      /** @example 8901234567 */
+      taxId?: string | null;
+      /**
+       * Format: uuid
+       * @description Primary department/team
+       * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
+       */
+      orgUnitId: string;
+      /** @example Engineering */
+      orgUnitName: string;
+      /** @example Senior Software Engineer */
+      positionTitle: string;
+      /**
+       * Format: uuid
+       * @description Direct manager employee id
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      managerId?: string | null;
+      /** @example Jane Doe */
+      managerName?: string | null;
+      /**
+       * @example active
+       * @enum {string}
+       */
+      status: "probation" | "active" | "on_leave" | "terminated";
+      /**
+       * Format: date
+       * @example 2022-03-01
+       */
+      hireDate: string;
+      /**
+       * Format: date
+       * @example null
+       */
+      terminationDate?: string | null;
+      /**
+       * @example hybrid
+       * @enum {string}
+       */
+      workMode?: "office" | "remote" | "hybrid";
+      /**
+       * Format: date-time
+       * @example 2022-03-01T07:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-01T12:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of employee profiles */
+    EmployeeListResponse: {
+      data: components["schemas"]["EmployeeProfile"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to create a new employment contract */
+    ContractCreateRequest: {
+      /**
+       * @example permanent
+       * @enum {string}
+       */
+      type:
+        | "probation"
+        | "fixed_term"
+        | "permanent"
+        | "part_time"
+        | "contractor";
+      /**
+       * Format: date
+       * @example 2024-07-01
+       */
+      startDate: string;
+      /**
+       * Format: date
+       * @description Required for fixed_term and probation contracts
+       * @example null
+       */
+      endDate?: string | null;
+      /**
+       * Format: double
+       * @example 35000000
+       */
+      baseSalary: number;
+      /** @example VND */
+      currency: string;
+      /**
+       * @default monthly
+       * @enum {string}
+       */
+      paySchedule: "monthly" | "bi_weekly" | "weekly";
+      /** @example L4 */
+      payGrade?: string | null;
+    };
+    /** @description Payload to onboard a new employee */
+    EmployeeCreateRequest: {
+      /** @example John */
+      firstName: string;
+      /** @example Smith */
+      lastName: string;
+      /**
+       * Format: email
+       * @example john.smith@example.com
+       */
+      email: string;
+      /** @example +84901234567 */
+      phone?: string | null;
+      /**
+       * @example male
+       * @enum {string}
+       */
+      gender?: "male" | "female" | "other" | "prefer_not_to_say";
+      /**
+       * Format: date
+       * @example 1990-05-15
+       */
+      dateOfBirth?: string;
+      /** @example 79090012345 */
+      nationalId?: string | null;
+      /** @example 8901234567 */
+      taxId?: string | null;
+      /**
+       * Format: uuid
+       * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
+       */
+      orgUnitId: string;
+      /** @example Senior Software Engineer */
+      positionTitle: string;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      managerId?: string | null;
+      /**
+       * Format: date
+       * @example 2024-07-01
+       */
+      hireDate: string;
+      /**
+       * @default office
+       * @enum {string}
+       */
+      workMode: "office" | "remote" | "hybrid";
+      contract: components["schemas"]["ContractCreateRequest"];
+    };
+    /** @description Partial update payload for an employee profile */
+    EmployeeUpdateRequest: {
+      /** @example John */
+      firstName?: string;
+      /** @example Smith */
+      lastName?: string;
+      /** @example +84901234567 */
+      phone?: string | null;
+      /**
+       * Format: uuid
+       * @example 3fa85f64-5717-4562-b3fc-2c963f66afa6
+       */
+      orgUnitId?: string;
+      /** @example Staff Engineer */
+      positionTitle?: string;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      managerId?: string | null;
+      /**
+       * @example active
+       * @enum {string}
+       */
+      status?: "probation" | "active" | "on_leave" | "terminated";
+      /**
+       * @example hybrid
+       * @enum {string}
+       */
+      workMode?: "office" | "remote" | "hybrid";
+      /**
+       * Format: date
+       * @example 2025-12-31
+       */
+      terminationDate?: string | null;
+    };
+    /** @description Employment contract of an employee */
+    Contract: {
+      /**
+       * Format: uuid
+       * @example c1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example CTR-2024-0042 */
+      contractNumber: string;
+      /**
+       * @example permanent
+       * @enum {string}
+       */
+      type:
+        | "probation"
+        | "fixed_term"
+        | "permanent"
+        | "part_time"
+        | "contractor";
+      /**
+       * Format: date
+       * @example 2024-07-01
+       */
+      startDate: string;
+      /**
+       * Format: date
+       * @example null
+       */
+      endDate?: string | null;
+      /**
+       * Format: double
+       * @example 35000000
+       */
+      baseSalary: number;
+      /** @example VND */
+      currency: string;
+      /**
+       * @example monthly
+       * @enum {string}
+       */
+      paySchedule: "monthly" | "bi_weekly" | "weekly";
+      /** @example L4 */
+      payGrade?: string | null;
+      /** @example true */
+      isActive: boolean;
+      /**
+       * Format: date-time
+       * @example 2024-06-20T09:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-20T09:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Payload for employee check-in */
+    AttendanceCheckInRequest: {
+      /**
+       * @example office
+       * @enum {string}
+       */
+      workMode: "office" | "remote";
+      /** @description GPS coordinate (required in remote mode if GPS enforcement is on) */
+      gps?: {
+        /**
+         * Format: double
+         * @example 10.7769
+         */
+        lat?: number;
+        /**
+         * Format: double
+         * @example 106.7009
+         */
+        lng?: number;
+      } | null;
+      /**
+       * @description Device fingerprint or user-agent
+       * @example Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)
+       */
+      deviceInfo?: string | null;
+      /** @example Working from home today */
+      note?: string | null;
+    };
+    /** @description A single attendance record for one day */
+    AttendanceRecord: {
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-1234-567890abcdef
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example John Smith */
+      employeeName: string;
+      /**
+       * Format: date
+       * @example 2024-06-10
+       */
+      date: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T08:02:00Z
+       */
+      checkInAt?: string | null;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T17:10:00Z
+       */
+      checkOutAt?: string | null;
+      /**
+       * @example office
+       * @enum {string}
+       */
+      workMode: "office" | "remote";
+      /** @description GPS coordinate at check-in */
+      checkInGps?: {
+        /**
+         * Format: double
+         * @example 10.7769
+         */
+        lat?: number;
+        /**
+         * Format: double
+         * @example 106.7009
+         */
+        lng?: number;
+      } | null;
+      checkOutGps?: {
+        /**
+         * Format: double
+         * @example 10.7769
+         */
+        lat?: number;
+        /**
+         * Format: double
+         * @example 106.7009
+         */
+        lng?: number;
+      } | null;
+      /**
+       * @description Total minutes worked (computed)
+       * @example 548
+       */
+      workedMinutes?: number;
+      /**
+       * @description Minutes late vs scheduled start
+       * @example 2
+       */
+      lateMinutes?: number;
+      /**
+       * @description Approved overtime minutes
+       * @example 70
+       */
+      overtimeMinutes?: number;
+      /**
+       * @example present
+       * @enum {string}
+       */
+      status: "present" | "absent" | "late" | "half_day" | "corrected";
+      /** @example  */
+      note?: string | null;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T08:02:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T17:10:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Payload for employee check-out */
+    AttendanceCheckOutRequest: {
+      gps?: {
+        /**
+         * Format: double
+         * @example 10.7769
+         */
+        lat?: number;
+        /**
+         * Format: double
+         * @example 106.7009
+         */
+        lng?: number;
+      } | null;
+      /** @example Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) */
+      deviceInfo?: string | null;
+      /** @example Leaving for client meeting */
+      note?: string | null;
+    };
+    /** @description Paginated list of attendance records */
+    AttendanceListResponse: {
+      data: components["schemas"]["AttendanceRecord"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description A manual attendance correction request */
+    AttendanceCorrection: {
+      /**
+       * Format: uuid
+       * @example b2c3d4e5-f6a7-8901-2345-678901bcdef0
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example John Smith */
+      employeeName: string;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-1234-567890abcdef
+       */
+      attendanceRecordId?: string | null;
+      /**
+       * Format: date
+       * @example 2024-06-10
+       */
+      date: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T08:00:00Z
+       */
+      requestedCheckInAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T17:00:00Z
+       */
+      requestedCheckOutAt?: string | null;
+      /** @example Forgot to check in at the office */
+      reason: string;
+      /**
+       * @example pending
+       * @enum {string}
+       */
+      status: "pending" | "approved" | "rejected";
+      /**
+       * Format: uuid
+       * @example null
+       */
+      reviewedBy?: string | null;
+      /** @example null */
+      reviewNote?: string | null;
+      /**
+       * Format: date-time
+       * @example 2024-06-11T09:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-11T09:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of attendance correction requests */
+    AttendanceCorrectionListResponse: {
+      data: components["schemas"]["AttendanceCorrection"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Request to manually correct an attendance record */
+    AttendanceCorrectionRequest: {
+      /**
+       * Format: uuid
+       * @description Existing record to correct; omit if creating a missing check-in/out
+       * @example a1b2c3d4-e5f6-7890-1234-567890abcdef
+       */
+      attendanceRecordId?: string | null;
+      /**
+       * Format: date
+       * @example 2024-06-10
+       */
+      date: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T08:00:00Z
+       */
+      checkInAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T17:00:00Z
+       */
+      checkOutAt?: string;
+      /** @example Forgot to check in at the office, confirmed by manager */
+      reason: string;
+      /**
+       * @description Supporting documents or screenshots
+       * @example [
+       *       "https://storage.example.com/evidence/abc.png"
+       *     ]
+       */
+      evidenceUrls?: string[];
+    };
+    /** @description A single time entry within a timesheet */
+    TimesheetEntry: {
+      /**
+       * Format: uuid
+       * @example d4e5f6a7-b8c9-0123-4567-890abcdef012
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example c3d4e5f6-a7b8-9012-3456-7890abcdef01
+       */
+      timesheetId: string;
+      /**
+       * Format: uuid
+       * @example f6a7b8c9-d0e1-2345-6789-0abcdef01234
+       */
+      projectId?: string | null;
+      /** @example HRM SaaS v2 */
+      projectName?: string | null;
+      /**
+       * Format: uuid
+       * @example a7b8c9d0-e1f2-3456-7890-abcdef012345
+       */
+      taskId?: string | null;
+      /** @example Implement payroll module */
+      taskName?: string | null;
+      /**
+       * Format: date
+       * @example 2024-06-10
+       */
+      date: string;
+      /**
+       * Format: double
+       * @example 8.5
+       */
+      hours: number;
+      /**
+       * @example regular
+       * @enum {string}
+       */
+      activityType: "regular" | "overtime" | "billable" | "internal";
+      /** @example Finished payroll formula engine */
+      notes?: string | null;
+    };
+    /** @description A weekly or bi-weekly timesheet submitted by an employee */
+    Timesheet: {
+      /**
+       * Format: uuid
+       * @example c3d4e5f6-a7b8-9012-3456-7890abcdef01
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example John Smith */
+      employeeName: string;
+      /**
+       * Format: date
+       * @example 2024-06-10
+       */
+      periodStart: string;
+      /**
+       * Format: date
+       * @example 2024-06-16
+       */
+      periodEnd: string;
+      /**
+       * Format: double
+       * @description Sum of all entry hours (computed)
+       * @example 42.5
+       */
+      totalHours: number;
+      /**
+       * Format: double
+       * @example 2.5
+       */
+      overtimeHours: number;
+      /**
+       * @example submitted
+       * @enum {string}
+       */
+      status: "draft" | "submitted" | "approved" | "rejected" | "locked";
+      /**
+       * Format: date-time
+       * @example 2024-06-17T08:30:00Z
+       */
+      submittedAt?: string | null;
+      /**
+       * Format: date-time
+       * @example null
+       */
+      approvedAt?: string | null;
+      /**
+       * Format: uuid
+       * @example null
+       */
+      approvedBy?: string | null;
+      /** @example null */
+      rejectionReason?: string | null;
+      entries?: components["schemas"]["TimesheetEntry"][];
+      /**
+       * Format: date-time
+       * @example 2024-06-10T07:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-17T08:30:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of timesheets */
+    TimesheetListResponse: {
+      data: components["schemas"]["Timesheet"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to create a timesheet with time entries */
+    TimesheetCreateRequest: {
+      /**
+       * Format: date
+       * @example 2024-06-10
+       */
+      periodStart: string;
+      /**
+       * Format: date
+       * @example 2024-06-16
+       */
+      periodEnd: string;
+      entries: {
+        /**
+         * Format: uuid
+         * @example f6a7b8c9-d0e1-2345-6789-0abcdef01234
+         */
+        projectId?: string | null;
+        /**
+         * Format: uuid
+         * @example a7b8c9d0-e1f2-3456-7890-abcdef012345
+         */
+        taskId?: string | null;
+        /**
+         * Format: date
+         * @example 2024-06-10
+         */
+        date: string;
+        /**
+         * Format: double
+         * @example 8
+         */
+        hours: number;
+        /**
+         * @default regular
+         * @enum {string}
+         */
+        activityType: "regular" | "overtime" | "billable" | "internal";
+        /** @example Sprint planning meeting */
+        notes?: string | null;
+      }[];
+    };
+    /** @description Payload for rejecting a timesheet */
+    TimesheetRejectRequest: {
+      /** @example Several entries are missing project assignments. Please update and resubmit. */
+      reason: string;
+    };
+    /** @description A payroll processing cycle for a given period */
+    PayrollCycle: {
+      /**
+       * Format: uuid
+       * @example p1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /** @example June 2024 Payroll */
+      name: string;
+      /**
+       * Format: date
+       * @example 2024-06-01
+       */
+      periodStart: string;
+      /**
+       * Format: date
+       * @example 2024-06-30
+       */
+      periodEnd: string;
+      /** @example VND */
+      currency: string;
+      /**
+       * @example calculated
+       * @enum {string}
+       */
+      status: "draft" | "calculated" | "approved" | "locked" | "paid";
+      /**
+       * Format: double
+       * @example 1200000000
+       */
+      totalGross?: number | null;
+      /**
+       * Format: double
+       * @example 980000000
+       */
+      totalNet?: number | null;
+      /** @example 42 */
+      employeeCount?: number | null;
+      /**
+       * Format: date-time
+       * @example 2024-07-01T09:00:00Z
+       */
+      calculatedAt?: string | null;
+      /**
+       * Format: date-time
+       * @example null
+       */
+      approvedAt?: string | null;
+      /**
+       * Format: uuid
+       * @example null
+       */
+      approvedBy?: string | null;
+      /**
+       * Format: date-time
+       * @example null
+       */
+      lockedAt?: string | null;
+      /**
+       * Format: date-time
+       * @example 2024-06-28T08:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-07-01T09:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of payroll cycles */
+    PayrollCycleListResponse: {
+      data: components["schemas"]["PayrollCycle"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to open a new payroll cycle */
+    PayrollCycleCreateRequest: {
+      /** @example June 2024 Payroll */
+      name: string;
+      /**
+       * Format: date
+       * @example 2024-06-01
+       */
+      periodStart: string;
+      /**
+       * Format: date
+       * @example 2024-06-30
+       */
+      periodEnd: string;
+      /** @example VND */
+      currency: string;
+      /** @example Regular monthly run; include overtime from timesheets */
+      notes?: string | null;
+    };
+    /** @description A single salary component line within a payroll record */
+    PayrollRecordLine: {
+      /**
+       * Format: uuid
+       * @example l1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example r1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      payrollRecordId: string;
+      /** @example BASE_SALARY */
+      componentCode: string;
+      /** @example Base Salary */
+      componentName: string;
+      /**
+       * @example base
+       * @enum {string}
+       */
+      type:
+        | "base"
+        | "allowance"
+        | "overtime"
+        | "bonus"
+        | "deduction"
+        | "tax"
+        | "social_insurance";
+      /**
+       * Format: double
+       * @example 35000000
+       */
+      amount: number;
+      /**
+       * @description Formula expression evaluated at calculation time
+       * @example ${baseSalary} * (${workedDays} / ${totalDays})
+       */
+      formulaSnapshot?: string | null;
+    };
+    /** @description Individual payroll record for one employee in a cycle (payslip data) */
+    PayrollRecord: {
+      /**
+       * Format: uuid
+       * @example r1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example p1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      cycleId: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example John Smith */
+      employeeName: string;
+      /** @example EMP-0042 */
+      employeeCode: string;
+      /** @example Senior Software Engineer */
+      positionTitle?: string;
+      /** @example VND */
+      currency: string;
+      /**
+       * Format: double
+       * @example 35000000
+       */
+      baseSalary: number;
+      /**
+       * Format: double
+       * @example 3000000
+       */
+      totalAllowances?: number;
+      /**
+       * Format: double
+       * @example 1500000
+       */
+      totalOvertimePay?: number;
+      /**
+       * Format: double
+       * @example 0
+       */
+      totalBonuses?: number;
+      /**
+       * Format: double
+       * @example 2000000
+       */
+      totalDeductions?: number;
+      /**
+       * Format: double
+       * @example 4600000
+       */
+      totalTax?: number;
+      /**
+       * Format: double
+       * @example 2625000
+       */
+      totalSocialInsurance?: number;
+      /**
+       * Format: double
+       * @example 39500000
+       */
+      grossSalary: number;
+      /**
+       * Format: double
+       * @example 30275000
+       */
+      netSalary: number;
+      /** @example 22 */
+      workedDays?: number;
+      /** @example 22 */
+      totalDays?: number;
+      /**
+       * Format: double
+       * @example 5
+       */
+      overtimeHours?: number;
+      /**
+       * @example approved
+       * @enum {string}
+       */
+      status: "draft" | "approved" | "locked";
+      lines?: components["schemas"]["PayrollRecordLine"][];
+      /**
+       * Format: date-time
+       * @example 2024-07-01T09:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-07-01T10:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of payroll records within a cycle */
+    PayrollRecordListResponse: {
+      data: components["schemas"]["PayrollRecord"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description A project entity managed within the HRM system */
+    Project: {
+      /**
+       * Format: uuid
+       * @example j1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /** @example PROJ-2024-01 */
+      code: string;
+      /** @example HRM SaaS v2 */
+      name: string;
+      /** @example Full redevelopment of the HRM platform with microservices */
+      description?: string | null;
+      /** @example Acme Corp */
+      clientName?: string | null;
+      /**
+       * @example active
+       * @enum {string}
+       */
+      status: "planned" | "active" | "on_hold" | "completed" | "cancelled";
+      /**
+       * @example high
+       * @enum {string}
+       */
+      priority: "low" | "medium" | "high" | "critical";
+      /**
+       * Format: date
+       * @example 2024-01-15
+       */
+      startDate: string;
+      /**
+       * Format: date
+       * @example 2024-12-31
+       */
+      endDate?: string | null;
+      /**
+       * Format: double
+       * @example 500000000
+       */
+      budget?: number | null;
+      /** @example VND */
+      currency: string;
+      /**
+       * Format: double
+       * @description Computed from approved timesheets * bill rate
+       * @example 123450000
+       */
+      actualCost?: number;
+      /** @example 42 */
+      progressPercent?: number;
+      /**
+       * Format: uuid
+       * @description Employee who is the PM
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      managerId: string;
+      /** @example Jane Doe */
+      managerName: string;
+      /** @example 8 */
+      memberCount?: number;
+      /**
+       * Format: date-time
+       * @example 2024-01-10T08:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-01T10:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of projects */
+    ProjectListResponse: {
+      data: components["schemas"]["Project"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to create a new project */
+    ProjectCreateRequest: {
+      /** @example HRM SaaS v2 */
+      name: string;
+      /** @example Full redevelopment of the HRM platform with microservices */
+      description?: string | null;
+      /** @example Acme Corp */
+      clientName?: string | null;
+      /**
+       * @default medium
+       * @enum {string}
+       */
+      priority: "low" | "medium" | "high" | "critical";
+      /**
+       * Format: date
+       * @example 2024-01-15
+       */
+      startDate: string;
+      /**
+       * Format: date
+       * @example 2024-12-31
+       */
+      endDate?: string | null;
+      /**
+       * Format: double
+       * @example 500000000
+       */
+      budget?: number | null;
+      /** @example VND */
+      currency: string;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      managerId: string;
+    };
+    /** @description Partial update payload for a project */
+    ProjectUpdateRequest: {
+      /** @example HRM SaaS v3 */
+      name?: string;
+      /** @example Updated scope */
+      description?: string | null;
+      /** @example Acme Corp */
+      clientName?: string | null;
+      /**
+       * @example on_hold
+       * @enum {string}
+       */
+      status?: "planned" | "active" | "on_hold" | "completed" | "cancelled";
+      /**
+       * @example high
+       * @enum {string}
+       */
+      priority?: "low" | "medium" | "high" | "critical";
+      /**
+       * Format: date
+       * @example 2025-03-31
+       */
+      endDate?: string | null;
+      /**
+       * Format: double
+       * @example 600000000
+       */
+      budget?: number | null;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      managerId?: string;
+      /** @example 50 */
+      progressPercent?: number;
+    };
+    /** @description A member assigned to a project with a role and allocation */
+    ProjectMember: {
+      /**
+       * Format: uuid
+       * @example m1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example j1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      projectId: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example John Smith */
+      employeeName: string;
+      /**
+       * @example developer
+       * @enum {string}
+       */
+      role:
+        | "pm"
+        | "tech_lead"
+        | "ba"
+        | "developer"
+        | "tester"
+        | "designer"
+        | "devops"
+        | "other";
+      /**
+       * @description Percentage of working time allocated to this project
+       * @example 80
+       */
+      allocationPercent: number;
+      /**
+       * Format: double
+       * @description Hourly or daily bill rate for cost tracking
+       * @example 500000
+       */
+      billRate?: number | null;
+      /**
+       * Format: date
+       * @example 2024-01-15
+       */
+      joinedAt: string;
+      /**
+       * Format: date
+       * @example null
+       */
+      leftAt?: string | null;
+      /** @example true */
+      isActive: boolean;
+    };
+    /** @description Payload to add a member to a project */
+    ProjectMemberCreateRequest: {
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /**
+       * @example developer
+       * @enum {string}
+       */
+      role:
+        | "pm"
+        | "tech_lead"
+        | "ba"
+        | "developer"
+        | "tester"
+        | "designer"
+        | "devops"
+        | "other";
+      /** @default 100 */
+      allocationPercent: number;
+      /**
+       * Format: double
+       * @example 500000
+       */
+      billRate?: number | null;
+      /**
+       * Format: date
+       * @example 2024-01-15
+       */
+      joinedAt?: string;
+    };
+    /** @description A task within a project */
+    Task: {
+      /**
+       * Format: uuid
+       * @example t1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example j1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      projectId: string;
+      /** @example HRM SaaS v2 */
+      projectName: string;
+      /**
+       * Format: uuid
+       * @description Parent task for subtasks
+       * @example null
+       */
+      parentTaskId?: string | null;
+      /** @example Implement payroll formula engine */
+      title: string;
+      /** @example Build DSL interpreter for configurable salary formulas */
+      description?: string | null;
+      /**
+       * @example in_progress
+       * @enum {string}
+       */
+      status: "todo" | "in_progress" | "in_review" | "done" | "cancelled";
+      /**
+       * @example high
+       * @enum {string}
+       */
+      priority: "low" | "medium" | "high" | "critical";
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      assigneeId?: string | null;
+      /** @example John Smith */
+      assigneeName?: string | null;
+      /**
+       * Format: double
+       * @example 16
+       */
+      estimatedHours?: number | null;
+      /**
+       * Format: double
+       * @description Hours logged from approved timesheets
+       * @example 7.5
+       */
+      loggedHours: number;
+      /**
+       * Format: date
+       * @example 2024-06-01
+       */
+      startDate?: string | null;
+      /**
+       * Format: date
+       * @example 2024-06-15
+       */
+      dueDate?: string | null;
+      /**
+       * Format: date-time
+       * @example null
+       */
+      completedAt?: string | null;
+      /**
+       * @example [
+       *       "backend",
+       *       "payroll"
+       *     ]
+       */
+      tags?: string[];
+      /**
+       * Format: date-time
+       * @example 2024-05-25T09:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-06-10T11:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of tasks */
+    TaskListResponse: {
+      data: components["schemas"]["Task"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to create a task within a project */
+    TaskCreateRequest: {
+      /** @example Implement payroll formula engine */
+      title: string;
+      /** @example Build DSL interpreter for configurable salary formulas */
+      description?: string | null;
+      /**
+       * Format: uuid
+       * @example null
+       */
+      parentTaskId?: string | null;
+      /**
+       * @default medium
+       * @enum {string}
+       */
+      priority: "low" | "medium" | "high" | "critical";
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      assigneeId?: string | null;
+      /**
+       * Format: double
+       * @example 16
+       */
+      estimatedHours?: number | null;
+      /**
+       * Format: date
+       * @example 2024-06-01
+       */
+      startDate?: string | null;
+      /**
+       * Format: date
+       * @example 2024-06-15
+       */
+      dueDate?: string | null;
+      /**
+       * @example [
+       *       "backend",
+       *       "payroll"
+       *     ]
+       */
+      tags?: string[];
+    };
+    /** @description Partial update payload for a task */
+    TaskUpdateRequest: {
+      /** @example Implement payroll formula engine v2 */
+      title?: string;
+      /** @example Updated spec after design review */
+      description?: string | null;
+      /**
+       * @example critical
+       * @enum {string}
+       */
+      priority?: "low" | "medium" | "high" | "critical";
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      assigneeId?: string | null;
+      /**
+       * Format: double
+       * @example 20
+       */
+      estimatedHours?: number | null;
+      /**
+       * Format: date
+       * @example 2024-06-01
+       */
+      startDate?: string | null;
+      /**
+       * Format: date
+       * @example 2024-06-20
+       */
+      dueDate?: string | null;
+      /**
+       * @example [
+       *       "backend",
+       *       "payroll",
+       *       "v2"
+       *     ]
+       */
+      tags?: string[];
+    };
+    /** @description Payload to transition a task to a new status */
+    TaskStatusUpdateRequest: {
+      /**
+       * @example done
+       * @enum {string}
+       */
+      status: "todo" | "in_progress" | "in_review" | "done" | "cancelled";
+      /** @example All tests passing, merged to main */
+      comment?: string | null;
+    };
+    /** @description A leave request submitted by an employee */
+    LeaveRequest: {
+      /**
+       * Format: uuid
+       * @example lr1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example John Smith */
+      employeeName: string;
+      /**
+       * Format: uuid
+       * @example lp1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      policyId: string;
+      /** @example Annual Leave */
+      policyName: string;
+      /** @example ANNUAL */
+      policyCode: string;
+      /**
+       * Format: date
+       * @example 2024-07-15
+       */
+      startDate: string;
+      /**
+       * Format: date
+       * @example 2024-07-19
+       */
+      endDate: string;
+      /**
+       * Format: double
+       * @description Business days requested (computed)
+       * @example 5
+       */
+      totalDays: number;
+      /**
+       * @description True if requesting a half-day leave
+       * @example false
+       */
+      halfDay: boolean;
+      /**
+       * @example null
+       * @enum {string|null}
+       */
+      halfDayType?: "morning" | "afternoon" | null;
+      /** @example Family vacation */
+      reason?: string | null;
+      /** @example [] */
+      attachmentUrls?: string[];
+      /**
+       * @example submitted
+       * @enum {string}
+       */
+      status: "draft" | "submitted" | "approved" | "rejected" | "cancelled";
+      /** @description Ordered list of approvers and their decisions */
+      approvalChain: {
+        /**
+         * Format: uuid
+         * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+         */
+        approverId?: string;
+        /** @example Jane Doe */
+        approverName?: string;
+        /**
+         * @example pending
+         * @enum {string}
+         */
+        decision?: "pending" | "approved" | "rejected";
+        /**
+         * Format: date-time
+         * @example null
+         */
+        decidedAt?: string | null;
+        /** @example null */
+        comment?: string | null;
+      }[];
+      /**
+       * Format: date-time
+       * @example 2024-07-08T09:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-07-08T09:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of leave requests */
+    LeaveRequestListResponse: {
+      data: components["schemas"]["LeaveRequest"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to submit a leave request */
+    LeaveRequestCreateRequest: {
+      /**
+       * Format: uuid
+       * @example lp1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      policyId: string;
+      /**
+       * Format: date
+       * @example 2024-07-15
+       */
+      startDate: string;
+      /**
+       * Format: date
+       * @example 2024-07-19
+       */
+      endDate: string;
+      /** @default false */
+      halfDay: boolean;
+      /**
+       * @example null
+       * @enum {string|null}
+       */
+      halfDayType?: "morning" | "afternoon" | null;
+      /** @example Family vacation */
+      reason?: string | null;
+      /** @example [] */
+      attachmentUrls?: string[];
+    };
+    /** @description Payload for approving or rejecting a leave request */
+    LeaveDecisionRequest: {
+      /** @example Approved, please ensure project handover is done before leaving */
+      comment?: string | null;
+    };
+    /** @description Current leave balance for an employee under a specific policy */
+    LeaveBalance: {
+      /**
+       * Format: uuid
+       * @example lb1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example John Smith */
+      employeeName: string;
+      /**
+       * Format: uuid
+       * @example lp1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      policyId: string;
+      /** @example Annual Leave */
+      policyName: string;
+      /** @example ANNUAL */
+      policyCode: string;
+      /**
+       * Format: double
+       * @description Total days entitled in the current period
+       * @example 12
+       */
+      entitled: number;
+      /**
+       * Format: double
+       * @description Days accrued so far this period
+       * @example 6
+       */
+      accrued: number;
+      /**
+       * Format: double
+       * @description Days consumed by approved leave
+       * @example 2
+       */
+      used: number;
+      /**
+       * Format: double
+       * @description Days requested but not yet approved
+       * @example 1
+       */
+      pending: number;
+      /**
+       * Format: double
+       * @description accrued - used - pending
+       * @example 3
+       */
+      remaining: number;
+      /** @example 2024 */
+      year: number;
+    };
+    /** @description List of leave balances for an employee across all policies */
+    LeaveBalanceListResponse: {
+      data: components["schemas"]["LeaveBalance"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description A leave policy defining entitlement rules for a leave type */
+    LeavePolicy: {
+      /**
+       * Format: uuid
+       * @example lp1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /** @example Annual Leave */
+      name: string;
+      /** @example ANNUAL */
+      code: string;
+      /**
+       * @example annual
+       * @enum {string}
+       */
+      type:
+        | "annual"
+        | "sick"
+        | "unpaid"
+        | "maternity"
+        | "paternity"
+        | "compensatory"
+        | "other";
+      /**
+       * Format: double
+       * @example 12
+       */
+      daysPerYear: number;
+      /**
+       * @description How entitlement is accrued
+       * @example monthly
+       * @enum {string}
+       */
+      accrualType: "upfront" | "monthly" | "daily";
+      /** @example true */
+      allowCarryOver: boolean;
+      /**
+       * Format: double
+       * @example 5
+       */
+      maxCarryOverDays?: number | null;
+      /** @example false */
+      allowNegativeBalance: boolean;
+      /** @example true */
+      requireApproval: boolean;
+      /**
+       * @description Minimum notice days required before leave start
+       * @example 3
+       */
+      minAdvanceDays?: number;
+      /** @example true */
+      isActive: boolean;
+      /**
+       * Format: date-time
+       * @example 2024-01-01T08:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-01-01T08:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of leave policies */
+    LeavePolicyListResponse: {
+      data: components["schemas"]["LeavePolicy"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description A performance review cycle (e.g. Q2 2024, Annual 2024) */
+    ReviewCycle: {
+      /**
+       * Format: uuid
+       * @example rc1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /** @example Annual Performance Review 2024 */
+      name: string;
+      /**
+       * @example annual
+       * @enum {string}
+       */
+      type: "annual" | "semi_annual" | "quarterly" | "probation" | "custom";
+      /**
+       * Format: date
+       * @example 2024-01-01
+       */
+      periodStart: string;
+      /**
+       * Format: date
+       * @example 2024-12-31
+       */
+      periodEnd: string;
+      /**
+       * Format: date
+       * @example 2025-01-10
+       */
+      selfReviewDeadline?: string;
+      /**
+       * Format: date
+       * @example 2025-01-20
+       */
+      managerReviewDeadline?: string;
+      /**
+       * @example active
+       * @enum {string}
+       */
+      status: "draft" | "active" | "in_calibration" | "completed" | "cancelled";
+      /** @example 35 */
+      participantCount?: number;
+      /** @example 12 */
+      completedCount?: number;
+      /**
+       * Format: date-time
+       * @example 2024-12-15T08:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-12-15T08:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of review cycles */
+    ReviewCycleListResponse: {
+      data: components["schemas"]["ReviewCycle"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to create a performance review cycle */
+    ReviewCycleCreateRequest: {
+      /** @example Annual Performance Review 2024 */
+      name: string;
+      /**
+       * @example annual
+       * @enum {string}
+       */
+      type: "annual" | "semi_annual" | "quarterly" | "probation" | "custom";
+      /**
+       * Format: date
+       * @example 2024-01-01
+       */
+      periodStart: string;
+      /**
+       * Format: date
+       * @example 2024-12-31
+       */
+      periodEnd: string;
+      /**
+       * Format: date
+       * @example 2025-01-10
+       */
+      selfReviewDeadline: string;
+      /**
+       * Format: date
+       * @example 2025-01-20
+       */
+      managerReviewDeadline: string;
+      /**
+       * @description Employee ids to include; omit to include all active employees
+       * @example []
+       */
+      participantEmployeeIds?: string[];
+    };
+    /** @description Individual performance review result for an employee in a cycle */
+    ReviewResult: {
+      /**
+       * Format: uuid
+       * @example rr1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /**
+       * Format: uuid
+       * @example rc1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      cycleId: string;
+      /** @example Annual Performance Review 2024 */
+      cycleName: string;
+      /**
+       * Format: uuid
+       * @example e1a2b3c4-d5e6-7890-abcd-ef1234567890
+       */
+      employeeId: string;
+      /** @example John Smith */
+      employeeName: string;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      reviewerId: string;
+      /** @example Jane Doe */
+      reviewerName: string;
+      /**
+       * Format: double
+       * @description Self-assessed score (0-100)
+       * @example 78
+       */
+      selfScore?: number | null;
+      /**
+       * Format: double
+       * @description Manager-assessed score (0-100)
+       * @example 82
+       */
+      managerScore?: number | null;
+      /**
+       * Format: double
+       * @description Calibrated final score (0-100)
+       * @example 80
+       */
+      finalScore?: number | null;
+      /**
+       * @example meets_expectations
+       * @enum {string|null}
+       */
+      rating?:
+        | "exceeds_expectations"
+        | "meets_expectations"
+        | "needs_improvement"
+        | "unsatisfactory"
+        | null;
+      /** @example I delivered all assigned tasks and mentored two junior developers. */
+      selfComment?: string | null;
+      /** @example John consistently delivers quality work and is a reliable team member. */
+      managerComment?: string | null;
+      /**
+       * @example manager_submitted
+       * @enum {string}
+       */
+      status: "pending" | "self_submitted" | "manager_submitted" | "finalized";
+      /**
+       * Format: date-time
+       * @example 2025-01-05T08:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2025-01-18T16:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of review results in a cycle */
+    ReviewResultListResponse: {
+      data: components["schemas"]["ReviewResult"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description A fine-grained permission key */
+    Permission: {
+      /**
+       * Format: uuid
+       * @example pm1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * @description Namespaced permission key
+       * @example payroll.view.all
+       */
+      key: string;
+      /**
+       * @description Logical group for UI grouping
+       * @example Payroll
+       */
+      group: string;
+      /** @example View payroll records for all employees */
+      description: string;
+    };
+    /** @description A role with a set of permissions assignable to users */
+    Role: {
+      /**
+       * Format: uuid
+       * @example ro1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /** @example Payroll Manager */
+      name: string;
+      /** @example Can view, calculate, and approve payroll cycles */
+      description?: string | null;
+      /**
+       * @description System roles cannot be deleted
+       * @example false
+       */
+      isSystem: boolean;
+      /** @example 12 */
+      permissionCount: number;
+      /** @description Included when role detail is fetched */
+      permissions?: components["schemas"]["Permission"][];
+      /**
+       * Format: date-time
+       * @example 2024-01-05T08:00:00Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2024-01-05T08:00:00Z
+       */
+      updatedAt: string;
+    };
+    /** @description Paginated list of roles */
+    RoleListResponse: {
+      data: components["schemas"]["Role"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to create a custom role */
+    RoleCreateRequest: {
+      /** @example Payroll Manager */
+      name: string;
+      /** @example Can view, calculate, and approve payroll cycles */
+      description?: string | null;
+      /**
+       * @description List of permission ids to assign initially
+       * @example [
+       *       "pm1a2b3c-d5e6-7890-abcd-ef1234567890"
+       *     ]
+       */
+      permissionIds?: string[];
+    };
+    /** @description List of all permissions (non-paginated, used for role configuration UI) */
+    PermissionListResponse: {
+      data: components["schemas"]["Permission"][];
+    };
+    /** @description Replace the full set of permissions for a role */
+    RolePermissionsUpdateRequest: {
+      /**
+       * @description Complete list of permission ids (replaces existing set)
+       * @example [
+       *       "pm1a2b3c-d5e6-7890-abcd-ef1234567890",
+       *       "pm2b3c4d-e6f7-8901-bcde-f01234567891"
+       *     ]
+       */
+      permissionIds: string[];
+    };
+    /** @description A report definition or generated report result */
+    Report: {
+      /**
+       * Format: uuid
+       * @example rp1a2b3c-d5e6-7890-abcd-ef1234567890
+       */
+      id: string;
+      /**
+       * Format: uuid
+       * @example 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+       */
+      tenantId: string;
+      /** @example Monthly Payroll Summary */
+      name: string;
+      /**
+       * @example payroll_summary
+       * @enum {string}
+       */
+      type:
+        | "payroll_summary"
+        | "attendance_summary"
+        | "leave_summary"
+        | "headcount"
+        | "project_utilization"
+        | "performance_distribution"
+        | "custom";
+      /**
+       * @description Applied filters (period, department, etc.)
+       * @example {
+       *       "periodStart": "2024-06-01",
+       *       "periodEnd": "2024-06-30",
+       *       "orgUnitId": null
+       *     }
+       */
+      filters?: Record<string, never>;
+      /**
+       * @example ready
+       * @enum {string}
+       */
+      status: "pending" | "processing" | "ready" | "failed";
+      /**
+       * Format: uri
+       * @description Signed download URL valid for 15 minutes
+       * @example https://storage.example.com/reports/payroll-june-2024.xlsx?token=abc
+       */
+      downloadUrl?: string | null;
+      /**
+       * Format: date-time
+       * @example 2024-07-02T10:00:00Z
+       */
+      generatedAt?: string | null;
+      /**
+       * Format: uuid
+       * @example a1b2c3d4-e5f6-7890-abcd-ef1234567890
+       */
+      requestedBy: string;
+      /**
+       * Format: date-time
+       * @example 2024-07-02T09:55:00Z
+       */
+      createdAt: string;
+    };
+    /** @description Paginated list of reports */
+    ReportListResponse: {
+      data: components["schemas"]["Report"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload to trigger a report generation job */
+    ReportRunRequest: {
+      /**
+       * @example payroll_summary
+       * @enum {string}
+       */
+      type:
+        | "payroll_summary"
+        | "attendance_summary"
+        | "leave_summary"
+        | "headcount"
+        | "project_utilization"
+        | "performance_distribution"
+        | "custom";
+      /** @example Monthly Payroll Summary June 2024 */
+      name: string;
+      /**
+       * @description Report-specific filter parameters
+       * @example {
+       *       "periodStart": "2024-06-01",
+       *       "periodEnd": "2024-06-30"
+       *     }
+       */
+      filters?: {
+        /**
+         * Format: date
+         * @example 2024-06-01
+         */
+        periodStart?: string | null;
+        /**
+         * Format: date
+         * @example 2024-06-30
+         */
+        periodEnd?: string | null;
+        /**
+         * Format: uuid
+         * @example null
+         */
+        orgUnitId?: string | null;
+        /** @example [] */
+        employeeIds?: string[];
+      };
+      /**
+       * @default xlsx
+       * @enum {string}
+       */
+      format: "xlsx" | "csv" | "pdf";
+    };
+    /** @description Paginated list of users */
+    UserListResponse: {
+      data: components["schemas"]["UserProfile"][];
+      meta: components["schemas"]["PaginationMeta"];
+    };
+    /** @description Payload used to create a new user by an administrator. Role = legacy (user|admin) for JWT; roleIds = RBAC roles (from /roles) assignable to the user. */
+    UserCreateRequest: {
+      /** @example johnsmith */
+      username: string;
+      email: components["schemas"]["Email"];
+      /**
+       * Format: password
+       * @description Temporary or initial password
+       * @example StrongPass!123
+       */
+      password: string;
+      /** @example John */
+      firstName: string;
+      /** @example Smith */
+      lastName: string;
+      /**
+       * @description Legacy role for JWT and admin checks (user | admin)
+       * @default user
+       * @enum {string}
+       */
+      role: "user" | "admin";
+      /**
+       * Format: uuid
+       * @description Business (tenant) to create the user under; omit for global user
+       */
+      tenantId?: string;
+      /** @description RBAC role IDs (from GET /roles) to assign to the user; must belong to tenantId if provided */
+      roleIds?: string[];
+      /** @default true */
+      isActive: boolean;
+    };
+    /** @description Replace the full set of RBAC roles assigned to a user */
+    UserRolesUpdateRequest: {
+      /**
+       * @description RBAC role IDs (from GET /roles); must belong to user tenant if user has tenantId
+       * @default []
+       */
+      roleIds: string[];
+    };
+    /** @description Partial update payload for an existing user */
+    UserUpdateRequest: {
+      email?: components["schemas"]["Email"];
+      /** @example John */
+      firstName?: string;
+      /** @example Smith */
+      lastName?: string;
+      /**
+       * Format: password
+       * @description New password; omit to keep current
+       * @example StrongPass!123
+       */
+      password?: string;
+      /** @enum {string} */
+      role?: "user" | "admin";
+      /** @description RBAC role IDs to assign (replaces current user_roles) */
+      roleIds?: string[];
+      isActive?: boolean;
+    };
+    User: {
+      /**
+       * @description User supplied username
+       * @example John78
+       */
+      username?: string;
+      /**
+       * @description User first name
+       * @example John
+       */
+      firstName?: string;
+      /**
+       * @description User last name
+       * @example Smith
+       */
+      lastName?: string;
+      email?: components["schemas"]["Email"];
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: {
+    /** @description date in UTC when token expires */
+    ExpiresAfter: string;
+  };
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    registerUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["AuthRegisterRequest"];
-            };
-        };
-        responses: {
-            /** @description User registered and authenticated */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AuthLoginResponse"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Username or email already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    loginUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["AuthLoginRequest"];
-            };
-        };
-        responses: {
-            /** @description Authentication successful */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AuthLoginResponse"];
-                };
-            };
-            /** @description Invalid credentials */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too many attempts, try later */
-            429: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    refreshAccessToken: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["AuthRefreshRequest"];
-            };
-        };
-        responses: {
-            /** @description New tokens issued */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AuthRefreshResponse"];
-                };
-            };
-            /** @description Invalid or expired refresh token */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    logoutUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["AuthLogoutRequest"];
-            };
-        };
-        responses: {
-            /** @description Logout successful */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    getCurrentUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Current user profile */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserProfile"];
-                };
-            };
-            /** @description Invalid or missing access token */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    listOrgUnits: {
-        parameters: {
-            query?: {
-                /** @description Filter by unit type */
-                type?: "company" | "business_unit" | "department" | "team";
-                /** @description Filter by parent org unit id */
-                parentId?: string;
-                isActive?: boolean;
-                search?: string;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated list of org units */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrgUnitListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createOrgUnit: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["OrgUnitCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Org unit created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrgUnit"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Code already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getOrgUnitById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Organizational unit ID (UUID) */
-                orgId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Org unit detail */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrgUnit"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    deleteOrgUnit: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Organizational unit ID (UUID) */
-                orgId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Deleted */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Cannot delete unit with active members */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    updateOrgUnit: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Organizational unit ID (UUID) */
-                orgId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["OrgUnitUpdateRequest"];
-            };
-        };
-        responses: {
-            /** @description Updated org unit */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrgUnit"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getOrgUnitChildren: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Parent organizational unit ID */
-                orgId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description List of direct children */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrgUnitListResponse"];
-                };
-            };
-            /** @description Parent org unit not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listEmployees: {
-        parameters: {
-            query?: {
-                /** @description Search by name, email, or employee code */
-                search?: string;
-                /** @description Filter by department/team */
-                orgUnitId?: string;
-                status?: "probation" | "active" | "on_leave" | "terminated";
-                workMode?: "office" | "remote" | "hybrid";
-                /** @description Filter by direct manager */
-                managerId?: string;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated list of employees */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["EmployeeListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createEmployee: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["EmployeeCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Employee created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["EmployeeProfile"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Email already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getEmployeeById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Employee ID (UUID) */
-                employeeId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Employee profile */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["EmployeeProfile"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Employee not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    deleteEmployee: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Employee ID (UUID) */
-                employeeId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Employee terminated */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Employee not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    updateEmployee: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Employee ID (UUID) */
-                employeeId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["EmployeeUpdateRequest"];
-            };
-        };
-        responses: {
-            /** @description Updated employee profile */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["EmployeeProfile"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Employee not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listEmployeeContracts: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Employee ID (UUID) */
-                employeeId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description List of contracts */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data?: components["schemas"]["Contract"][];
-                    };
-                };
-            };
-            /** @description Employee not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createEmployeeContract: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Employee ID (UUID) */
-                employeeId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ContractCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Contract created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Contract"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Employee not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Business rule violation (e.g. overlapping contract dates) */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    attendanceCheckIn: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["AttendanceCheckInRequest"];
-            };
-        };
-        responses: {
-            /** @description Check-in recorded */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AttendanceRecord"];
-                };
-            };
-            /** @description Already checked in today */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description GPS out of geofence / work mode not allowed */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    attendanceCheckOut: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["AttendanceCheckOutRequest"];
-            };
-        };
-        responses: {
-            /** @description Check-out recorded */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AttendanceRecord"];
-                };
-            };
-            /** @description No active check-in found */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listAttendanceRecords: {
-        parameters: {
-            query: {
-                /** @description Filter by employee (managers can query team; employees see own) */
-                employeeId?: string;
-                /** @description Filter by department */
-                orgUnitId?: string;
-                dateFrom: string;
-                dateTo: string;
-                status?: "present" | "absent" | "late" | "half_day" | "corrected";
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated attendance records */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AttendanceListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listAttendanceCorrections: {
-        parameters: {
-            query?: {
-                employeeId?: string;
-                status?: "pending" | "approved" | "rejected";
-                dateFrom?: string;
-                dateTo?: string;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated correction requests */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AttendanceCorrectionListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createAttendanceCorrection: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["AttendanceCorrectionRequest"];
-            };
-        };
-        responses: {
-            /** @description Correction request submitted */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AttendanceCorrection"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    approveAttendanceCorrection: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                correctionId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": {
-                    /** @example Confirmed with office reception log */
-                    note?: string | null;
-                };
-            };
-        };
-        responses: {
-            /** @description Correction approved and attendance record updated */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AttendanceCorrection"];
-                };
-            };
-            /** @description Correction request not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Request is not in pending state */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    rejectAttendanceCorrection: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                correctionId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": {
-                    /** @example No supporting evidence found in security logs */
-                    reason: string;
-                };
-            };
-        };
-        responses: {
-            /** @description Correction rejected */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AttendanceCorrection"];
-                };
-            };
-            /** @description Correction request not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Request is not in pending state */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listTimesheets: {
-        parameters: {
-            query?: {
-                employeeId?: string;
-                status?: "draft" | "submitted" | "approved" | "rejected" | "locked";
-                periodStart?: string;
-                periodEnd?: string;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated timesheets */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TimesheetListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createTimesheet: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TimesheetCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Timesheet created as draft */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Timesheet"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Timesheet already exists for this period */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getTimesheetById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheetId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Timesheet with entries */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Timesheet"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    submitTimesheet: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheetId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Timesheet submitted */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Timesheet"];
-                };
-            };
-            /** @description Timesheet not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Timesheet is not in draft state or missing required hours */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    approveTimesheet: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheetId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Timesheet approved */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Timesheet"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Timesheet is not in submitted state */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    rejectTimesheet: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheetId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TimesheetRejectRequest"];
-            };
-        };
-        responses: {
-            /** @description Timesheet rejected */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Timesheet"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Timesheet is not in submitted state */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listPayrollCycles: {
-        parameters: {
-            query?: {
-                status?: "draft" | "calculated" | "approved" | "locked" | "paid";
-                year?: number;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated payroll cycles */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayrollCycleListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createPayrollCycle: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["PayrollCycleCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Payroll cycle created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayrollCycle"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Overlapping cycle already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getPayrollCycleById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Payroll cycle detail */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayrollCycle"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    calculatePayrollCycle: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Calculation job triggered; poll cycle status for completion */
-            202: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayrollCycle"];
-                };
-            };
-            /** @description Cycle not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Cycle is locked or already calculated */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    approvePayrollCycle: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": {
-                    /** @example All records reviewed and confirmed correct */
-                    note?: string | null;
-                };
-            };
-        };
-        responses: {
-            /** @description Payroll cycle approved */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayrollCycle"];
-                };
-            };
-            /** @description Cycle not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Cycle is not in calculated state */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    lockPayrollCycle: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Payroll cycle locked */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayrollCycle"];
-                };
-            };
-            /** @description Cycle not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Cycle is not in approved state */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listPayrollRecords: {
-        parameters: {
-            query?: {
-                employeeId?: string;
-                orgUnitId?: string;
-                status?: "draft" | "approved" | "locked";
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated payroll records (payslip list) */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayrollRecordListResponse"];
-                };
-            };
-            /** @description Cycle not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getPayrollRecordById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Payroll record (payslip) ID */
-                recordId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Full payslip detail */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayrollRecord"];
-                };
-            };
-            /** @description Forbidden — not own payslip and no payroll.view.all permission */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Record not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listProjects: {
-        parameters: {
-            query?: {
-                status?: "planned" | "active" | "on_hold" | "completed" | "cancelled";
-                search?: string;
-                managerId?: string;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated projects */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProjectListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createProject: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ProjectCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Project created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Project"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getProjectById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Project detail */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Project"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    deleteProject: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Project deleted */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    updateProject: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ProjectUpdateRequest"];
-            };
-        };
-        responses: {
-            /** @description Updated project */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Project"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listProjectMembers: {
-        parameters: {
-            query?: {
-                isActive?: boolean;
-            };
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description List of project members */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        data?: components["schemas"]["ProjectMember"][];
-                    };
-                };
-            };
-            /** @description Project not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    addProjectMember: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ProjectMemberCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Member added */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProjectMember"];
-                };
-            };
-            /** @description Employee is already a member of this project */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    removeProjectMember: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-                memberId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Member removed */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Project or member not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listProjectTasks: {
-        parameters: {
-            query?: {
-                status?: "todo" | "in_progress" | "in_review" | "done" | "cancelled";
-                assigneeId?: string;
-                priority?: "low" | "medium" | "high" | "critical";
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated tasks */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskListResponse"];
-                };
-            };
-            /** @description Project not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createTask: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                projectId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TaskCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Task created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getTaskById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Task detail */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    deleteTask: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Task deleted */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    updateTask: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TaskUpdateRequest"];
-            };
-        };
-        responses: {
-            /** @description Updated task */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    updateTaskStatus: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TaskStatusUpdateRequest"];
-            };
-        };
-        responses: {
-            /** @description Task status updated */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Invalid status transition */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listLeaveRequests: {
-        parameters: {
-            query?: {
-                /** @description Filter by employee; employees see only own requests */
-                employeeId?: string;
-                status?: "draft" | "submitted" | "approved" | "rejected" | "cancelled";
-                policyCode?: string;
-                dateFrom?: string;
-                dateTo?: string;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated leave requests */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LeaveRequestListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createLeaveRequest: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LeaveRequestCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Leave request submitted */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LeaveRequest"];
-                };
-            };
-            /** @description Invalid payload or date range */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Insufficient balance or blackout period */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getLeaveRequestById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                requestId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Leave request detail */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LeaveRequest"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    approveLeaveRequest: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                requestId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["LeaveDecisionRequest"];
-            };
-        };
-        responses: {
-            /** @description Leave request approved */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LeaveRequest"];
-                };
-            };
-            /** @description Not in approver chain */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Request is not in submitted state */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    rejectLeaveRequest: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                requestId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LeaveDecisionRequest"];
-            };
-        };
-        responses: {
-            /** @description Leave request rejected */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LeaveRequest"];
-                };
-            };
-            /** @description Not in approver chain */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Request is not in submitted state */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    cancelLeaveRequest: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                requestId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Leave request cancelled */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LeaveRequest"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Cannot cancel an already approved or rejected request */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getLeaveBalances: {
-        parameters: {
-            query?: {
-                /** @description Employee to query; defaults to current user */
-                employeeId?: string;
-                year?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Leave balances per policy */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LeaveBalanceListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listLeavePolicies: {
-        parameters: {
-            query?: {
-                isActive?: boolean;
-                type?: "annual" | "sick" | "unpaid" | "maternity" | "paternity" | "compensatory" | "other";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated leave policies */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LeavePolicyListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listReviewCycles: {
-        parameters: {
-            query?: {
-                status?: "draft" | "active" | "in_calibration" | "completed" | "cancelled";
-                type?: "annual" | "semi_annual" | "quarterly" | "probation" | "custom";
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated review cycles */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReviewCycleListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createReviewCycle: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ReviewCycleCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Review cycle created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReviewCycle"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getReviewCycleById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Review cycle detail */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReviewCycle"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listReviewResults: {
-        parameters: {
-            query?: {
-                status?: "pending" | "self_submitted" | "manager_submitted" | "finalized";
-                employeeId?: string;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated review results */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReviewResultListResponse"];
-                };
-            };
-            /** @description Cycle not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    finalizeReviewCycle: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                cycleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Review cycle finalized */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReviewCycle"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Not all results have been submitted */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listRoles: {
-        parameters: {
-            query?: {
-                search?: string;
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated roles */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["RoleListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createRole: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RoleCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Role created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Role"];
-                };
-            };
-            /** @description Role name already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getRoleById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Role with all permissions */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Role"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    deleteRole: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Role deleted */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Cannot delete a system role */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    updateRole: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": {
-                    /** @example Payroll Admin */
-                    name?: string;
-                    /** @example Full access to payroll module */
-                    description?: string | null;
-                };
-            };
-        };
-        responses: {
-            /** @description Updated role */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Role"];
-                };
-            };
-            /** @description Not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getRolePermissions: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Permissions assigned to role */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PermissionListResponse"];
-                };
-            };
-            /** @description Role not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    setRolePermissions: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                roleId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RolePermissionsUpdateRequest"];
-            };
-        };
-        responses: {
-            /** @description Updated permissions */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PermissionListResponse"];
-                };
-            };
-            /** @description Role not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listPermissions: {
-        parameters: {
-            query?: {
-                /** @description Filter by permission group (e.g. Payroll, Leave) */
-                group?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description All permissions */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PermissionListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listReports: {
-        parameters: {
-            query?: {
-                type?: "payroll_summary" | "attendance_summary" | "leave_summary" | "headcount" | "project_utilization" | "performance_distribution" | "custom";
-                status?: "pending" | "processing" | "ready" | "failed";
-                page?: number;
-                pageSize?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated report list */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReportListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    runReport: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ReportRunRequest"];
-            };
-        };
-        responses: {
-            /** @description Report job accepted */
-            202: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Report"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getReportById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                reportId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Report status and download link when ready */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Report"];
-                };
-            };
-            /** @description Report not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    listUsers: {
-        parameters: {
-            query?: {
-                /** @description Page number (1-based) */
-                page?: number;
-                /** @description Number of records per page */
-                pageSize?: number;
-                /** @description Free text search by username or email */
-                search?: string;
-                /** @description Filter by role */
-                role?: "user" | "admin";
-                /** @description Filter active/inactive users */
-                isActive?: boolean;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Paginated list of users */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserListResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    createUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description User created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserProfile"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Username or email already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    getUserById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description User identifier (UUID) */
-                userId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Success */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserProfile"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    deleteUserById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description User identifier (UUID) */
-                userId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description User deleted */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    updateUserById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description User identifier (UUID) */
-                userId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserUpdateRequest"];
-            };
-        };
-        responses: {
-            /** @description User updated */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserProfile"];
-                };
-            };
-            /** @description Invalid payload */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    getUserByName: {
-        parameters: {
-            query?: {
-                /** @description Pretty print response */
-                pretty_print?: boolean;
-                /** @description Filter users without email */
-                with_email?: boolean;
-            };
-            header?: never;
-            path: {
-                /** @description The name that needs to be fetched */
-                username: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Success */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    /**
-                     * @example {
-                     *       "username": "user1",
-                     *       "email": "user@example.com"
-                     *     }
-                     */
-                    "application/json": components["schemas"]["User"];
-                };
-            };
-            /** @description Forbidden */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    updateUser: {
-        parameters: {
-            query?: {
-                /** @description Pretty print response */
-                pretty_print?: boolean;
-            };
-            header?: never;
-            path: {
-                /** @description The name that needs to be updated */
-                username: string;
-            };
-            cookie?: never;
-        };
-        /** @description Updated user object */
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["User"];
-                "application/xml": components["schemas"]["User"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Invalid user supplied */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    echo: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Echo payload */
-        requestBody: {
-            content: {
-                "application/json": string;
-                "application/xml": string;
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    /** @description calls per hour allowed by the user */
-                    "X-Rate-Limit"?: number;
-                    "X-Expires-After": components["headers"]["ExpiresAfter"];
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": string;
-                    "application/xml": string;
-                    "text/csv": string;
-                };
-            };
-        };
-    };
+  registerUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AuthRegisterRequest"];
+      };
+    };
+    responses: {
+      /** @description User registered and authenticated */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AuthLoginResponse"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Username or email already exists */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  loginUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AuthLoginRequest"];
+      };
+    };
+    responses: {
+      /** @description Authentication successful */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AuthLoginResponse"];
+        };
+      };
+      /** @description Invalid credentials */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Too many attempts, try later */
+      429: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  refreshAccessToken: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AuthRefreshRequest"];
+      };
+    };
+    responses: {
+      /** @description New tokens issued */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AuthRefreshResponse"];
+        };
+      };
+      /** @description Invalid or expired refresh token */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  logoutUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["AuthLogoutRequest"];
+      };
+    };
+    responses: {
+      /** @description Logout successful */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  getCurrentUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Current user profile */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserProfile"];
+        };
+      };
+      /** @description Invalid or missing access token */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  listOrgUnits: {
+    parameters: {
+      query?: {
+        /** @description Filter by unit type */
+        type?: "company" | "business_unit" | "department" | "team";
+        /** @description Filter by parent org unit id */
+        parentId?: string;
+        isActive?: boolean;
+        search?: string;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated list of org units */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrgUnitListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createOrgUnit: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["OrgUnitCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Org unit created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrgUnit"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Code already exists */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getOrgUnitById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Organizational unit ID (UUID) */
+        orgId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Org unit detail */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrgUnit"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  deleteOrgUnit: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Organizational unit ID (UUID) */
+        orgId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Deleted */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Cannot delete unit with active members */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  updateOrgUnit: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Organizational unit ID (UUID) */
+        orgId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["OrgUnitUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description Updated org unit */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrgUnit"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getOrgUnitChildren: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Parent organizational unit ID */
+        orgId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description List of direct children */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrgUnitListResponse"];
+        };
+      };
+      /** @description Parent org unit not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listEmployees: {
+    parameters: {
+      query?: {
+        /** @description Search by name, email, or employee code */
+        search?: string;
+        /** @description Filter by department/team */
+        orgUnitId?: string;
+        status?: "probation" | "active" | "on_leave" | "terminated";
+        workMode?: "office" | "remote" | "hybrid";
+        /** @description Filter by direct manager */
+        managerId?: string;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated list of employees */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["EmployeeListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createEmployee: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["EmployeeCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Employee created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["EmployeeProfile"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Email already exists */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getEmployeeById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Employee ID (UUID) */
+        employeeId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Employee profile */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["EmployeeProfile"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Employee not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  deleteEmployee: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Employee ID (UUID) */
+        employeeId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Employee terminated */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Employee not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  updateEmployee: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Employee ID (UUID) */
+        employeeId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["EmployeeUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description Updated employee profile */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["EmployeeProfile"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Employee not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listEmployeeContracts: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Employee ID (UUID) */
+        employeeId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description List of contracts */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Contract"][];
+          };
+        };
+      };
+      /** @description Employee not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createEmployeeContract: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Employee ID (UUID) */
+        employeeId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ContractCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Contract created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Contract"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Employee not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Business rule violation (e.g. overlapping contract dates) */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  attendanceCheckIn: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AttendanceCheckInRequest"];
+      };
+    };
+    responses: {
+      /** @description Check-in recorded */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AttendanceRecord"];
+        };
+      };
+      /** @description Already checked in today */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description GPS out of geofence / work mode not allowed */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  attendanceCheckOut: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["AttendanceCheckOutRequest"];
+      };
+    };
+    responses: {
+      /** @description Check-out recorded */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AttendanceRecord"];
+        };
+      };
+      /** @description No active check-in found */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listAttendanceRecords: {
+    parameters: {
+      query: {
+        /** @description Filter by employee (managers can query team; employees see own) */
+        employeeId?: string;
+        /** @description Filter by department */
+        orgUnitId?: string;
+        dateFrom: string;
+        dateTo: string;
+        status?: "present" | "absent" | "late" | "half_day" | "corrected";
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated attendance records */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AttendanceListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listAttendanceCorrections: {
+    parameters: {
+      query?: {
+        employeeId?: string;
+        status?: "pending" | "approved" | "rejected";
+        dateFrom?: string;
+        dateTo?: string;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated correction requests */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AttendanceCorrectionListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createAttendanceCorrection: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AttendanceCorrectionRequest"];
+      };
+    };
+    responses: {
+      /** @description Correction request submitted */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AttendanceCorrection"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  approveAttendanceCorrection: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        correctionId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": {
+          /** @example Confirmed with office reception log */
+          note?: string | null;
+        };
+      };
+    };
+    responses: {
+      /** @description Correction approved and attendance record updated */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AttendanceCorrection"];
+        };
+      };
+      /** @description Correction request not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Request is not in pending state */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  rejectAttendanceCorrection: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        correctionId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @example No supporting evidence found in security logs */
+          reason: string;
+        };
+      };
+    };
+    responses: {
+      /** @description Correction rejected */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AttendanceCorrection"];
+        };
+      };
+      /** @description Correction request not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Request is not in pending state */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listTimesheets: {
+    parameters: {
+      query?: {
+        employeeId?: string;
+        status?: "draft" | "submitted" | "approved" | "rejected" | "locked";
+        periodStart?: string;
+        periodEnd?: string;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated timesheets */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TimesheetListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createTimesheet: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TimesheetCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Timesheet created as draft */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Timesheet"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Timesheet already exists for this period */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getTimesheetById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheetId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Timesheet with entries */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Timesheet"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  submitTimesheet: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheetId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Timesheet submitted */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Timesheet"];
+        };
+      };
+      /** @description Timesheet not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Timesheet is not in draft state or missing required hours */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  approveTimesheet: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheetId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Timesheet approved */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Timesheet"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Timesheet is not in submitted state */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  rejectTimesheet: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheetId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TimesheetRejectRequest"];
+      };
+    };
+    responses: {
+      /** @description Timesheet rejected */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Timesheet"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Timesheet is not in submitted state */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listPayrollCycles: {
+    parameters: {
+      query?: {
+        status?: "draft" | "calculated" | "approved" | "locked" | "paid";
+        year?: number;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated payroll cycles */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PayrollCycleListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createPayrollCycle: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PayrollCycleCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Payroll cycle created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PayrollCycle"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Overlapping cycle already exists */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getPayrollCycleById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Payroll cycle detail */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PayrollCycle"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  calculatePayrollCycle: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Calculation job triggered; poll cycle status for completion */
+      202: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PayrollCycle"];
+        };
+      };
+      /** @description Cycle not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Cycle is locked or already calculated */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  approvePayrollCycle: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": {
+          /** @example All records reviewed and confirmed correct */
+          note?: string | null;
+        };
+      };
+    };
+    responses: {
+      /** @description Payroll cycle approved */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PayrollCycle"];
+        };
+      };
+      /** @description Cycle not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Cycle is not in calculated state */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  lockPayrollCycle: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Payroll cycle locked */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PayrollCycle"];
+        };
+      };
+      /** @description Cycle not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Cycle is not in approved state */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listPayrollRecords: {
+    parameters: {
+      query?: {
+        employeeId?: string;
+        orgUnitId?: string;
+        status?: "draft" | "approved" | "locked";
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated payroll records (payslip list) */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PayrollRecordListResponse"];
+        };
+      };
+      /** @description Cycle not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getPayrollRecordById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Payroll record (payslip) ID */
+        recordId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Full payslip detail */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PayrollRecord"];
+        };
+      };
+      /** @description Forbidden — not own payslip and no payroll.view.all permission */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Record not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listProjects: {
+    parameters: {
+      query?: {
+        status?: "planned" | "active" | "on_hold" | "completed" | "cancelled";
+        search?: string;
+        managerId?: string;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated projects */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ProjectListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createProject: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ProjectCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Project created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Project"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getProjectById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Project detail */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Project"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  deleteProject: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Project deleted */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  updateProject: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ProjectUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description Updated project */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Project"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listProjectMembers: {
+    parameters: {
+      query?: {
+        isActive?: boolean;
+      };
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description List of project members */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            data?: components["schemas"]["ProjectMember"][];
+          };
+        };
+      };
+      /** @description Project not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  addProjectMember: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ProjectMemberCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Member added */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ProjectMember"];
+        };
+      };
+      /** @description Employee is already a member of this project */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  removeProjectMember: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+        memberId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Member removed */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Project or member not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listProjectTasks: {
+    parameters: {
+      query?: {
+        status?: "todo" | "in_progress" | "in_review" | "done" | "cancelled";
+        assigneeId?: string;
+        priority?: "low" | "medium" | "high" | "critical";
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated tasks */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TaskListResponse"];
+        };
+      };
+      /** @description Project not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createTask: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        projectId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TaskCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Task created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getTaskById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        taskId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Task detail */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  deleteTask: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        taskId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Task deleted */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  updateTask: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        taskId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TaskUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description Updated task */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  updateTaskStatus: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        taskId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TaskStatusUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description Task status updated */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Invalid status transition */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listLeaveRequests: {
+    parameters: {
+      query?: {
+        /** @description Filter by employee; employees see only own requests */
+        employeeId?: string;
+        status?: "draft" | "submitted" | "approved" | "rejected" | "cancelled";
+        policyCode?: string;
+        dateFrom?: string;
+        dateTo?: string;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated leave requests */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LeaveRequestListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createLeaveRequest: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["LeaveRequestCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Leave request submitted */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LeaveRequest"];
+        };
+      };
+      /** @description Invalid payload or date range */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Insufficient balance or blackout period */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getLeaveRequestById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        requestId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Leave request detail */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LeaveRequest"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  approveLeaveRequest: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        requestId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["LeaveDecisionRequest"];
+      };
+    };
+    responses: {
+      /** @description Leave request approved */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LeaveRequest"];
+        };
+      };
+      /** @description Not in approver chain */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Request is not in submitted state */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  rejectLeaveRequest: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        requestId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["LeaveDecisionRequest"];
+      };
+    };
+    responses: {
+      /** @description Leave request rejected */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LeaveRequest"];
+        };
+      };
+      /** @description Not in approver chain */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Request is not in submitted state */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  cancelLeaveRequest: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        requestId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Leave request cancelled */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LeaveRequest"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Cannot cancel an already approved or rejected request */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getLeaveBalances: {
+    parameters: {
+      query?: {
+        /** @description Employee to query; defaults to current user */
+        employeeId?: string;
+        year?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Leave balances per policy */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LeaveBalanceListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listLeavePolicies: {
+    parameters: {
+      query?: {
+        isActive?: boolean;
+        type?:
+          | "annual"
+          | "sick"
+          | "unpaid"
+          | "maternity"
+          | "paternity"
+          | "compensatory"
+          | "other";
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated leave policies */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LeavePolicyListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listReviewCycles: {
+    parameters: {
+      query?: {
+        status?:
+          | "draft"
+          | "active"
+          | "in_calibration"
+          | "completed"
+          | "cancelled";
+        type?: "annual" | "semi_annual" | "quarterly" | "probation" | "custom";
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated review cycles */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ReviewCycleListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createReviewCycle: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ReviewCycleCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Review cycle created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ReviewCycle"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getReviewCycleById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Review cycle detail */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ReviewCycle"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listReviewResults: {
+    parameters: {
+      query?: {
+        status?:
+          | "pending"
+          | "self_submitted"
+          | "manager_submitted"
+          | "finalized";
+        employeeId?: string;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated review results */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ReviewResultListResponse"];
+        };
+      };
+      /** @description Cycle not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  finalizeReviewCycle: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        cycleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Review cycle finalized */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ReviewCycle"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Not all results have been submitted */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listRoles: {
+    parameters: {
+      query?: {
+        search?: string;
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated roles */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["RoleListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  createRole: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["RoleCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description Role created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Role"];
+        };
+      };
+      /** @description Role name already exists */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getRoleById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        roleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Role with all permissions */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Role"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  deleteRole: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        roleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Role deleted */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Cannot delete a system role */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  updateRole: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        roleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @example Payroll Admin */
+          name?: string;
+          /** @example Full access to payroll module */
+          description?: string | null;
+        };
+      };
+    };
+    responses: {
+      /** @description Updated role */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Role"];
+        };
+      };
+      /** @description Not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getRolePermissions: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        roleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Permissions assigned to role */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PermissionListResponse"];
+        };
+      };
+      /** @description Role not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  setRolePermissions: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        roleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["RolePermissionsUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description Updated permissions */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PermissionListResponse"];
+        };
+      };
+      /** @description Role not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listPermissions: {
+    parameters: {
+      query?: {
+        /** @description Filter by permission group (e.g. Payroll, Leave) */
+        group?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description All permissions */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PermissionListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listReports: {
+    parameters: {
+      query?: {
+        type?:
+          | "payroll_summary"
+          | "attendance_summary"
+          | "leave_summary"
+          | "headcount"
+          | "project_utilization"
+          | "performance_distribution"
+          | "custom";
+        status?: "pending" | "processing" | "ready" | "failed";
+        page?: number;
+        pageSize?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated report list */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ReportListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  runReport: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ReportRunRequest"];
+      };
+    };
+    responses: {
+      /** @description Report job accepted */
+      202: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Report"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  getReportById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        reportId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Report status and download link when ready */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Report"];
+        };
+      };
+      /** @description Report not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  listUsers: {
+    parameters: {
+      query?: {
+        /** @description Page number (1-based) */
+        page?: number;
+        /** @description Number of records per page */
+        pageSize?: number;
+        /** @description Free text search by username or email */
+        search?: string;
+        /** @description Filter by role */
+        role?: "user" | "admin";
+        /** @description Filter active/inactive users */
+        isActive?: boolean;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Paginated list of users */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  createUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserCreateRequest"];
+      };
+    };
+    responses: {
+      /** @description User created */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserProfile"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Username or email already exists */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  getUserById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description User identifier (UUID) */
+        userId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Success */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserProfile"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  deleteUserById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description User identifier (UUID) */
+        userId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description User deleted */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  updateUserById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description User identifier (UUID) */
+        userId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description User updated */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserProfile"];
+        };
+      };
+      /** @description Invalid payload */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  getUserRoles: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        userId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Roles assigned to the user */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["RoleListResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  setUserRoles: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        userId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserRolesUpdateRequest"];
+      };
+    };
+    responses: {
+      /** @description Updated roles */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["RoleListResponse"];
+        };
+      };
+      /** @description Invalid roleIds (e.g. not in user tenant) */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  removeUserRole: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        userId: string;
+        roleId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Role removed */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User or assignment not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  getUserByName: {
+    parameters: {
+      query?: {
+        /** @description Pretty print response */
+        pretty_print?: boolean;
+        /** @description Filter users without email */
+        with_email?: boolean;
+      };
+      header?: never;
+      path: {
+        /** @description The name that needs to be fetched */
+        username: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Success */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          /**
+           * @example {
+           *       "username": "user1",
+           *       "email": "user@example.com"
+           *     }
+           */
+          "application/json": components["schemas"]["User"];
+        };
+      };
+      /** @description Forbidden */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  updateUser: {
+    parameters: {
+      query?: {
+        /** @description Pretty print response */
+        pretty_print?: boolean;
+      };
+      header?: never;
+      path: {
+        /** @description The name that needs to be updated */
+        username: string;
+      };
+      cookie?: never;
+    };
+    /** @description Updated user object */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["User"];
+        "application/xml": components["schemas"]["User"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Invalid user supplied */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description User not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  echo: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Echo payload */
+    requestBody: {
+      content: {
+        "application/json": string;
+        "application/xml": string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          /** @description calls per hour allowed by the user */
+          "X-Rate-Limit"?: number;
+          "X-Expires-After": components["headers"]["ExpiresAfter"];
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": string;
+          "application/xml": string;
+          "text/csv": string;
+        };
+      };
+    };
+  };
 }

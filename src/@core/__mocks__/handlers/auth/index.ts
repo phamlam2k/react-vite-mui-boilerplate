@@ -9,6 +9,11 @@ const fakeUser = {
   firstName: "John",
   lastName: "Doe",
   role: "user",
+  permissions: [
+    { id: "p1", code: "employees.manage" },
+    { id: "p2", code: "roles.manage" },
+    { id: "p3", code: "roles.view" },
+  ],
 };
 
 export const authHandlers = [
@@ -44,9 +49,7 @@ export const authHandlers = [
       return HttpResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    return HttpResponse.json({
-      user: fakeUser,
-    });
+    return HttpResponse.json(fakeUser);
   }),
 
   // LOGOUT (optional but recommended)

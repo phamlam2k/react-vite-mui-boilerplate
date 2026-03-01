@@ -20,7 +20,7 @@ import { useUpdateUserMutation } from "../hooks/useUpdateUserMutation";
 import {
   updateUserSchema,
   type UpdateUserSchema,
-} from "../_usecases/update-user/update-user.validation";
+} from "../_usecases/users.validations";
 import useGetUserDetail from "../hooks/useGetUserDetail";
 import { useEffect } from "react";
 

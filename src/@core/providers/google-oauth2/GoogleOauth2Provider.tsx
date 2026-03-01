@@ -1,20 +1,11 @@
-import { createContext, useCallback, useContext } from "react";
+import { useCallback } from "react";
 import type { SignInWithGoogleProps } from "./utils/google";
 import signInWithGoogleFn from "./utils/google";
-
-type GoogleOauth2ContextType = {
-  signInWithGoogle: () => void;
-};
+import { GoogleOauth2Context } from "./GoogleOauth2Context";
 
 interface GoogleOauth2ProviderProps extends SignInWithGoogleProps {
   children: React.ReactNode;
 }
-
-const GoogleOauth2Context = createContext<GoogleOauth2ContextType>({
-  signInWithGoogle: () => {
-    throw new Error("signInWithGoogle is not implemented");
-  },
-});
 
 const GoogleOauth2Provider = ({
   clientId,
@@ -40,15 +31,3 @@ const GoogleOauth2Provider = ({
 };
 
 export default GoogleOauth2Provider;
-
-export const useGoogleOauth2 = () => {
-  const context = useContext(GoogleOauth2Context);
-
-  if (!context) {
-    throw new Error(
-      "useGoogleOauth2 must be used within a GoogleOauth2Provider"
-    );
-  }
-
-  return context;
-};

@@ -21,10 +21,12 @@ const genderOptions = Object.entries(GENDER_LABELS).map(([value, label]) => ({
   label,
 }));
 
-const workModeOptions = Object.entries(WORK_MODE_LABELS).map(([value, label]) => ({
-  value,
-  label,
-}));
+const workModeOptions = Object.entries(WORK_MODE_LABELS).map(
+  ([value, label]) => ({
+    value,
+    label,
+  })
+);
 
 const statusOptions = Object.entries(STATUS_LABELS).map(([value, label]) => ({
   value,
@@ -50,7 +52,7 @@ export default function EmployeeForm({ isUpdate = false }: EmployeeFormProps) {
     isActive: true,
   });
   const orgUnitOptions =
-    orgUnitsData?.data.map((ou) => ({ value: ou.id, label: ou.name })) ?? [];
+    orgUnitsData?.data.map(ou => ({ value: ou.id, label: ou.name })) ?? [];
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, pt: 1 }}>

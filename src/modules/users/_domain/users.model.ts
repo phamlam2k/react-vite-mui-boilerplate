@@ -3,7 +3,6 @@
  * Pure business entities, no framework dependencies
  */
 
-import type { UserProfile } from "../_api/users.type";
 import type {
   PaginatedResponse,
   PaginatedQueryParams,
@@ -12,7 +11,14 @@ import type {
 /**
  * Domain model for User (extends DTO with computed properties)
  */
-export interface User extends UserProfile {
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  isActive: boolean;
+  lastLoginAt?: string;
+  createdAt: string;
+  updatedAt: string;
   fullName: string;
   displayRole: string;
 }

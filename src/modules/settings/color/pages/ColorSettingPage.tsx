@@ -1,5 +1,5 @@
 import useColorsStore from "@shared/stores/colors.store";
-import baseColors from "@themes/colors/base";
+import baseColors from "@shared/constants/colors";
 import clsx from "clsx";
 import { useState } from "react";
 import ColorsDemoComp from "../components/ColorsDemoComp";

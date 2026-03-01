@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { loginUsecase } from "@modules/auth/_usecases/login/login.usecase";
+import { authUseCases } from "./auth.use-cases";
+import type { LoginSchema } from "@modules/auth/_usecases/auth.validations";
 
 export const useLoginMutate = () => {
   return useMutation({
-    mutationFn: loginUsecase,
+    mutationFn: (data: LoginSchema) => authUseCases.login(data),
   });
 };

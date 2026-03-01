@@ -3,9 +3,13 @@
  * HRM Employees management page with filters and list
  */
 
-import { Box, Container, Typography, Alert, Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 import { useState } from "react";
-import { Add as AddIcon } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../_domain/employees.rules";
 import { useEmployeesList } from "../hooks/useEmployeesList";
 import EmployeesTable from "../components/EmployeesTable";

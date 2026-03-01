@@ -3,13 +3,10 @@
  * Create employee (onboard) modal with form and contract
  */
 
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
 import { useModalController } from "@core/modal/hooks/useModalController";
 import type { ModalStack } from "@core/modal/store/modal.type";
 import { useForm, FormProvider } from "react-hook-form";
@@ -17,9 +14,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   createEmployeeSchema,
   type CreateEmployeeSchema,
-} from "../_usecases/create/create.validation";
+} from "@modules/employees/_usecases/employees.validations";
 import { useCreateEmployeeMutation } from "../hooks/useCreateEmployeeMutation";
 import EmployeeForm from "../components/EmployeeForm";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export type CreateEmployeeModalProps = {
   onSuccess?: () => void;

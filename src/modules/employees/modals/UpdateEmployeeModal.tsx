@@ -20,7 +20,7 @@ import { useUpdateEmployeeMutation } from "../hooks/useUpdateEmployeeMutation";
 import {
   updateEmployeeSchema,
   type UpdateEmployeeSchema,
-} from "../_usecases/update-employee/update-employee.validation";
+} from "@modules/employees/_usecases/employees.validations";
 import { useGetEmployeeDetail } from "../hooks/useGetEmployeeDetail";
 
 export type UpdateEmployeeModalProps = {

@@ -2,10 +2,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import BaseTextFieldForm from "@shared/components/forms/BaseTextFieldForm";
 import Button from "@mui/material/Button";
 import { useLoginMutate } from "../hooks/useLoginMutate";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  loginSchemaResolver,
+  loginSchema,
   type LoginSchema,
-} from "@modules/auth/_usecases/login/login.validation";
+} from "@modules/auth/_usecases/auth.validations";
+import { syncAuthFromUserProfile } from "@shared/stores/auth.store";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
@@ -13,7 +15,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const form = useForm<LoginSchema>({
-    resolver: loginSchemaResolver,
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -25,7 +27,8 @@ const LoginForm = () => {
     if (isPending) return;
 
     mutate(data, {
-      onSuccess: () => {
+      onSuccess: response => {
+        if (response?.user) syncAuthFromUserProfile(response.user);
         toast.success("Login successful");
         navigate("/");
       },

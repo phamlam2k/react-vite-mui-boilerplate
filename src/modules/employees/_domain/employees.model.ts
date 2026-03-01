@@ -3,14 +3,25 @@
  * Pure business entities, no framework dependencies
  */
 
-import type { EmployeeProfile } from "../_api/employees.type";
 import type { PaginatedResponse } from "@shared/types/pagination.type";
 
 /**
  * Domain model for Employee (extends DTO with computed properties)
  */
-export interface Employee extends EmployeeProfile {
+export interface Employee {
+  id: string;
+  employeeCode: string;
+  email: string;
+  phone?: string | null;
+  dateOfBirth?: string;
+  orgUnitName: string;
+  positionTitle: string;
+  managerName?: string | null;
+  hireDate: string;
+  terminationDate?: string | null;
+  createdAt: string;
   fullName: string;
+  displayGender: string;
   displayStatus: string;
   displayWorkMode: string;
 }

@@ -1,4 +1,6 @@
 import axiosInstance from "@core/axios";
+import { generatePath } from "react-router";
+import type { IUsersPort } from "@modules/users/_usecases/users.port";
 import type {
   UserCreateRequest,
   UserListRequest,
@@ -6,49 +8,49 @@ import type {
   UserProfile,
   UserUpdateRequestBody,
 } from "./users.type";
-import { generatePath } from "react-router";
 
 export const UsersApiRoutes = {
   Users: "/users",
   UserById: "/users/:userId",
 } as const;
 
-const usersApi = {
-  getUsersList: async (params: UserListRequest) => {
+export class UsersApiGateway implements IUsersPort {
+  async getUsersList(params: UserListRequest): Promise<UserListResponse> {
     const response = await axiosInstance.get<UserListResponse>(
       UsersApiRoutes.Users,
-      {
-        params,
-      }
+      { params }
     );
     return response.data;
-  },
-  createUser: async (data: UserCreateRequest) => {
+  }
+
+  async createUser(data: UserCreateRequest): Promise<UserProfile> {
     const response = await axiosInstance.post<UserProfile>(
       UsersApiRoutes.Users,
       data
     );
     return response.data;
-  },
-  updateUser: async (data: UserUpdateRequestBody) => {
-    const response = await axiosInstance.patch(
+  }
+
+  async updateUser(data: UserUpdateRequestBody): Promise<UserProfile> {
+    const response = await axiosInstance.patch<UserProfile>(
       generatePath(UsersApiRoutes.UserById, { userId: data.userId }),
       data.data
     );
     return response.data;
-  },
-  deleteUser: async (userId: string) => {
-    const response = await axiosInstance.delete(
+  }
+
+  async deleteUser(userId: string): Promise<void> {
+    await axiosInstance.delete(
       generatePath(UsersApiRoutes.UserById, { userId })
     );
-    return response.data;
-  },
-  getUserById: async (userId: string) => {
+  }
+
+  async getUserById(userId: string): Promise<UserProfile> {
     const response = await axiosInstance.get<UserProfile>(
       generatePath(UsersApiRoutes.UserById, { userId })
     );
     return response.data;
-  },
-};
+  }
+}
 
-export default usersApi;
+export const usersApiGateway = new UsersApiGateway();

@@ -61,6 +61,21 @@ export const PAY_SCHEDULE_LABELS = {
 } as const;
 
 /**
+ * Permission codes for authz — from shared DEFAULT_PERMISSIONS seed
+ */
+import { PERMISSION_CODES } from "@shared/constants/permissions";
+
+export const PERMISSION_EMPLOYEES_VIEW = PERMISSION_CODES.employees.view;
+export const PERMISSION_EMPLOYEES_MANAGE = PERMISSION_CODES.employees.manage;
+
+/** @deprecated Use PERMISSION_EMPLOYEES_MANAGE for create/update/delete */
+export const PERMISSION_EMPLOYEE_CREATE = PERMISSION_CODES.employees.manage;
+/** @deprecated Use PERMISSION_EMPLOYEES_MANAGE */
+export const PERMISSION_EMPLOYEE_UPDATE = PERMISSION_CODES.employees.manage;
+/** @deprecated Use PERMISSION_EMPLOYEES_MANAGE */
+export const PERMISSION_EMPLOYEE_DELETE = PERMISSION_CODES.employees.manage;
+
+/**
  * Validation rules
  */
 export const FIRST_NAME_MAX_LENGTH = 100;

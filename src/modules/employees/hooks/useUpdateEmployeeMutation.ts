@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { EmployeesKeys } from "./useEmployeesList";
 import { EmployeeDetailKeys } from "./useGetEmployeeDetail";
-import { updateEmployeeUseCase } from "../_usecases/update-employee/update-employee.usecase";
-import type { UpdateEmployeeSchema } from "../_usecases/update-employee/update-employee.validation";
+import type { UpdateEmployeeSchema } from "@modules/employees/_usecases/employees.validations";
 import { toast } from "react-toastify";
+import { employeesUseCases } from "./employees.use-cases";
 
 export function useUpdateEmployeeMutation() {
   const queryClient = useQueryClient();
@@ -15,7 +15,7 @@ export function useUpdateEmployeeMutation() {
     }: {
       employeeId: string;
       formData: Partial<UpdateEmployeeSchema>;
-    }) => updateEmployeeUseCase(employeeId, formData),
+    }) => employeesUseCases.update(employeeId, formData),
     onSuccess: (_, { employeeId }) => {
       toast.success("Nhân viên đã được cập nhật thành công");
       queryClient.invalidateQueries({ queryKey: EmployeesKeys.lists() });

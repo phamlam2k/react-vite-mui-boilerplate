@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
-import { GitHub } from "@mui/icons-material";
-import SignInButton from "@core/providers/google-oauth2/components/SignInButton";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import LoginForm from "../components/LoginForm";
+import SignInButton from "@shared/components/google/SignInButton";
 
 function LoginPage() {
   return (
@@ -18,7 +18,11 @@ function LoginPage() {
 
           <div className="flex flex-col gap-2">
             <SignInButton />
-            <Button variant="outlined" color="secondary" startIcon={<GitHub />}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              startIcon={<GitHubIcon />}
+            >
               Login with Github
             </Button>
           </div>

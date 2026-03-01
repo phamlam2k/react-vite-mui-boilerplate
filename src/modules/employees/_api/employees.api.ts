@@ -1,5 +1,11 @@
+/**
+ * 🟡 GATEWAY LAYER - HTTP Adapter (Class)
+ * Implements IEmployeesPort; use cases depend on the port, not this class.
+ */
+
 import axiosInstance from "@core/axios";
 import { generatePath } from "react-router";
+import type { IEmployeesPort } from "@modules/employees/_usecases/employees.port";
 import type {
   EmployeeCreateRequest,
   EmployeeListParams,
@@ -13,31 +19,31 @@ export const EmployeesApiRoutes = {
   EmployeeById: "/employees/:employeeId",
 } as const;
 
-const employeesApi = {
-  getEmployeesList: async (params: EmployeeListParams) => {
+export class EmployeesApiGateway implements IEmployeesPort {
+  async getEmployeesList(params: EmployeeListParams): Promise<EmployeeListResponse> {
     const response = await axiosInstance.get<EmployeeListResponse>(
       EmployeesApiRoutes.Employees,
       { params }
     );
     return response.data;
-  },
+  }
 
-  createEmployee: async (data: EmployeeCreateRequest) => {
+  async createEmployee(data: EmployeeCreateRequest): Promise<EmployeeProfile> {
     const response = await axiosInstance.post<EmployeeProfile>(
       EmployeesApiRoutes.Employees,
       data
     );
     return response.data;
-  },
+  }
 
-  getEmployeeById: async (employeeId: string) => {
+  async getEmployeeById(employeeId: string): Promise<EmployeeProfile> {
     const response = await axiosInstance.get<EmployeeProfile>(
       generatePath(EmployeesApiRoutes.EmployeeById, { employeeId })
     );
     return response.data;
-  },
+  }
 
-  updateEmployee: async (payload: EmployeeUpdateRequestBody) => {
+  async updateEmployee(payload: EmployeeUpdateRequestBody): Promise<EmployeeProfile> {
     const response = await axiosInstance.patch<EmployeeProfile>(
       generatePath(EmployeesApiRoutes.EmployeeById, {
         employeeId: payload.employeeId,
@@ -45,13 +51,14 @@ const employeesApi = {
       payload.data
     );
     return response.data;
-  },
+  }
 
-  deleteEmployee: async (employeeId: string) => {
+  async deleteEmployee(employeeId: string): Promise<void> {
     await axiosInstance.delete(
       generatePath(EmployeesApiRoutes.EmployeeById, { employeeId })
     );
-  },
-};
+  }
+}
 
-export default employeesApi;
+/** Singleton instance for app use; hooks can inject this into use cases. */
+export const employeesApiGateway = new EmployeesApiGateway();

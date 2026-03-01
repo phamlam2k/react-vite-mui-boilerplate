@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import employeesApi from "../_api/employees.api";
-import { mapEmployeeProfileToEmployee } from "../_usecases/list/list.mapper";
+import { employeesUseCases } from "./employees.use-cases";
 
 export const EmployeeDetailKeys = {
   Detail: (employeeId: string) => ["employee", employeeId] as const,
@@ -9,10 +8,7 @@ export const EmployeeDetailKeys = {
 export function useGetEmployeeDetail(employeeId: string) {
   return useQuery({
     queryKey: EmployeeDetailKeys.Detail(employeeId),
-    queryFn: async () => {
-      const response = await employeesApi.getEmployeeById(employeeId);
-      return mapEmployeeProfileToEmployee(response);
-    },
+    queryFn: () => employeesUseCases.getById(employeeId),
     enabled: !!employeeId,
   });
 }

@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import {
   updateRoleSchema,
   type UpdateRoleSchema,
-} from "@modules/roles_permissions/_usecases/roles/update-role/update-role.validation";
+} from "@modules/roles_permissions/_usecases/roles/roles.validations";
 import { useUpdateRoleMutation } from "../hooks/useUpdateRoleMutation";
 import { useGetRoleDetail } from "../hooks/useGetRoleDetail";
 import RoleForm from "../components/RoleForm";

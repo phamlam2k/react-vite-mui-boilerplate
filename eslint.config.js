@@ -217,9 +217,10 @@ export default defineConfig([
                 ["gateway", { module: "${from.module}" }],
                 ["module-adapter", { module: "${from.module}" }],
                 ["module-routes", { module: "${from.module}" }],
-                "core",
-                "themes",
+                "module-adapter",
+                "shared-contract",
                 "shared",
+                "core",
               ],
             },
             // ─── 🔴 Infrastructure (core, themes, shared) ───
@@ -233,7 +234,7 @@ export default defineConfig([
             },
             {
               from: ["shared"],
-              allow: ["core", "themes", "shared"],
+              allow: ["core", "themes", "shared", "gateway"],
             },
             // ─── 🟠 Top-level Routes ───
             {

@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   createRoleSchema,
   type CreateRoleSchema,
-} from "@modules/roles_permissions/_usecases/roles/create-role/create-role.validation";
+} from "@modules/roles_permissions/_usecases/roles/roles.validations";
 import { useCreateRoleMutation } from "../hooks/useCreateRoleMutation";
 import RoleForm from "../components/RoleForm";
 

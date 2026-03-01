@@ -1,7 +1,7 @@
 import { create, type StateCreator } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { ColorNames, generateRamp } from "@scripts/utils";
-import baseColors from "@themes/colors/base";
+import baseColors from "@shared/constants/colors";
 
 const colorDefault = baseColors[ColorNames.Blue];
 
@@ -15,7 +15,7 @@ const colorsMiddleware = (f: StateCreator<ColorsStore, [], [], ColorsStore>) =>
   devtools(persist(f, { name: "colorsStore" }));
 
 const useColorsStore = create<ColorsStore>()(
-  colorsMiddleware((set) => ({
+  colorsMiddleware(set => ({
     color: colorDefault,
     colorKey: ColorNames.Blue,
     setColor: (color: string) => {

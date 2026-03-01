@@ -1,5 +1,5 @@
 import { ColorNames } from "@scripts/utils";
-import baseColors from "./base";
+import baseColors from "@shared/constants/colors";
 
 const semanticColor = {
   brand: {

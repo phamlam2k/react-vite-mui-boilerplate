@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import type { UsersFilters } from "../_domain/users.model";
-import { getUsersListUseCase } from "../_usecases/list/list.usecase";
+import { usersUseCases } from "./users.use-cases";
 
 export const UsersKeys = {
   all: ["users"] as const,
@@ -11,7 +11,7 @@ export const UsersKeys = {
 export function useUsersList(filters: UsersFilters) {
   return useQuery({
     queryKey: UsersKeys.list(filters),
-    queryFn: () => getUsersListUseCase(filters),
+    queryFn: () => usersUseCases.getList(filters),
     staleTime: 30_000,
     gcTime: 5 * 60_000,
   });
