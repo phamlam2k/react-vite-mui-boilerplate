@@ -1,10 +1,6 @@
 import { createBrowserRouter } from "react-router";
 
-import {
-  notFoundRoute,
-  internalServerErrorRoute,
-  unauthorizedRoute,
-} from "@core/errors";
+import errorsRoutes from "@core/errors";
 
 import { publicRoute } from "@routes/publicRoute";
 import { wildcardRoute } from "@routes/wildcardRoute";
@@ -12,9 +8,7 @@ import { privateRoute } from "@routes/privateRoute";
 
 export const AppRouter = createBrowserRouter([
   // Error pages
-  internalServerErrorRoute,
-  unauthorizedRoute,
-  notFoundRoute,
+  ...errorsRoutes,
 
   // Public routes
   publicRoute,

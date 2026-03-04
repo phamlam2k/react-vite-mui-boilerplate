@@ -1,0 +1,9 @@
+{
+  "createSuccess": "Nhân viên đã được tạo thành công",
+  "updateSuccess": "Nhân viên đã được cập nhật thành công",
+  "deleteSuccess": "Nhân viên đã được xóa (chấm dứt) thành công",
+  "errors": {
+    "forbidden": "Bạn không có quyền thực hiện hành động này",
+    "notFound": "Nhân viên không tồn tại"
+  }
+}

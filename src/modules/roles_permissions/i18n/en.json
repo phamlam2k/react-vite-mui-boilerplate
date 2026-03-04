@@ -1,0 +1,11 @@
+{
+  "createSuccess": "Role created successfully",
+  "updateSuccess": "Role updated successfully",
+  "deleteSuccess": "Role deleted successfully",
+  "setPermissionsSuccess": "Permissions updated successfully",
+  "errors": {
+    "forbiddenCreate": "You do not have permission to create roles",
+    "forbiddenDelete": "You do not have permission to delete roles",
+    "notFound": "Role not found"
+  }
+}

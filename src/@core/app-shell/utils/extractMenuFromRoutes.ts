@@ -35,8 +35,8 @@ export function extractMenuFromRoutes(
           // Sort theo order nếu có trong meta
           const routeA = children.find(r => r.path === a.path);
           const routeB = children.find(r => r.path === b.path);
-          const orderA = (routeA as any)?.meta?.order ?? 999;
-          const orderB = (routeB as any)?.meta?.order ?? 999;
+          const orderA = (routeA as RouteWithMeta)?.meta?.order ?? 999;
+          const orderB = (routeB as RouteWithMeta)?.meta?.order ?? 999;
           return orderA - orderB;
         });
 

@@ -1,0 +1,17 @@
+{
+  "errors": {
+    "forbidden": "Bạn không có quyền truy cập",
+    "notFound": "Tài nguyên không tồn tại",
+    "validation": "Dữ liệu không hợp lệ",
+    "unknown": "Đã có lỗi xảy ra"
+  },
+  "actions": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "confirm": "Xác nhận",
+    "create": "Tạo mới",
+    "update": "Cập nhật",
+    "search": "Tìm kiếm"
+  }
+}

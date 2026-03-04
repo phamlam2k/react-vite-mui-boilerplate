@@ -1,6 +1,14 @@
-import { useMemo, useState, forwardRef, useImperativeHandle } from "react";
+import {
+  useMemo,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  type Ref,
+} from "react";
 
-import { Paper, Table, TableContainer } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableContainer from "@mui/material/TableContainer";
 
 import type { IBaseTableProps } from "@shared/types/table.type";
 import BaseTableLoading from "@shared/components/table/BaseTableLoading";
@@ -35,7 +43,10 @@ import BasePagination from "@shared/components/table/BasePagination";
  *
  * @returns
  */
-const BaseTable = <TData,>(props: IBaseTableProps<TData>, ref: any) => {
+const BaseTable = <TData,>(
+  props: IBaseTableProps<TData>,
+  ref: Ref<unknown>
+) => {
   const {
     data,
     columns,
@@ -175,6 +186,7 @@ const BaseTable = <TData,>(props: IBaseTableProps<TData>, ref: any) => {
         actions={actions}
       />
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     actions,
     ordinalNumber,
@@ -189,7 +201,7 @@ const BaseTable = <TData,>(props: IBaseTableProps<TData>, ref: any) => {
   return (
     <Paper sx={{ width: "100%", background: "transparent" }}>
       <TableContainer
-        ref={ref}
+        ref={ref as Ref<HTMLDivElement>}
         sx={{
           width: "inherit",
           maxHeight: "400px",
@@ -235,5 +247,5 @@ const BaseTable = <TData,>(props: IBaseTableProps<TData>, ref: any) => {
 BaseTable.displayName = "BaseTable";
 
 export default forwardRef(BaseTable) as <TData>(
-  props: IBaseTableProps<TData> & { ref?: any }
+  props: IBaseTableProps<TData> & { ref?: Ref<unknown> }
 ) => React.ReactElement;

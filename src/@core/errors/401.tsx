@@ -1,12 +1,8 @@
-import { useNavigate, type RouteObject } from "react-router";
+import { useNavigate } from "react-router";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Lock, Home } from "@mui/icons-material";
-
-export const unauthorizedRoute: RouteObject = {
-  path: "/401",
-  element: <UnauthorizedPage />,
-};
+import Lock from "@mui/icons-material/Lock";
+import Home from "@mui/icons-material/Home";
 
 function UnauthorizedPage() {
   const navigate = useNavigate();

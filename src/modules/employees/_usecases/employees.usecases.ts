@@ -5,6 +5,7 @@
 
 import type { IEmployeesPort } from "@modules/employees/_usecases/employees.port";
 import type { ICurrentUserPort } from "@shared/ports/current-user.port";
+import { ForbiddenError, NotFoundError } from "@shared/errors/app.errors";
 import type {
   Employee,
   EmployeesFilters,
@@ -30,7 +31,10 @@ export class EmployeesUseCases {
   private readonly api: IEmployeesPort;
   private readonly currentUser: ICurrentUserPort | null;
 
-  constructor(api: IEmployeesPort, currentUser: ICurrentUserPort | null = null) {
+  constructor(
+    api: IEmployeesPort,
+    currentUser: ICurrentUserPort | null = null
+  ) {
     this.api = api;
     this.currentUser = currentUser;
   }
@@ -39,7 +43,7 @@ export class EmployeesUseCases {
     if (!this.currentUser) return;
     const permissions = this.currentUser.getPermissions();
     if (!permissions.includes(permission)) {
-      throw new Error("Forbidden: missing permission " + permission);
+      throw new ForbiddenError("errors.forbidden");
     }
   }
 
@@ -62,7 +66,7 @@ export class EmployeesUseCases {
   }
 
   async getById(employeeId: string): Promise<Employee> {
-    if (!employeeId) throw new Error("Nhân viên không tồn tại");
+    if (!employeeId) throw new NotFoundError("errors.notFound");
     const response = await this.api.getEmployeeById(employeeId);
     return mapEmployeeProfileToEmployee(response);
   }
@@ -83,7 +87,7 @@ export class EmployeesUseCases {
 
   async delete(employeeId: string): Promise<void> {
     this.requirePermission(PERMISSION_EMPLOYEES_MANAGE);
-    if (!employeeId) throw new Error("Nhân viên không tồn tại");
+    if (!employeeId) throw new NotFoundError("errors.notFound");
     await this.api.deleteEmployee(employeeId);
   }
 }

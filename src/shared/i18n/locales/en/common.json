@@ -1,0 +1,17 @@
+{
+  "errors": {
+    "forbidden": "You do not have permission to access",
+    "notFound": "Resource not found",
+    "validation": "Invalid data",
+    "unknown": "An error occurred"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "create": "Create",
+    "update": "Update",
+    "search": "Search"
+  }
+}

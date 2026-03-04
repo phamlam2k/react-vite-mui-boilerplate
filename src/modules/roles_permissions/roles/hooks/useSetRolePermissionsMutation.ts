@@ -4,9 +4,12 @@ import { RoleDetailKeys } from "./useGetRoleDetail";
 import { RolePermissionsKeys } from "./useGetRolePermissions";
 import { toast } from "react-toastify";
 import { rolesUseCases } from "./roles.use-cases";
+import { useTranslation } from "react-i18next";
 
 export function useSetRolePermissionsMutation() {
   const queryClient = useQueryClient();
+  const { t } = useTranslation("roles");
+
   return useMutation({
     mutationFn: ({
       roleId,
@@ -16,7 +19,7 @@ export function useSetRolePermissionsMutation() {
       permissionIds: string[];
     }) => rolesUseCases.setRolePermissions(roleId, permissionIds),
     onSuccess: (_, { roleId }) => {
-      toast.success("Quyền đã được cập nhật thành công");
+      toast.success(t("setPermissionsSuccess"));
       queryClient.invalidateQueries({ queryKey: RolesKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: RoleDetailKeys.Detail(roleId),

@@ -33,7 +33,7 @@ interface MockUserUpdateRequest {
   firstName?: string;
   lastName?: string;
   password?: string;
-  role?: "user" | "admin";
+  roleIds?: string[];
   isActive?: boolean;
 }
 
@@ -94,7 +94,8 @@ export const usersHandlers = [
           `${u.firstName} ${u.lastName}`.toLowerCase().includes(q)
       );
     }
-    if (role) filtered = filtered.filter(u => u.role === role);
+    if (role)
+      filtered = filtered.filter(u => u.roles?.some(r => r.code === role));
     if (isActiveParam !== null && isActiveParam !== "") {
       const isActive = isActiveParam === "true";
       filtered = filtered.filter(u => u.isActive === isActive);
@@ -177,23 +178,15 @@ export const usersHandlers = [
       email: body.email.trim().toLowerCase(),
       firstName: body.firstName?.trim() ?? "",
       lastName: body.lastName?.trim() ?? "",
-      role: body.role ?? "user",
+      roles: body.roleIds?.map(id => ({ id })) ?? [],
       isActive: body.isActive !== false,
       lastLoginAt: undefined,
       createdAt: now,
       updatedAt: now,
+      tenantId: null,
+      permissions: [],
     };
     mockUsers.push(newUser);
-
-    return HttpResponse.json(newUser, { status: 201 });
-  }),
-
-  /**
-   * GET /users/:param - getUserById (when param is id) or getUserByName (when param is username)
-   * - If param is UUID or "user-N" → return UserProfile (getUserById)
-   * - Else → return User partial (getUserByName)
-   */
-  http.get("/api/v1/users/:param", ({ params }) => {
     const param = params.param as string;
     if (isUserIdParam(param)) {
       const user = mockUsers.find(u => u.id === param);

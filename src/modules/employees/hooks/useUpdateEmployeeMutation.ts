@@ -4,9 +4,11 @@ import { EmployeeDetailKeys } from "./useGetEmployeeDetail";
 import type { UpdateEmployeeSchema } from "@modules/employees/_usecases/employees.validations";
 import { toast } from "react-toastify";
 import { employeesUseCases } from "./employees.use-cases";
+import { useTranslation } from "react-i18next";
 
 export function useUpdateEmployeeMutation() {
   const queryClient = useQueryClient();
+  const { t } = useTranslation("employees");
 
   return useMutation({
     mutationFn: ({
@@ -17,7 +19,7 @@ export function useUpdateEmployeeMutation() {
       formData: Partial<UpdateEmployeeSchema>;
     }) => employeesUseCases.update(employeeId, formData),
     onSuccess: (_, { employeeId }) => {
-      toast.success("Nhân viên đã được cập nhật thành công");
+      toast.success(t("updateSuccess"));
       queryClient.invalidateQueries({ queryKey: EmployeesKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: EmployeeDetailKeys.Detail(employeeId),

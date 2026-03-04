@@ -1,5 +1,7 @@
-import type { AuthLoginRequest } from "@modules/auth/_api/auth.type";
+import type { components } from "@core/api-contract/openapi";
 import { http, HttpResponse } from "msw";
+
+export type AuthLoginRequest = components["schemas"]["AuthLoginRequest"];
 
 const fakeAccessToken = "fake-access-token";
 

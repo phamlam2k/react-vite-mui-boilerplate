@@ -1,0 +1,9 @@
+{
+  "createSuccess": "User created successfully",
+  "updateSuccess": "User updated successfully",
+  "deleteSuccess": "User deleted successfully",
+  "errors": {
+    "forbidden": "You do not have permission to perform this action",
+    "notFound": "User not found"
+  }
+}

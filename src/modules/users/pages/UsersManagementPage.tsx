@@ -43,8 +43,6 @@ const UsersManagementPage = () => {
   // Fetch users with filters
   const { data, isLoading, isError, error } = useUsersList(filters);
 
-  console.log(data);
-
   const handleOpenCreateModal = () => {
     open(UsersModalKeys.CreateUserModal);
   };

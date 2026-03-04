@@ -1,0 +1,11 @@
+{
+  "createSuccess": "Vai trò đã được tạo thành công",
+  "updateSuccess": "Vai trò đã được cập nhật thành công",
+  "deleteSuccess": "Vai trò đã được xóa thành công",
+  "setPermissionsSuccess": "Quyền đã được cập nhật thành công",
+  "errors": {
+    "forbiddenCreate": "Bạn không có quyền tạo vai trò",
+    "forbiddenDelete": "Bạn không có quyền xóa vai trò",
+    "notFound": "Vai trò không tồn tại"
+  }
+}

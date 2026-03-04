@@ -1,0 +1,9 @@
+{
+  "loginSuccess": "Login successful",
+  "loginFailed": "Login failed",
+  "email": "Email",
+  "password": "Password",
+  "emailPlaceholder": "Enter your email",
+  "passwordPlaceholder": "Enter your password",
+  "loginButton": "Login"
+}

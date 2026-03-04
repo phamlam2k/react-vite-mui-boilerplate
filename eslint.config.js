@@ -132,7 +132,10 @@ export default defineConfig([
         },
       ],
 
+      // Use our own Clean Architecture rules; disable generic \"no-private\"
+      // because we are not using element-level `private` on `shared`.
       ...boundaries.configs.recommended.rules,
+      "boundaries/no-private": "off",
 
       /**
        * Clean Architecture dependency rules (Port pattern, as in roles_permissions).
@@ -226,7 +229,7 @@ export default defineConfig([
             // ─── 🔴 Infrastructure (core, themes, shared) ───
             {
               from: ["core"],
-              allow: ["core", "themes", "shared"],
+              allow: ["core", "themes", "shared", "shared-contract"],
             },
             {
               from: ["themes"],
@@ -239,7 +242,7 @@ export default defineConfig([
             // ─── 🟠 Top-level Routes ───
             {
               from: ["routes"],
-              allow: ["module-routes", "core", "shared"],
+              allow: ["module-routes", "core", "shared", "shared-contract"],
             },
             // ─── ⚪ App entry ───
             {

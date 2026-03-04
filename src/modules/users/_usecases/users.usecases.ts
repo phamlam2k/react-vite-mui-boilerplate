@@ -1,13 +1,20 @@
+/**
+ * 🟢 USE CASE LAYER - Orchestration (Class)
+ * Depends only on IUsersPort (injected). Optional ICurrentUserPort for authz.
+ */
+
 import type { IUsersPort } from "./users.port";
+import type { ICurrentUserPort } from "@shared/ports/current-user.port";
+import { ForbiddenError, NotFoundError } from "@shared/errors/app.errors";
 import type {
   User,
   UsersFilters,
   UsersList,
 } from "@modules/users/_domain/users.model";
+import { PERMISSION_CODES } from "@shared/constants/permissions";
 import {
   usersFiltersSchema,
   createUserSchema,
-  updateUserSchema,
   type CreateUserSchema,
   type UpdateUserSchema,
 } from "./users.validations";
@@ -22,9 +29,19 @@ import { pickBy } from "lodash-es";
 
 export class UsersUseCases {
   private readonly api: IUsersPort;
+  private readonly currentUser: ICurrentUserPort | null;
 
-  constructor(api: IUsersPort) {
+  constructor(api: IUsersPort, currentUser: ICurrentUserPort | null = null) {
     this.api = api;
+    this.currentUser = currentUser;
+  }
+
+  private requirePermission(permission: string): void {
+    if (!this.currentUser) return;
+    const permissions = this.currentUser.getPermissions();
+    if (!permissions.includes(permission)) {
+      throw new ForbiddenError("errors.forbidden");
+    }
   }
 
   async getList(filters: UsersFilters): Promise<UsersList> {
@@ -40,6 +57,7 @@ export class UsersUseCases {
   async create(
     formData: CreateUserSchema & { tenantId: string }
   ): Promise<User> {
+    this.requirePermission(PERMISSION_CODES.users.manage);
     const { tenantId, ...rest } = formData;
     const validated = createUserSchema.parse(rest);
     const processed = {
@@ -53,7 +71,7 @@ export class UsersUseCases {
   }
 
   async getById(userId: string): Promise<User> {
-    if (!userId) throw new Error("Người dùng không tồn tại");
+    if (!userId) throw new NotFoundError("errors.notFound");
     const response = await this.api.getUserById(userId);
     return mapUserProfileToUser(response);
   }
@@ -62,6 +80,7 @@ export class UsersUseCases {
     userId: string,
     formData: Partial<UpdateUserSchema>
   ): Promise<User> {
+    this.requirePermission(PERMISSION_CODES.users.manage);
     const cleaned = pickBy(
       formData,
       (v): v is NonNullable<typeof v> => v !== undefined
@@ -72,7 +91,8 @@ export class UsersUseCases {
   }
 
   async delete(userId: string): Promise<void> {
-    if (!userId) throw new Error("Người dùng không tồn tại");
+    this.requirePermission(PERMISSION_CODES.users.manage);
+    if (!userId) throw new NotFoundError("errors.notFound");
     await this.api.deleteUser(userId);
   }
 

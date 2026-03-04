@@ -1,12 +1,8 @@
-import { useNavigate, type RouteObject } from "react-router";
+import { useNavigate } from "react-router";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Home, SearchOff } from "@mui/icons-material";
-
-export const notFoundRoute: RouteObject = {
-  path: "/404",
-  element: <NotFoundPage />,
-};
+import Home from "@mui/icons-material/Home";
+import SearchOff from "@mui/icons-material/SearchOff";
 
 function NotFoundPage() {
   const navigate = useNavigate();

@@ -11,6 +11,7 @@ import { isDevice } from "@shared/utils/devices";
 import { useMemo } from "react";
 import Search from "@mui/icons-material/Search";
 import { useHotkeys } from "react-hotkeys-hook";
+import AvatarPopover from "./AvatarPopover";
 
 type HeaderProps = {
   isMobile?: boolean;
@@ -64,8 +65,13 @@ const Header = ({ isMobile, handleToggleDrawer }: HeaderProps) => {
             <p className="text-base text-gray-500">{hotKeys}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <ThemeToggle className="relative right-0 top-0" />
+
+        <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
+            <ThemeToggle className="relative right-0 top-0" />
+          </div>
+
+          <AvatarPopover />
         </div>
       </div>
       <ModalEngine />

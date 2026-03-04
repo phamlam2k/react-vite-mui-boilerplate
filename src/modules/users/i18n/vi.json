@@ -1,0 +1,9 @@
+{
+  "createSuccess": "Người dùng đã được tạo thành công",
+  "updateSuccess": "Người dùng đã được cập nhật thành công",
+  "deleteSuccess": "Người dùng đã được xóa thành công",
+  "errors": {
+    "forbidden": "Bạn không có quyền thực hiện hành động này",
+    "notFound": "Người dùng không tồn tại"
+  }
+}

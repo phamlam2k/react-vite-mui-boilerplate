@@ -1,0 +1,9 @@
+{
+  "createSuccess": "Employee created successfully",
+  "updateSuccess": "Employee updated successfully",
+  "deleteSuccess": "Employee terminated successfully",
+  "errors": {
+    "forbidden": "You do not have permission to perform this action",
+    "notFound": "Employee not found"
+  }
+}

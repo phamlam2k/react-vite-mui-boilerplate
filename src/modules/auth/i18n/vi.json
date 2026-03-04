@@ -1,0 +1,9 @@
+{
+  "loginSuccess": "Đăng nhập thành công",
+  "loginFailed": "Đăng nhập thất bại",
+  "email": "Email",
+  "password": "Mật khẩu",
+  "emailPlaceholder": "Nhập email của bạn",
+  "passwordPlaceholder": "Nhập mật khẩu của bạn",
+  "loginButton": "Đăng nhập"
+}

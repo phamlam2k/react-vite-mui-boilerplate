@@ -8,15 +8,17 @@ import type { CreateEmployeeSchema } from "@modules/employees/_usecases/employee
 import { EmployeesKeys } from "./useEmployeesList";
 import { toast } from "react-toastify";
 import { employeesUseCases } from "./employees.use-cases";
+import { useTranslation } from "react-i18next";
 
 export function useCreateEmployeeMutation() {
   const queryClient = useQueryClient();
+  const { t } = useTranslation("employees");
 
   return useMutation({
     mutationFn: (formData: CreateEmployeeSchema) =>
       employeesUseCases.create(formData),
     onSuccess: () => {
-      toast.success("Nhân viên đã được tạo thành công");
+      toast.success(t("createSuccess"));
       queryClient.invalidateQueries({ queryKey: EmployeesKeys.lists() });
     },
   });

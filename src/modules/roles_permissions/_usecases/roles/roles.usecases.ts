@@ -5,6 +5,7 @@
 
 import type { IRolesPort } from "@modules/roles_permissions/_usecases/roles/roles.port";
 import type { ICurrentUserPort } from "@shared/ports/current-user.port";
+import { ForbiddenError, NotFoundError } from "@shared/errors/app.errors";
 import type {
   RoleItem,
   RolesFilters,
@@ -56,7 +57,7 @@ export class RolesUseCases {
 
   async create(formData: CreateRoleSchema): Promise<RoleItem> {
     if (this.currentUser && !canCreateRole(this.getPermissions()))
-      throw new Error("Bạn không có quyền tạo vai trò");
+      throw new ForbiddenError("Bạn không có quyền tạo vai trò");
     const validated = createRoleSchema.parse(formData);
     const request = mapCreateRoleFormToApi(validated);
     const response = await this.api.createRole(request);
@@ -64,7 +65,7 @@ export class RolesUseCases {
   }
 
   async getById(roleId: string): Promise<RoleItem> {
-    if (!roleId) throw new Error("Vai trò không tồn tại");
+    if (!roleId) throw new NotFoundError("Vai trò không tồn tại");
     const response = await this.api.getRoleById(roleId);
     return mapRoleDtoToDomain(response);
   }
@@ -84,13 +85,13 @@ export class RolesUseCases {
 
   async delete(roleId: string): Promise<void> {
     if (this.currentUser && !canDeleteRole(this.getPermissions()))
-      throw new Error("Bạn không có quyền xóa vai trò");
-    if (!roleId) throw new Error("Vai trò không tồn tại");
+      throw new ForbiddenError("Bạn không có quyền xóa vai trò");
+    if (!roleId) throw new NotFoundError("Vai trò không tồn tại");
     await this.api.deleteRole(roleId);
   }
 
   async getRolePermissions(roleId: string): Promise<PermissionItem[]> {
-    if (!roleId) throw new Error("Vai trò không tồn tại");
+    if (!roleId) throw new NotFoundError("Vai trò không tồn tại");
     const response = await this.api.getRolePermissions(roleId);
     return mapPermissionDtosToDomain(response.data);
   }

@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import "@shared/i18n/i18n"; // i18n must be initialized before App renders
 import App from "./App.tsx";
 
 async function enableMocking() {

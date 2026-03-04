@@ -1,12 +1,9 @@
-import { useNavigate, type RouteObject } from "react-router";
+import { useNavigate } from "react-router";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { ErrorOutline, Home, Refresh } from "@mui/icons-material";
-
-export const internalServerErrorRoute: RouteObject = {
-  path: "/500",
-  element: <InternalServerErrorPage />,
-};
+import ErrorOutline from "@mui/icons-material/ErrorOutline";
+import Home from "@mui/icons-material/Home";
+import Refresh from "@mui/icons-material/Refresh";
 
 function InternalServerErrorPage() {
   const navigate = useNavigate();

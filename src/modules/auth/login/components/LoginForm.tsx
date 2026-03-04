@@ -10,9 +10,11 @@ import {
 import { syncAuthFromUserProfile } from "@shared/stores/auth.store";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation("auth");
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -29,11 +31,11 @@ const LoginForm = () => {
     mutate(data, {
       onSuccess: response => {
         if (response?.user) syncAuthFromUserProfile(response.user);
-        toast.success("Login successful");
+        toast.success(t("loginSuccess"));
         navigate("/");
       },
       onError: () => {
-        toast.error("Login failed");
+        toast.error(t("loginFailed"));
       },
     });
   };
@@ -46,17 +48,17 @@ const LoginForm = () => {
       >
         <BaseTextFieldForm
           name="email"
-          label="Email"
-          placeholder="Enter your email"
+          label={t("email")}
+          placeholder={t("emailPlaceholder")}
         />
         <BaseTextFieldForm
           name="password"
-          label="Password"
+          label={t("password")}
           type="password"
-          placeholder="Enter your password"
+          placeholder={t("passwordPlaceholder")}
         />
         <Button type="submit" variant="contained" color="primary">
-          Login
+          {t("loginButton")}
         </Button>
       </form>
     </FormProvider>
