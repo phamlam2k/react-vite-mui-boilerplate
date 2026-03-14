@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { clearAuthTokens } from "@core/axios";
 import authApi from "./auth.api";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
@@ -25,6 +26,7 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: authApi.logout,
     onSuccess: () => {
+      clearAuthTokens();
       queryClient.invalidateQueries({ queryKey: AuthMeKeys.Me() });
       toast.success(t("logoutSuccess"));
       navigate("/login");

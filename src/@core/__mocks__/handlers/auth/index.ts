@@ -4,6 +4,7 @@ import { http, HttpResponse } from "msw";
 export type AuthLoginRequest = components["schemas"]["AuthLoginRequest"];
 
 const fakeAccessToken = "fake-access-token";
+const fakeRefreshToken = "fake-refresh-token";
 
 const fakeUser = {
   id: "user-1",
@@ -33,9 +34,16 @@ export const authHandlers = [
 
     // 🔥 Mock cookie set (dev only)
     document.cookie = `access_token=${fakeAccessToken}; path=/;`;
+    document.cookie = `refresh_token=${fakeRefreshToken}; path=/;`;
 
     return HttpResponse.json({
       user: fakeUser,
+      tokens: {
+        accessToken: fakeAccessToken,
+        refreshToken: fakeRefreshToken,
+        expiresIn: 900,
+        tokenType: "Bearer",
+      },
     });
   }),
 
@@ -54,9 +62,31 @@ export const authHandlers = [
     return HttpResponse.json(fakeUser);
   }),
 
+  // REFRESH TOKEN
+  http.post("/api/v1/auth/refresh-token", async ({ request }) => {
+    const body = (await request.json()) as { refreshToken?: string };
+    if (!body?.refreshToken || body.refreshToken !== fakeRefreshToken) {
+      return HttpResponse.json(
+        { message: "Invalid refresh token" },
+        { status: 401 }
+      );
+    }
+    document.cookie = `access_token=${fakeAccessToken}; path=/;`;
+    document.cookie = `refresh_token=${fakeRefreshToken}; path=/;`;
+    return HttpResponse.json({
+      tokens: {
+        accessToken: fakeAccessToken,
+        refreshToken: fakeRefreshToken,
+        expiresIn: 900,
+        tokenType: "Bearer",
+      },
+    });
+  }),
+
   // LOGOUT (optional but recommended)
   http.post("/api/v1/auth/logout", async () => {
     document.cookie = "access_token=; Max-Age=0; path=/";
+    document.cookie = "refresh_token=; Max-Age=0; path=/";
 
     return HttpResponse.json({
       message: "Logout success",

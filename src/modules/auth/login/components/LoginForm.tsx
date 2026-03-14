@@ -7,6 +7,7 @@ import {
   loginSchema,
   type LoginSchema,
 } from "@modules/auth/_usecases/auth.validations";
+import { setAuthTokens } from "@core/axios";
 import { syncAuthFromUserProfile } from "@shared/stores/auth.store";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
@@ -30,6 +31,10 @@ const LoginForm = () => {
 
     mutate(data, {
       onSuccess: response => {
+        if (response?.tokens) {
+          const { accessToken, refreshToken, expiresIn } = response.tokens;
+          setAuthTokens(accessToken, refreshToken, expiresIn);
+        }
         if (response?.user) syncAuthFromUserProfile(response.user);
         toast.success(t("loginSuccess"));
         navigate("/");

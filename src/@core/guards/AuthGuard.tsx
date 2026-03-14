@@ -7,7 +7,9 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const { data, isLoading, error } = useGetAuthMe();
 
   useEffect(() => {
-    if (data) syncAuthFromUserProfile(data);
+    if (data) {
+      syncAuthFromUserProfile(data);
+    }
   }, [data]);
 
   if (isLoading) {
