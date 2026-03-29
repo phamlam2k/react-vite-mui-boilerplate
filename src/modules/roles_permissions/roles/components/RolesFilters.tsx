@@ -4,8 +4,10 @@
  */
 
 import type { RolesFilters as RolesFiltersType } from "@modules/roles_permissions/_domain/roles/roles.model";
-import { SEARCH_DEBOUNCE_MS } from "@modules/roles_permissions/_domain/roles/roles.rules";
 import { useEffect, useState } from "react";
+
+// UI/presentation concern — không thuộc Domain layer
+const SEARCH_DEBOUNCE_MS = 500;
 import { useDebounce } from "@shared/hooks/useDebounce";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";

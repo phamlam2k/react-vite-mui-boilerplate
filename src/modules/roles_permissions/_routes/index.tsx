@@ -3,14 +3,14 @@ import RolesPermissionsUrls from "./paths";
 import { Navigate, Outlet } from "react-router";
 import permissionsRoute from "../permissions/_routes";
 import rolesRoute from "../roles/_routes";
-import { Security } from "@mui/icons-material";
+import SecurityIcon from "@mui/icons-material/Security";
 
 const rolesPermissionsRoute: RouteWithMeta = {
   path: RolesPermissionsUrls.ROOT,
   element: <Outlet />,
   meta: {
     label: "Quyền & Vai trò",
-    icon: <Security />,
+    icon: <SecurityIcon />,
     showInMenu: true,
     order: 3,
   },

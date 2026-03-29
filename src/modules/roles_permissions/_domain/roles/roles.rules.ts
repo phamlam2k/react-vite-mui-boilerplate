@@ -1,31 +1,25 @@
 /**
  * 🔵 DOMAIN LAYER - Business Rules
- * Constants, invariants, and domain functions for Roles
+ *
+ * Chỉ chứa:
+ *  - Business invariants (validation constraints)
+ *  - Domain policies (authorization functions)
+ *
+ * KHÔNG chứa: pagination defaults, debounce, display labels, i18n text.
  */
 
-/** Pagination */
-export const DEFAULT_PAGE = 1;
-export const DEFAULT_PAGE_SIZE = 20;
-export const MIN_PAGE_SIZE = 10;
-export const MAX_PAGE_SIZE = 100;
+import { PERMISSION_CODES } from "@shared/constants/permissions";
 
-/** Search */
-export const MIN_SEARCH_LENGTH = 2;
-export const SEARCH_DEBOUNCE_MS = 500;
-
-/** Validation constraints */
+// --- Validation constraints (business invariants) ---
 export const ROLE_NAME_MIN_LENGTH = 2;
 export const ROLE_NAME_MAX_LENGTH = 100;
 export const ROLE_DESCRIPTION_MAX_LENGTH = 500;
 
-import { PERMISSION_CODES } from "@shared/constants/permissions";
-
+// --- Authorization policies ---
 const ROLES_MANAGE = PERMISSION_CODES.roles.manage;
 const ROLES_VIEW = PERMISSION_CODES.roles.view;
 
-/**
- * System roles are protected — they cannot be deleted or renamed.
- */
+/** System roles are protected — they cannot be deleted or renamed. */
 export function canDeleteRole(permissions: string[]): boolean {
   return permissions.includes(ROLES_MANAGE);
 }

@@ -13,7 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
-} from "@modules/roles_permissions/_domain/roles/roles.rules";
+} from "@shared/constants/paginations";
 import type { RolesFilters } from "@modules/roles_permissions/_domain/roles/roles.model";
 import { useRolesList } from "../hooks/useRolesList";
 import RolesTable from "../components/RolesTable";

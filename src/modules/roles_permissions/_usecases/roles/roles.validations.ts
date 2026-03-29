@@ -1,18 +1,22 @@
 /**
- * 🟢 USE CASE LAYER - Validation (consolidated)
+ * 🟢 USE CASE LAYER - Validations
+ * Zod schemas — dùng business invariants từ Domain làm nguồn duy nhất.
+ * Pagination/search defaults là application concern, import từ shared.
  */
 
 import { z } from "zod";
+import {
+  ROLE_DESCRIPTION_MAX_LENGTH,
+  ROLE_NAME_MAX_LENGTH,
+  ROLE_NAME_MIN_LENGTH,
+} from "@modules/roles_permissions/_domain/roles/roles.rules";
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   MAX_PAGE_SIZE,
   MIN_PAGE_SIZE,
   MIN_SEARCH_LENGTH,
-  ROLE_DESCRIPTION_MAX_LENGTH,
-  ROLE_NAME_MAX_LENGTH,
-  ROLE_NAME_MIN_LENGTH,
-} from "@modules/roles_permissions/_domain/roles/roles.rules";
+} from "@shared/constants/paginations";
 
 export const rolesFiltersSchema = z.object({
   search: z
@@ -34,8 +38,14 @@ export type RolesFiltersSchema = z.infer<typeof rolesFiltersSchema>;
 export const createRoleSchema = z.object({
   name: z
     .string()
-    .min(ROLE_NAME_MIN_LENGTH, `Tên vai trò tối thiểu ${ROLE_NAME_MIN_LENGTH} ký tự`)
-    .max(ROLE_NAME_MAX_LENGTH, `Tên vai trò tối đa ${ROLE_NAME_MAX_LENGTH} ký tự`),
+    .min(
+      ROLE_NAME_MIN_LENGTH,
+      `Tên vai trò tối thiểu ${ROLE_NAME_MIN_LENGTH} ký tự`
+    )
+    .max(
+      ROLE_NAME_MAX_LENGTH,
+      `Tên vai trò tối đa ${ROLE_NAME_MAX_LENGTH} ký tự`
+    ),
   description: z
     .string()
     .max(ROLE_DESCRIPTION_MAX_LENGTH)
