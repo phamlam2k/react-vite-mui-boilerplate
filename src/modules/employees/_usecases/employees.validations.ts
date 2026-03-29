@@ -5,11 +5,6 @@
 
 import { z } from "zod";
 import {
-  DEFAULT_PAGE,
-  DEFAULT_PAGE_SIZE,
-  MAX_PAGE_SIZE,
-  MIN_PAGE_SIZE,
-  MIN_SEARCH_LENGTH,
   FIRST_NAME_MAX_LENGTH,
   LAST_NAME_MAX_LENGTH,
   EMAIL_MAX_LENGTH,
@@ -20,6 +15,13 @@ import {
   PAY_GRADE_MAX_LENGTH,
   CURRENCY_MAX_LENGTH,
 } from "@modules/employees/_domain/employees.rules";
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  MAX_PAGE_SIZE,
+  MIN_PAGE_SIZE,
+  MIN_SEARCH_LENGTH,
+} from "@shared/constants/paginations";
 
 export const employeesFiltersSchema = z.object({
   search: z

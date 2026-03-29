@@ -1,12 +1,5 @@
 import { z } from "zod";
 import {
-  DEFAULT_PAGE,
-  DEFAULT_PAGE_SIZE,
-  DEFAULT_SORT_BY,
-  DEFAULT_SORT_ORDER,
-  MAX_PAGE_SIZE,
-  MIN_PAGE_SIZE,
-  MIN_SEARCH_LENGTH,
   FIRST_NAME_MAX_LENGTH,
   LAST_NAME_MAX_LENGTH,
   PASSWORD_MAX_LENGTH,
@@ -15,7 +8,18 @@ import {
   USERNAME_MIN_LENGTH,
   USERNAME_PATTERN,
 } from "@modules/users/_domain/users.rules";
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  MAX_PAGE_SIZE,
+  MIN_PAGE_SIZE,
+  MIN_SEARCH_LENGTH,
+} from "@shared/constants/paginations";
 import { passwordWithConfirmSchema } from "@shared/validations/password.validation";
+
+// Application-level sort defaults — không phải domain rules
+const DEFAULT_SORT_BY = "createdAt";
+const DEFAULT_SORT_ORDER = "desc";
 
 export const usersFiltersSchema = z.object({
   search: z
@@ -24,10 +28,7 @@ export const usersFiltersSchema = z.object({
     .optional()
     .or(z.literal("")),
   role: z.enum(["user", "admin", "all"]).optional().default("all"),
-  isActive: z
-    .union([z.boolean(), z.literal("all")])
-    .optional()
-    .default("all"),
+  isActive: z.union([z.boolean(), z.literal("all")]).optional().default("all"),
   page: z.number().int().positive().default(DEFAULT_PAGE),
   pageSize: z
     .number()
@@ -55,10 +56,7 @@ export const createUserSchema = passwordWithConfirmSchema({
     .string()
     .min(USERNAME_MIN_LENGTH, `Username tối thiểu ${USERNAME_MIN_LENGTH} ký tự`)
     .max(USERNAME_MAX_LENGTH, `Username tối đa ${USERNAME_MAX_LENGTH} ký tự`)
-    .regex(
-      USERNAME_PATTERN,
-      "Username chỉ chứa chữ thường, số và dấu gạch dưới"
-    ),
+    .regex(USERNAME_PATTERN, "Username chỉ chứa chữ thường, số và dấu gạch dưới"),
   email: z.string().email("Email không hợp lệ"),
   firstName: z
     .string()

@@ -26,13 +26,19 @@ import { useModalController } from "@core/modal/hooks/useModalController";
 import { EmployeesModalKeys } from "../modals/employees.modal.registry";
 import { useDeleteEmployeeMutation } from "../hooks/useDeleteEmployeeMutation";
 
-interface EmployeesTableProps {
-  employees: Employee[];
-  meta: PaginationMeta;
-  filters: EmployeesFilters;
-  onFiltersChange: (filters: EmployeesFilters) => void;
-  isLoading?: boolean;
-}
+// Display labels — UI concern, không thuộc Domain layer
+const STATUS_LABELS: Record<Employee["status"], string> = {
+  probation: "Thử việc",
+  active: "Đang làm việc",
+  on_leave: "Nghỉ phép",
+  terminated: "Đã nghỉ",
+};
+
+const WORK_MODE_LABELS: Record<NonNullable<Employee["workMode"]>, string> = {
+  office: "Văn phòng",
+  remote: "Làm từ xa",
+  hybrid: "Kết hợp",
+};
 
 const statusColorMap: Record<
   Employee["status"],
@@ -43,6 +49,14 @@ const statusColorMap: Record<
   on_leave: "default",
   terminated: "error",
 };
+
+interface EmployeesTableProps {
+  employees: Employee[];
+  meta: PaginationMeta;
+  filters: EmployeesFilters;
+  onFiltersChange: (filters: EmployeesFilters) => void;
+  isLoading?: boolean;
+}
 
 export default function EmployeesTable({
   employees,
@@ -138,12 +152,12 @@ export default function EmployeesTable({
                 <TableCell>{emp.positionTitle}</TableCell>
                 <TableCell>
                   <Chip
-                    label={emp.displayStatus}
+                    label={STATUS_LABELS[emp.status]}
                     size="small"
                     color={statusColorMap[emp.status]}
                   />
                 </TableCell>
-                <TableCell>{emp.displayWorkMode}</TableCell>
+                <TableCell>{emp.workMode ? WORK_MODE_LABELS[emp.workMode] : "—"}</TableCell>
                 <TableCell>{formatDate(emp.hireDate)}</TableCell>
                 <TableCell>
                   <Button

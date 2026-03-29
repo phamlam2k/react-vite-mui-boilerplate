@@ -8,38 +8,41 @@ import Typography from "@mui/material/Typography";
 import BaseSelectForm from "@shared/components/forms/BaseSelectForm";
 import BaseTextFieldForm from "@shared/components/forms/BaseTextFieldForm";
 import { useOrgUnitsList } from "@shared/apis/orgUnits.hook";
-import {
-  STATUS_LABELS,
-  WORK_MODE_LABELS,
-  GENDER_LABELS,
-  CONTRACT_TYPE_LABELS,
-  PAY_SCHEDULE_LABELS,
-} from "../_domain/employees.rules";
 
-const genderOptions = Object.entries(GENDER_LABELS).map(([value, label]) => ({
-  value,
-  label,
-}));
+// Display options — UI concern, không thuộc Domain layer
+const genderOptions = [
+  { value: "male", label: "Nam" },
+  { value: "female", label: "Nữ" },
+  { value: "other", label: "Khác" },
+  { value: "prefer_not_to_say", label: "Không tiết lộ" },
+];
 
-const workModeOptions = Object.entries(WORK_MODE_LABELS).map(
-  ([value, label]) => ({
-    value,
-    label,
-  })
-);
+const workModeOptions = [
+  { value: "office", label: "Văn phòng" },
+  { value: "remote", label: "Làm từ xa" },
+  { value: "hybrid", label: "Kết hợp" },
+];
 
-const statusOptions = Object.entries(STATUS_LABELS).map(([value, label]) => ({
-  value,
-  label,
-}));
+const statusOptions = [
+  { value: "probation", label: "Thử việc" },
+  { value: "active", label: "Đang làm việc" },
+  { value: "on_leave", label: "Nghỉ phép" },
+  { value: "terminated", label: "Đã nghỉ" },
+];
 
-const contractTypeOptions = Object.entries(CONTRACT_TYPE_LABELS).map(
-  ([value, label]) => ({ value, label })
-);
+const contractTypeOptions = [
+  { value: "probation", label: "Thử việc" },
+  { value: "fixed_term", label: "Có thời hạn" },
+  { value: "permanent", label: "Không thời hạn" },
+  { value: "part_time", label: "Bán thời gian" },
+  { value: "contractor", label: "Hợp đồng" },
+];
 
-const payScheduleOptions = Object.entries(PAY_SCHEDULE_LABELS).map(
-  ([value, label]) => ({ value, label })
-);
+const payScheduleOptions = [
+  { value: "monthly", label: "Tháng" },
+  { value: "bi_weekly", label: "Hai tuần" },
+  { value: "weekly", label: "Tuần" },
+];
 
 interface EmployeeFormProps {
   isUpdate?: boolean;

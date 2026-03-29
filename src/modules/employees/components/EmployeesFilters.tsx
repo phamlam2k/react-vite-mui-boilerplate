@@ -4,7 +4,6 @@
  */
 
 import type { EmployeesFilters as EmployeesFiltersType } from "../_domain/employees.model";
-import { SEARCH_DEBOUNCE_MS } from "../_domain/employees.rules";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@shared/hooks/useDebounce";
 import { useOrgUnitsList } from "@shared/apis/orgUnits.hook";
@@ -13,25 +12,29 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { STATUS_LABELS, WORK_MODE_LABELS } from "../_domain/employees.rules";
+
+// UI/presentation concerns — không thuộc Domain layer
+const SEARCH_DEBOUNCE_MS = 500;
+
+const statusFilterOptions = [
+  { value: "all", label: "Tất cả" },
+  { value: "probation", label: "Thử việc" },
+  { value: "active", label: "Đang làm việc" },
+  { value: "on_leave", label: "Nghỉ phép" },
+  { value: "terminated", label: "Đã nghỉ" },
+];
+
+const workModeFilterOptions = [
+  { value: "all", label: "Tất cả" },
+  { value: "office", label: "Văn phòng" },
+  { value: "remote", label: "Làm từ xa" },
+  { value: "hybrid", label: "Kết hợp" },
+];
 
 interface EmployeesFiltersProps {
   filters: EmployeesFiltersType;
   onFiltersChange: (filters: EmployeesFiltersType) => void;
 }
-
-const statusFilterOptions = [
-  { value: "all", label: "Tất cả" },
-  ...Object.entries(STATUS_LABELS).map(([value, label]) => ({ value, label })),
-];
-
-const workModeFilterOptions = [
-  { value: "all", label: "Tất cả" },
-  ...Object.entries(WORK_MODE_LABELS).map(([value, label]) => ({
-    value,
-    label,
-  })),
-];
 
 export default function EmployeesFilters({
   filters,
@@ -49,37 +52,9 @@ export default function EmployeesFilters({
 
   useEffect(() => {
     if (debouncedSearch !== (filters.search ?? "")) {
-      onFiltersChange({
-        ...filters,
-        search: debouncedSearch,
-        page: 1,
-      });
+      onFiltersChange({ ...filters, search: debouncedSearch, page: 1 });
     }
   }, [debouncedSearch]);
-
-  const handleOrgUnitChange = (orgUnitId: string) => {
-    onFiltersChange({
-      ...filters,
-      orgUnitId: orgUnitId === "" ? undefined : orgUnitId,
-      page: 1,
-    });
-  };
-
-  const handleStatusChange = (status: EmployeesFiltersType["status"]) => {
-    onFiltersChange({
-      ...filters,
-      status: status ?? "all",
-      page: 1,
-    });
-  };
-
-  const handleWorkModeChange = (workMode: EmployeesFiltersType["workMode"]) => {
-    onFiltersChange({
-      ...filters,
-      workMode: workMode ?? "all",
-      page: 1,
-    });
-  };
 
   return (
     <Box sx={{ mb: 3 }}>
@@ -90,17 +65,19 @@ export default function EmployeesFilters({
             placeholder="Tên, email, mã nhân viên..."
             value={searchInput}
             onChange={e => setSearchInput(e.target.value)}
-            slotProps={{
-              input: {
-                autoComplete: "off",
-              },
-            }}
+            slotProps={{ input: { autoComplete: "off" } }}
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 3 }}>
           <Select
             value={filters.orgUnitId ?? ""}
-            onChange={e => handleOrgUnitChange(e.target.value)}
+            onChange={e =>
+              onFiltersChange({
+                ...filters,
+                orgUnitId: e.target.value === "" ? undefined : e.target.value,
+                page: 1,
+              })
+            }
           >
             <MenuItem value="">Tất cả</MenuItem>
             {orgUnitOptions.map(ou => (
@@ -114,9 +91,11 @@ export default function EmployeesFilters({
           <Select
             value={filters.status ?? "all"}
             onChange={e =>
-              handleStatusChange(
-                e.target.value as EmployeesFiltersType["status"]
-              )
+              onFiltersChange({
+                ...filters,
+                status: e.target.value as EmployeesFiltersType["status"],
+                page: 1,
+              })
             }
           >
             {statusFilterOptions.map(opt => (
@@ -130,9 +109,11 @@ export default function EmployeesFilters({
           <Select
             value={filters.workMode ?? "all"}
             onChange={e =>
-              handleWorkModeChange(
-                e.target.value as EmployeesFiltersType["workMode"]
-              )
+              onFiltersChange({
+                ...filters,
+                workMode: e.target.value as EmployeesFiltersType["workMode"],
+                page: 1,
+              })
             }
           >
             {workModeFilterOptions.map(opt => (

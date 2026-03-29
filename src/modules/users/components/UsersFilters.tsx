@@ -4,8 +4,10 @@
  */
 
 import type { UsersFilters } from "../_domain/users.model";
-import { SEARCH_DEBOUNCE_MS } from "../_domain/users.rules";
 import { useEffect, useState } from "react";
+
+// UI/presentation concern — không thuộc Domain layer
+const SEARCH_DEBOUNCE_MS = 500;
 import { useDebounce } from "@shared/hooks/useDebounce";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";

@@ -1,6 +1,6 @@
 /**
- * 🟢 USE CASE LAYER - Mappers (consolidated)
- * DTO ↔ Domain and Form → API
+ * 🟢 USE CASE LAYER - Mappers
+ * DTO ↔ Domain and Form → API transformations
  */
 
 import type {
@@ -11,17 +11,10 @@ import type {
   EmployeeUpdateRequestBody,
 } from "@modules/employees/_api/employees.type";
 import type { Employee, EmployeesFilters } from "@modules/employees/_domain/employees.model";
-import {
-  GENDER_LABELS,
-  STATUS_LABELS,
-  WORK_MODE_LABELS,
-} from "@modules/employees/_domain/employees.rules";
 import type { CreateEmployeeSchema, UpdateEmployeeSchema } from "./employees.validations";
 import { pickBy } from "lodash-es";
 
-export function mapFiltersToApiParams(
-  filters: EmployeesFilters
-): EmployeeListParams {
+export function mapFiltersToApiParams(filters: EmployeesFilters): EmployeeListParams {
   const params: EmployeeListParams = {
     page: filters.page,
     pageSize: filters.pageSize,
@@ -38,23 +31,14 @@ export function mapEmployeeProfileToEmployee(profile: EmployeeProfile): Employee
   return {
     ...profile,
     fullName: `${profile.firstName} ${profile.lastName}`.trim(),
-    displayStatus: STATUS_LABELS[profile.status] ?? profile.status,
-    displayWorkMode: profile.workMode
-      ? WORK_MODE_LABELS[profile.workMode]
-      : "-",
-    displayGender: GENDER_LABELS[profile.gender ?? "prefer_not_to_say"],
   };
 }
 
-export function mapEmployeeProfilesToEmployees(
-  profiles: EmployeeProfile[]
-): Employee[] {
+export function mapEmployeeProfilesToEmployees(profiles: EmployeeProfile[]): Employee[] {
   return profiles.map(mapEmployeeProfileToEmployee);
 }
 
-function mapContractToApi(
-  contract: CreateEmployeeSchema["contract"]
-): ContractCreateRequest {
+function mapContractToApi(contract: CreateEmployeeSchema["contract"]): ContractCreateRequest {
   return {
     type: contract.type,
     startDate: contract.startDate,
@@ -66,9 +50,7 @@ function mapContractToApi(
   };
 }
 
-export function mapCreateEmployeeFormToApi(
-  formData: CreateEmployeeSchema
-): EmployeeCreateRequest {
+export function mapCreateEmployeeFormToApi(formData: CreateEmployeeSchema): EmployeeCreateRequest {
   return {
     firstName: formData.firstName.trim(),
     lastName: formData.lastName.trim(),
@@ -91,9 +73,6 @@ export function mapUpdateEmployeeFormToApi(
   employeeId: string,
   formData: Partial<UpdateEmployeeSchema>
 ): EmployeeUpdateRequestBody {
-  const data = pickBy(
-    formData,
-    (v): v is NonNullable<typeof v> => v !== undefined
-  );
+  const data = pickBy(formData, (v): v is NonNullable<typeof v> => v !== undefined);
   return { employeeId, data };
 }

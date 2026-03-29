@@ -5,9 +5,6 @@
 
 import type { PaginatedResponse } from "@shared/types/pagination.type";
 
-/**
- * Domain model for Employee (extends DTO with computed properties)
- */
 export interface Employee {
   id: string;
   employeeCode: string;
@@ -20,20 +17,16 @@ export interface Employee {
   hireDate: string;
   terminationDate?: string | null;
   createdAt: string;
+  firstName: string;
+  lastName: string;
   fullName: string;
-  displayGender: string;
-  displayStatus: string;
-  displayWorkMode: string;
+  gender?: string | null;
+  status: "probation" | "active" | "on_leave" | "terminated";
+  workMode?: "office" | "remote" | "hybrid" | null;
 }
 
-/**
- * Paginated employees list
- */
 export type EmployeesList = PaginatedResponse<Employee>;
 
-/**
- * Employee filters for list queries
- */
 export interface EmployeesFilters {
   page?: number;
   pageSize?: number;

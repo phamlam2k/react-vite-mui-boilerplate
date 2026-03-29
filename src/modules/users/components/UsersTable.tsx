@@ -19,8 +19,13 @@ import {
   Typography,
 } from "@mui/material";
 import type { User, UsersFilters } from "../_domain/users.model";
-import { STATUS_LABELS } from "../_domain/users.rules";
 import type { PaginationMeta } from "@shared/types/pagination.type";
+
+// Display labels — UI concern, không thuộc Domain layer
+const ROLE_LABELS: Record<User["role"], string> = {
+  user: "Người dùng",
+  admin: "Quản trị viên",
+};
 import { useModalController } from "@core/modal/hooks/useModalController";
 import { UsersModalKeys } from "../modals/users.modal.registry";
 
@@ -167,18 +172,14 @@ export default function UsersTable({
                 <TableCell>{user.email}</TableCell>
                 <TableCell>
                   <Chip
-                    label={user.displayRole}
+                    label={ROLE_LABELS[user.role] ?? user.role}
                     size="small"
                     color={user.role === "admin" ? "error" : "default"}
                   />
                 </TableCell>
                 <TableCell>
                   <Chip
-                    label={
-                      STATUS_LABELS[
-                        user.isActive.toString() as "true" | "false"
-                      ]
-                    }
+                    label={user.isActive ? "Hoạt động" : "Bị khóa"}
                     size="small"
                     color={user.isActive ? "success" : "default"}
                   />

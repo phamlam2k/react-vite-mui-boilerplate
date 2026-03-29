@@ -6,59 +6,43 @@
 import { Box, Container, Typography, Alert, Button } from "@mui/material";
 import { useState } from "react";
 import { Add as AddIcon } from "@mui/icons-material";
-import {
-  DEFAULT_PAGE,
-  DEFAULT_PAGE_SIZE,
-  DEFAULT_SORT_BY,
-  DEFAULT_SORT_ORDER,
-} from "../_domain/users.rules";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "@shared/constants/paginations";
 import { useUsersList } from "../hooks/useUsersList";
 import UsersTable from "../components/UsersTable";
 import type { UsersFilters } from "../_domain/users.model";
 import UsersFiltersComponent from "../components/UsersFilters";
 import ModalEngine from "@core/modal/ModalEngine";
 import { useRegisterModals } from "@core/modal/hooks/useRegisterModals";
-import usersModalRegistry, {
-  UsersModalKeys,
-} from "../modals/users.modal.registry";
+import usersModalRegistry, { UsersModalKeys } from "../modals/users.modal.registry";
 import { useModalController } from "@core/modal/hooks/useModalController";
 
-const UsersManagementPage = () => {
-  // Register modals
-  useRegisterModals(usersModalRegistry);
+// Application-level sort defaults — không phải domain rules
+const DEFAULT_SORT_BY = "createdAt" as const;
+const DEFAULT_SORT_ORDER = "desc" as const;
 
+const UsersManagementPage = () => {
+  useRegisterModals(usersModalRegistry);
   const { open } = useModalController();
 
-  // State for filters
   const [filters, setFilters] = useState<UsersFilters>({
     page: DEFAULT_PAGE,
     pageSize: DEFAULT_PAGE_SIZE,
-    sortBy: DEFAULT_SORT_BY as "createdAt",
-    sortOrder: DEFAULT_SORT_ORDER as "desc",
+    sortBy: DEFAULT_SORT_BY,
+    sortOrder: DEFAULT_SORT_ORDER,
     role: "all",
     isActive: "all",
     search: "",
   });
 
-  // Fetch users with filters
   const { data, isLoading, isError, error } = useUsersList(filters);
 
-  const handleOpenCreateModal = () => {
-    open(UsersModalKeys.CreateUserModal);
-  };
-
   const handleFiltersChange = (next: Partial<UsersFilters>) => {
-    setFilters(prev => ({
-      ...prev,
-      ...next,
-      page: DEFAULT_PAGE, // business rule: reset page
-    }));
+    setFilters(prev => ({ ...prev, ...next, page: DEFAULT_PAGE }));
   };
 
   return (
     <Container maxWidth="xl">
       <Box sx={{ py: 4 }}>
-        {/* Header */}
         <Box
           sx={{
             display: "flex",
@@ -78,19 +62,14 @@ const UsersManagementPage = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleOpenCreateModal}
+            onClick={() => open(UsersModalKeys.CreateUserModal)}
           >
             Tạo người dùng
           </Button>
         </Box>
 
-        {/* Filters */}
-        <UsersFiltersComponent
-          filters={filters}
-          onFiltersChange={handleFiltersChange}
-        />
+        <UsersFiltersComponent filters={filters} onFiltersChange={handleFiltersChange} />
 
-        {/* Error State */}
         {isError && (
           <Alert severity="error" sx={{ mb: 3 }}>
             Không thể tải danh sách người dùng.{" "}
@@ -98,10 +77,9 @@ const UsersManagementPage = () => {
           </Alert>
         )}
 
-        {/* Table */}
         {data && (
           <UsersTable
-            users={data?.data || []}
+            users={data.data}
             meta={data.meta}
             filters={filters}
             onFiltersChange={handleFiltersChange}
@@ -109,7 +87,6 @@ const UsersManagementPage = () => {
           />
         )}
 
-        {/* Loading State (initial load only) */}
         {isLoading && !data && (
           <Box sx={{ py: 8, textAlign: "center" }}>
             <Typography color="text.secondary">Đang tải...</Typography>
@@ -117,7 +94,6 @@ const UsersManagementPage = () => {
         )}
       </Box>
 
-      {/* Modal Engine */}
       <ModalEngine />
     </Container>
   );

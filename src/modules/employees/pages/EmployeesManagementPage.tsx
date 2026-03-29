@@ -10,7 +10,7 @@ import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../_domain/employees.rules";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "@shared/constants/paginations";
 import { useEmployeesList } from "../hooks/useEmployeesList";
 import EmployeesTable from "../components/EmployeesTable";
 import type { EmployeesFilters } from "../_domain/employees.model";
