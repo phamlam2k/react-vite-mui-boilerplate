@@ -1,0 +1,29 @@
+{
+  "title": "Quản lý nghỉ phép",
+  "tabs": {
+    "requests": "Yêu cầu nghỉ phép",
+    "balances": "Số dư nghỉ phép"
+  },
+  "actions": {
+    "createRequest": "Tạo yêu cầu nghỉ",
+    "approve": "Duyệt",
+    "reject": "Từ chối",
+    "cancel": "Hủy"
+  },
+  "status": {
+    "draft": "Nháp",
+    "submitted": "Chờ duyệt",
+    "approved": "Đã duyệt",
+    "rejected": "Từ chối",
+    "cancelled": "Đã hủy"
+  },
+  "createSuccess": "Gửi yêu cầu nghỉ phép thành công",
+  "approveSuccess": "Đã duyệt yêu cầu nghỉ phép",
+  "rejectSuccess": "Đã từ chối yêu cầu nghỉ phép",
+  "cancelSuccess": "Đã hủy yêu cầu nghỉ phép",
+  "errors": {
+    "forbidden": "Bạn không có quyền thực hiện thao tác này",
+    "notFound": "Không tìm thấy yêu cầu nghỉ phép",
+    "invalidStatus": "Không thể xử lý yêu cầu ở trạng thái hiện tại"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "title": "Leave Management",
+  "tabs": {
+    "requests": "Leave Requests",
+    "balances": "Leave Balances"
+  },
+  "actions": {
+    "createRequest": "Create Leave Request",
+    "approve": "Approve",
+    "reject": "Reject",
+    "cancel": "Cancel"
+  },
+  "status": {
+    "draft": "Draft",
+    "submitted": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled"
+  },
+  "createSuccess": "Leave request submitted successfully",
+  "approveSuccess": "Leave request approved",
+  "rejectSuccess": "Leave request rejected",
+  "cancelSuccess": "Leave request cancelled",
+  "errors": {
+    "forbidden": "You do not have permission to perform this action",
+    "notFound": "Leave request not found",
+    "invalidStatus": "This request cannot be processed in its current status"
+  }
+}

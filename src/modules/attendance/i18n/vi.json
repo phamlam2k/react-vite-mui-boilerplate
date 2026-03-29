@@ -1,0 +1,39 @@
+{
+  "title": "Quản lý chấm công",
+  "tabs": {
+    "records": "Lịch sử chấm công",
+    "corrections": "Yêu cầu điều chỉnh"
+  },
+  "actions": {
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "requestCorrection": "Yêu cầu điều chỉnh",
+    "approve": "Duyệt",
+    "reject": "Từ chối"
+  },
+  "status": {
+    "present": "Có mặt",
+    "absent": "Vắng mặt",
+    "late": "Đi muộn",
+    "half_day": "Nửa ngày",
+    "corrected": "Đã điều chỉnh",
+    "pending": "Chờ duyệt",
+    "approved": "Đã duyệt",
+    "rejected": "Từ chối"
+  },
+  "workMode": {
+    "office": "Văn phòng",
+    "remote": "Làm từ xa"
+  },
+  "checkInSuccess": "Check-in thành công",
+  "checkOutSuccess": "Check-out thành công",
+  "correctionSubmitted": "Đã gửi yêu cầu điều chỉnh",
+  "correctionApproved": "Đã duyệt điều chỉnh chấm công",
+  "correctionRejected": "Đã từ chối điều chỉnh chấm công",
+  "errors": {
+    "forbidden": "Bạn không có quyền thực hiện thao tác này",
+    "notFound": "Không tìm thấy yêu cầu điều chỉnh",
+    "alreadyCheckedIn": "Bạn đã check-in hôm nay",
+    "noActiveCheckIn": "Không tìm thấy phiên check-in nào cho hôm nay"
+  }
+}

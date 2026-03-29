@@ -9,6 +9,8 @@ import { usersRoute } from "@modules/users/_routes";
 import { employeesRoute } from "@modules/employees/_routes";
 import organizationsRoute from "@modules/organizations/_routes";
 import rolesPermissionsRoute from "@modules/roles_permissions/_routes";
+import { leaveRoute } from "@modules/leave/_routes";
+import { attendanceRoute } from "@modules/attendance/_routes";
 
 /**
  * Private routes - chỉ accessible khi đã authenticated
@@ -19,6 +21,8 @@ export const privateRouteChildren: RouteWithMeta[] = [
   usersRoute,
   organizationsRoute,
   rolesPermissionsRoute,
+  leaveRoute,
+  attendanceRoute,
   settingsRoute,
 ];
 
